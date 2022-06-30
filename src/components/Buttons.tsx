@@ -1,8 +1,6 @@
-export function SimpleButton ({label} : {label:string;}) {
+export function NavLink ({label, link} : {label:string; link:string;}) {
     return (
-        <button className="mx-6 text-zinc-800 hover:text-red-400">
-            {label}
-        </button>
+        <a className="mx-6 text-zinc-800 hover:text-red-400" href={link}>{label}</a>
     )
 }
 
