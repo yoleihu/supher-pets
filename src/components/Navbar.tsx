@@ -17,7 +17,7 @@ export function Navbar ({links} : NavbarProps) {
     <header className="
     md:w-full 
     md:h-32 
-    md:justify-between 
+    md:justify-between
     md:flex-row
     md:items-center
     md:text-xl 
@@ -35,13 +35,16 @@ export function Navbar ({links} : NavbarProps) {
             md:space-x-10 
             md:w-100 
             md:bg-transparent
+            md:self-center
+            md:p-0
+            justify-end
             bg-yellow-300
             flex 
             flex-col 
             items-end 
             space-x-0 
             w-4/5 
-            px-4
+            p-4
             self-end">
                 {links?.map((linkProps) => (
                     <NavLink link={linkProps.link} label={linkProps.label}/>
