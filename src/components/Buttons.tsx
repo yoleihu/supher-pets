@@ -11,9 +11,9 @@ export function SecondaryButton ({label} : {label:string;}) {
     return (
         <button className="
         px-4 py-1 
-        md:my-0
+        lg:my-0
         my-1
-        md:w-fit
+        lg:w-fit
         w-full
         border
         rounded-full 
@@ -30,9 +30,9 @@ export function PrimaryButton ({label} : {label:string;}) {
     return (
         <button className="
         px-4 py-1 
-        md:my-0
+        lg:my-0
         my-1
-        md:w-fit
+        lg:w-fit
         w-full
         rounded-full 
         border

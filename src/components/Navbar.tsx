@@ -1,4 +1,5 @@
-import React from 'react';
+import { List } from 'phosphor-react';
+import React, { useState } from 'react';
 import Logo from '../assets/logo-supher.png';
 import { NavLink, PrimaryButton, SecondaryButton } from './Buttons';
 
@@ -12,15 +13,18 @@ export type LinksProps = {
 }
 
 export function Navbar ({links} : NavbarProps) {
-    console.log(links)
+    const [showNav, setShowNav] = useState(false);
+
     return(
     <header className="
-    md:w-full 
-    md:h-32 
-    md:justify-between
-    md:flex-row
-    md:items-center
-    md:text-xl 
+    lg:px-40
+    lg:w-full 
+    lg:h-32 
+    lg:justify-between
+    lg:flex-row
+    lg:items-center
+    lg:text-xl 
+    px-0
     flex
     flex-col
     justify-start
@@ -28,24 +32,11 @@ export function Navbar ({links} : NavbarProps) {
     font-medium 
     border-b 
     border-red-200 ">
-            <img src={Logo} className="md:w-80 w-4/5 md:my-0 my-2 h-fit"/>
-            <div className="
-            md:flex-row 
-            md:items-center 
-            md:space-x-10 
-            md:w-100 
-            md:bg-transparent
-            md:self-center
-            md:p-0
-            justify-end
-            bg-yellow-300
-            flex 
-            flex-col 
-            items-end 
-            space-x-0 
-            w-4/5 
-            p-4
-            self-end">
+        <div className="flex items-center justify-between">
+            <img src={Logo} className="lg:w-80 w-4/6 lg:my-0 my-2 h-fit"/>
+            <List size={40} onClick={() => setShowNav(!showNav)} className="lg:hidden block px-2 cursor-pointer" />
+        </div>
+            <div className={ (showNav ? "hidden " : "visible ") + "lg:flex-row lg:items-center lg:space-x-10 lg:w-100 lg:bg-transparent lg:self-center lg:p-0 justify-end bg-yellow-300 flex flex-col items-end space-x-0 w-4/5 p-4 self-end"}>
                 {links?.map((linkProps) => (
                     <NavLink link={linkProps.link} label={linkProps.label}/>
                 ))}
