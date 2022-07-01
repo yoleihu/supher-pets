@@ -16,19 +16,13 @@ export function Navbar ({links} : NavbarProps) {
     return(
     <header className="w-full h-32 flex justify-center text-xl font-medium border-b border-red-200 ">
             <div className="w-4/5 flex justify-between items-center">
-                <div>
                 <img src={Logo} width="350px"/>
-                    <div>
-                        <div>
-                        {
-                            links.map((linkProps) => {
-                                <NavLink link={linkProps.link} label={linkProps.label}/>
-                                })
-                        }
-                        </div>
+                <div className="flex items-center">
+                    {links?.map((linkProps) => (
+                        <NavLink link={linkProps.link} label={linkProps.label}/>
+                    ))}
                     <SecondaryButton label="Registre-se"/>
                     <PrimaryButton label="Entre"/>
-                    </div>
                 </div>
             </div>
         </header>
