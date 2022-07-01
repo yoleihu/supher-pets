@@ -15,7 +15,7 @@ export function SecondaryButton ({label} : {label:string;}) {
         my-1
         md:w-fit
         w-full
-        border-2
+        border
         rounded-full 
         border-red-600 
         text-red-600
@@ -35,7 +35,7 @@ export function PrimaryButton ({label} : {label:string;}) {
         md:w-fit
         w-full
         rounded-full 
-        border-2 
+        border
         border-red-600 
         bg-red-600 
         text-white 
