@@ -14,7 +14,8 @@ export function SecondaryButton ({label} : {label:string;}) {
         lg:my-0
         my-1
         lg:w-fit
-        w-full
+        w-2/3
+        lg:ml-8
         border
         rounded-full 
         border-red-600 
@@ -33,9 +34,10 @@ export function PrimaryButton ({label} : {label:string;}) {
         lg:my-0
         my-1
         lg:w-fit
-        w-full
+        w-2/3
         rounded-full 
         border
+        lg:ml-8
         border-red-600 
         bg-red-600 
         text-white 
