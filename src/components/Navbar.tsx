@@ -16,23 +16,23 @@ export function Navbar({ links }: NavbarProps) {
 	const [showNav, setShowNav] = useState(false);
 
 	return (
-		<div className='shadow-md w-full fixed h-24 top-0 left-0'>
-			<div className='lg:flex items-center justify-between py-4 px-7'>
+		<div className='shadow-md w-full fixed top-0 left-0'>
+			<div className='lg:flex items-center justify-between py-4 lg:px-48 self-center'>
 				<div className='cursor-pointer flex items-center text'>
 					<span>
-						<img src={Logo} className="w-80 max-h-fit" />
+						<img src={Logo} className="lg:w-80 w-4/6 max-h-fit" />
 					</span>
 				</div>
 				<div
 					onClick={() => setShowNav(!showNav)}
-					className='text-5xl absolute right-8 top-6 cursor-pointer lg:hidden'
+					className='text-5xl absolute right-0 top-0 p-5 cursor-pointer lg:hidden'
 				>
 					{showNav ?
-						<X /> :
-						<List />
+						<X size={32} color="#474747"/> :
+						<List size={32} color="#474747"/>
 					}
 				</div>
-				<ul className={`lg:flex lg:items-center absolute lg:pb-0 pb-12 lg:static lg:z-auto z-[-1] right-10 w-2/4 text-right lg:pl-0 pl-9 transition-all duration-500 ease-in ${showNav ? 'right-10' : 'right-[-490px]'} `}>
+				<ul className={`lg:flex lg:items-center lg:justify-end absolute lg:pb-0 pb-12 lg:static lg:z-auto z-[-1] right-0 pr-6 w-2/4 text-right lg:pl-0 pl-9 transition-all duration-500 ease-in bg-yellow-200 lg:bg-transparent ${showNav ? 'right-10' : 'right-[-490px]'} `}>
 					{links?.map((linkProps) => (
 						<li key={linkProps.label} className='lg:ml-8 text-xl lg:my-0 my-7'>
 							<NavLink link={linkProps.link} label={linkProps.label} />
