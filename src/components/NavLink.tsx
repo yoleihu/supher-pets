@@ -12,6 +12,8 @@ export function NavLink ({label, link}: NavLinkProps) {
       font-medium
       text-sm
       lg:text-lg" 
-      href={link}>{label}</a>
+      href={link}>
+        {label}
+      </a>
   )
 }

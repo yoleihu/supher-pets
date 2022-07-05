@@ -2,10 +2,10 @@ import { LinksProps, Navbar } from "../components/Navbar";
 
 let ancors: LinksProps[];
 ancors = [
-  { "link": "#frame-sobre", "label": "Sobre" },
-  { "link": "#frame-aos-hemocentros", "label": "Aos Hemocentros" },
-  { "link": "#frame-faq", "label": "FAQ" },
-  { "link": "#frame-quem-somos", "label": "Quem somos" }
+  { "link": "#sobre", "label": "Sobre" },
+  { "link": "#aos-hemocentros", "label": "Aos Hemocentros" },
+  { "link": "#faq", "label": "FAQ" },
+  { "link": "#quem-somos", "label": "Quem somos" }
 ]
 
 export function Home() {
@@ -14,12 +14,22 @@ export function Home() {
       <header>
         <Navbar links={ancors} />
       </header>
-      <div className="mt-28">
-        <h2 className="mb-96" id="frame-sobre">Sobre</h2>
-        <h2 className="mb-96" id="frame-aos-hemocentros">Aos hemocentros</h2>
-        <h2 className="mb-96" id="frame-faq">FAQ</h2>
-        <h2 className="mb-96" id="frame-quem-somos">Quem somos</h2>
-      </div>
+
+      <section className="pt-16 lg:pt-24" id="sobre">
+        <h2>Sobre</h2>
+      </section>
+
+      <section className="pt-16 lg:pt-24" id="aos-hemocentros">
+        <h2>Aos hemocentros</h2>
+      </section>
+
+      <section className="pt-16 lg:pt-24" id="faq">
+        <h2>FAQ</h2>
+      </section>
+
+      <section className="pt-16 lg:pt-24" id="quem-somos">
+        <h2>Quem somos</h2>
+      </section>
     </div>
   )
 }

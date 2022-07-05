@@ -18,22 +18,24 @@ export function Navbar({ links }: NavbarProps) {
 
 	return (
 		<div className='
-            shadow-md 
-            w-full 
-            fixed 
-            lg:h-24 
-            h-fit 
-            top-0 
-            left-0 
-            lg:flex 
-            items-center 
-            justify-between 
-            py-4 
-            self-center 
-            m-auto'>
+			bg-yellow-50
+				shadow-md 
+				w-full 
+				fixed 
+				lg:h-24 
+				h-fit 
+				top-0 
+				left-0 
+				lg:flex 
+				items-center 
+				justify-between 
+				py-4 
+				self-center 
+				m-auto'
+			>
 			<div className='cursor-pointer flex items-center text'>
 				<span>
-					<img src={Logo} className="lg:w-80 w-56 max-h-fit pl-6" />
+					<img src={Logo} className="lg:w-80 w-52 max-h-fit pl-6" />
 				</span>
 			</div>
 			<div
@@ -46,29 +48,34 @@ export function Navbar({ links }: NavbarProps) {
 				}
 			</div>
 			<ul className={`
-                mt-0 
-                lg:flex 
-                lg:items-center 
-                lg:justify-end 
-                absolute 
-                lg:pb-0 
-                pb-12 
-                lg:static 
-                lg:z-auto 
-                z-[-1] 
-                pr-6 
-                w-full 
-                min-h-screen 
-                text-right 
-                lg:pl-0 
-                pl-9 
-                transition-all 
-                duration-500 
-                ease-in 
-                bg-yellow-200 
-                lg:bg-transparent ${showNav ? 'right-0 pr-6' : 'right-[-1490px]'} `}>
+				mt-0 
+				lg:flex 
+				lg:items-center 
+				lg:justify-end 
+				absolute 
+				lg:pb-0 
+				pb-12 
+				lg:static 
+				lg:z-auto 
+				z-[-1] 
+				pr-6 
+				w-full 
+				min-h-screen 
+				text-right 
+				lg:pl-0 
+				pl-9 
+				transition-all 
+				duration-500 
+				ease-in 
+				bg-yellow-50 
+				lg:bg-transparent ${showNav ? 'right-0 pr-6' : 'right-[-1490px]'} `}
+			>
 				{links?.map((linkProps) => (
-					<li key={linkProps.label} className='lg:ml-8 text-xl lg:my-0 my-7'>
+					<li 
+						onClick={() => setShowNav(false)} 
+						key={linkProps.label} 
+						className='lg:ml-8 text-xl lg:my-0 my-7'
+					>
 						<NavLink link={linkProps.link} label={linkProps.label} />
 					</li>
 				))}
