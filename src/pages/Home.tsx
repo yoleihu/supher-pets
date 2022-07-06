@@ -32,7 +32,7 @@ export function Home() {
         <h2>Quem somos</h2>
       </section>
       <footer>
-        <Footer />
+        <Footer links={ancors}/>
       </footer>
     </div>
   )
