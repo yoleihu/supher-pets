@@ -1,3 +1,4 @@
+import { Footer } from "../components/Footer";
 import { LinksProps, Navbar } from "../components/Navbar";
 
 let ancors: LinksProps[];
@@ -30,6 +31,9 @@ export function Home() {
       <section className="pt-16 lg:pt-24" id="quem-somos">
         <h2>Quem somos</h2>
       </section>
+      <footer>
+        <Footer links={ancors}/>
+      </footer>
     </div>
   )
 }
