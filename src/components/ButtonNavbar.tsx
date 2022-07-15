@@ -1,17 +1,19 @@
 import { useNavigate } from "react-router-dom";
 
-interface ButtonProps {
+interface ButtonNavbarProps {
     label: string,
     path: string,
+    type: 'button'| 'submit',
     role: 'primary' | 'secondary'
 }
 
-export function Button ({label, path, role}: ButtonProps) {
+export function ButtonNavbar ({label, path, type, role}: ButtonNavbarProps) {
     const navigate = useNavigate();
 
     return (
         <button 
         onClick={() => navigate(path)}
+        type={type}
         className={`
         px-4 py-1 
         lg:my-0
