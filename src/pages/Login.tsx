@@ -6,8 +6,8 @@ export function Login() {
   return (
     <>
       <Navbar />
-      <section className="lg:mt-52 mt-32 flex items-center justify-center">
-        <FormInput />
+      <section className="lg:mt-52 mt-32">
+        <FormInput isLogin />
       </section>
       <footer className="absolute bottom-0 w-full">
         <Footer />

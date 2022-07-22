@@ -1,8 +1,8 @@
 import ReactDOM from 'react-dom/client'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
-import { FormInput } from './components/FormInput'
 import { Home } from './pages/Home'
 import { Login } from './pages/Login'
+import { RecoverPassword } from './pages/RecoverPassword'
 import { Register } from './pages/Register'
 import './styles/global.css'
 
@@ -14,7 +14,7 @@ root.render(
         <Route path='/' element={<Home />} />
         <Route path='/register' element={<Register />} />
         <Route path='/login' element={<Login />} />
-        <Route path='/recoverPassword' element={<FormInput />} />
+        <Route path='/recoverPassword' element={<RecoverPassword />} />
       </Routes>
     </BrowserRouter>
 )

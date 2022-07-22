@@ -7,6 +7,6 @@ interface InputMaskeredProps {
 
 export function InputMaskered({ field, mask }: InputMaskeredProps) {
   return (
-    <InputMask {...field} mask={mask} maskChar={null} className="shadow placeholder-gray-500 text-black rounded-full w-full px-3 py-1 text-lg focus:outline-amber-400" />
+    <InputMask {...field} mask={mask} maskChar={null} className="shadow placeholder-gray-500 text-black rounded-full w-full px-3 py-1 lg:text-lg focus:outline-amber-400" />
   )
 }

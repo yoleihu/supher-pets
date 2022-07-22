@@ -12,7 +12,8 @@ export type LinksProps = {
 export function Footer({ links }: FooterProps) {
 	return (
 		<footer className="
-      h-24
+      lg:h-24
+			h-fit
       border-t
 			lg:flex 
 			lg:items-center 
@@ -47,7 +48,7 @@ export function Footer({ links }: FooterProps) {
             text-left
             lg:px-8
             px-6
-            py-7">
+            py-5">
 				Copyright © Supher Pets</h2>
 		</footer>
 	)

@@ -8,13 +8,15 @@ interface InputProps {
   label: string,
   type: HTMLInputTypeAttribute,
   placeholder?: string,
-  errors: string | null,
-  touched: boolean | null,
+  errors?: string | null,
+  touched?: boolean | null,
   name: string,
-  isPassword?: boolean
+  isPassword?: boolean,
+  isLogin?: boolean,
+  onModal?: () => void
 }
 
-export function Input({ id, label, type, name, placeholder, errors, touched, isPassword = false }: InputProps) {
+export function Input({ id, label, type, name, placeholder, errors, touched, isPassword = false, isLogin = false, onModal }: InputProps) {
   const [passwordVisible, setPasswordVisible] = useState(false);
 
   const handlePassword = () => {
@@ -27,22 +29,25 @@ export function Input({ id, label, type, name, placeholder, errors, touched, isP
 
   return (
     <div className="w-full">
+      <div className="flex justify-between">
       <label>{label}:</label>
-      <div className="relative flex items-center">
+      {(isPassword && isLogin) &&
+        <button className="text-red-500 underline" onClick={onModal}>Esqueceu a senha?</button>
+      }
+      </div>
+      <div className="relative flex items-center ">
         <Field
           render={name === ("cpf" || "cnpj") ? ({ field }: any) => (
             name === "cpf" ?
               <InputMaskered field={field} mask="999.999.999-99" /> :
-              name === "cnpj" ?
-                <InputMaskered field={field} mask="99.999.999/9999-99" /> :
-                null
+              <InputMaskered field={field} mask="99.999.999/9999-99" />
           ) : null}
           autocomplete={"off"}
           id={id}
           type={handlePassword()}
           placeholder={placeholder}
           name={name}
-          className="shadow placeholder-gray-500 text-black rounded-full w-full px-3 py-1 text-lg focus:outline-amber-400"
+          className="shadow placeholder-gray-500 text-black rounded-full w-full px-3 py-1 lg:text-lg focus:outline-amber-400 "
         />
         {isPassword ?
           <button type={"button"} className="absolute right-3" onClick={() => setPasswordVisible(!passwordVisible)}>
