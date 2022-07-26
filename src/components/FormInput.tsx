@@ -27,7 +27,7 @@ export function FormInput({ isLogin, isRegister, isRecoverPassword }: FormInputP
   const [isBloodCenter, setIsBloodCenter] = useState(false)
   const [isModalOpen, setIsModalOpen] = useState(false)
 
-  const initialValues: FormValuesProps = {
+  const initialValuesRegister: FormValuesProps = {
     name: '',
     cpf: '',
     cnpj: '',
@@ -73,7 +73,7 @@ export function FormInput({ isLogin, isRegister, isRecoverPassword }: FormInputP
               <div className="flex flex-col lg:gap-6">
                 <h2 className="lg:text-3xl text-2xl font-semibold text-zinc-800 text-center">Cadastre-se</h2>
                 <Formik
-                  initialValues={initialValues}
+                  initialValues={initialValuesRegister}
                   validationSchema={SignupSchema}
                   onSubmit={(values, actions) => {
                     alert(JSON.stringify(values, null, 2));
@@ -108,7 +108,7 @@ export function FormInput({ isLogin, isRegister, isRecoverPassword }: FormInputP
               <div className="flex flex-col gap-6">
                 <h2 className="text-3xl font-semibold text-zinc-800 text-center">Login</h2>
                 <Formik
-                  initialValues={initialValues}
+                  initialValues={{email: '', password: ''}}
                   validationSchema={SignupSchema}
                   onSubmit={(values, actions) => {
                     alert(JSON.stringify(values, null, 2));
@@ -167,12 +167,13 @@ export function FormInput({ isLogin, isRegister, isRecoverPassword }: FormInputP
               }
             </>
           }
+          
           {isRecoverPassword &&
             <>
               <div className="flex flex-col lg:gap-6">
                 <h2 className="lg:text-3xl text-2xl font-semibold text-zinc-800 text-center">Nova senha</h2>
                 <Formik
-                  initialValues={initialValues}
+                  initialValues={{password: '', confirmPassword: ''}}
                   validationSchema={SignupSchema}
                   onSubmit={(values, actions) => {
                     alert(JSON.stringify(values, null, 2));

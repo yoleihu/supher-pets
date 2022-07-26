@@ -9,7 +9,7 @@ export function Register() {
       <section className="lg:mt-28 mt-20 mb-3 lg:mb-0">
         <FormInput isRegister />
       </section>
-      <footer className="absolute h-fit bottom-0 w-full">
+      <footer className="mt-5">
         <Footer />
       </footer>
     </>
