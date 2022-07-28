@@ -24,7 +24,7 @@ export function Home() {
       <header>
         <Navbar links={ancors} />
       </header>
-      <div className="lg:px-40 px-2">
+      <div className="lg:px-56 px-2">
         <section className="pt-16 lg:pt-40 flex flex-row items-center justify-center" id="welcome">
           <div className="py-6 flex lg:flex-row justify-between flex-col-reverse">
             <div className="lg:w-3/5 w-full">
@@ -56,7 +56,7 @@ export function Home() {
             <p className="lg:text-4xl font-bold text-gray-800">Principais funcionalidades</p>
           </div>
           <div className="flex md:flex-row flex-col justify-center items-center md:items-start gap-20 pt-10">
-            <div className="flex flex-col w-40 gap-2">
+            <div className="flex flex-col w-40 gap-4">
             <div className="bg-red-600 rounded-full pt-7 pl-7 justify-center w-40 h-40">
                 <NewspaperClipping size={100} color="#FFF8ED" weight="fill" />
               </div>
@@ -91,6 +91,27 @@ export function Home() {
             </div>
             <div className="lg:w-1/2 items-center justify-center text-center flex w-full">
               <FirstAidKit size={200} color="#f23326" weight="fill" />
+            </div>
+        </section>
+
+        <section className="lg:py-20 md:px-10 py-5 lg:mt-20 mt-5 lg:px-40 px-2 flex items-start flex-col bg-red-200 rounded-3xl" id="quem-somos">
+            <p className="lg:text-xl font-bold text-gray-600">Quem somos</p>
+            <p className="lg:text-4xl text-xl font-bold text-gray-800">Conheça os idealizadores</p>
+            <div className="mt-5 lg:w-full w-full flex lg:flex-row flex-col justify-center gap-8">
+              <div className="bg-yellow-100 w-full rounded-full flex flex-row p-10 items-center justify-between">
+                <div className="gap-4 pl-5">
+                  <p className="lg:text-2xl font-bold text-gray-800">Giuliana Missio</p>
+                  <p className="text-xl text-red-600">Web Developer, 20 anos</p>
+                </div>
+                <div className="w-24 h-24 bg-red-600 rounded-full"></div>
+              </div>
+              <div className="bg-yellow-100 w-full rounded-full flex flex-row p-10 items-center justify-between">
+                <div className="gap-4 pl-5">
+                  <p className="lg:text-2xl font-bold text-gray-800">Yolanda Ferreira</p>
+                  <p className="text-xl text-red-600">Web Developer, 20 anos</p>
+                </div>
+                <div className="w-24 h-24 bg-red-600 rounded-full"></div>
+              </div>
             </div>
         </section>
 
