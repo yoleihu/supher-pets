@@ -1,4 +1,4 @@
-import { CheckCircle } from "phosphor-react";
+import { CheckCircle, Kanban, MagnifyingGlass, NewspaperClipping } from "phosphor-react";
 import { Footer } from "../components/Footer";
 import { LinksProps, Navbar } from "../components/Navbar";
 import Pets from '../assets/gato-e-cachorro.png';
@@ -45,6 +45,41 @@ export function Home() {
           </div>
         </section>
 
+        <section className="pt-16 flex flex-col" id="welcome">
+          <div className="flex flex-col items-center">
+            <p className="lg:text-4xl font-bold text-gray-800">Sobre</p>
+            <p className="text-lg w-3/5 text-center">Unimos bancos de sangue veterinário e tutores em um ambiente digital, 
+              afim de facilitar o processo de doação, possibilitando o tratamento de mais animais.</p>
+          </div>
+          <div className="pt-16 flex flex-col items-center">
+            <p className="lg:text-xl font-bold text-gray-400">Como funciona?</p>
+            <p className="lg:text-4xl font-bold text-gray-800">Principais funcionalidades</p>
+          </div>
+          <div className="flex md:flex-row flex-col justify-center items-center md:items-start gap-20 pt-10">
+            <div className="flex flex-col w-40 gap-2">
+            <div className="bg-red-600 rounded-full pt-7 pl-7 justify-center w-40 h-40">
+                <NewspaperClipping size={100} color="#FFF8ED" weight="fill" />
+              </div>
+              <p className=" text-red-600 text-xl font-bold text-center">Cadastro de multiplos pets</p>
+              <p className="text-gray-600 text-center">Você pode cadastrar todos os seus pets!</p>
+            </div>
+            <div className="flex flex-col w-40 gap-2">
+            <div className="bg-red-600 rounded-full pt-7 pl-7 justify-center w-40 h-40">
+                <Kanban size={100} color="#FFF8ED" weight="fill" />
+              </div>
+              <p className=" text-red-600 text-xl font-bold text-center">Gerenciamento de consultas</p>
+              <p className="text-gray-600 text-center">Receba notificações sobre as consultas de cada pet e acesse os resultados!</p>
+            </div>
+            <div className="flex flex-col w-40 gap-2">
+              <div className="bg-red-600 rounded-full pt-8 pl-8 justify-center w-40 h-40">
+                <MagnifyingGlass size={100} color="#FFF8ED" weight="fill" />
+              </div>
+              <p className=" text-red-600 text-xl font-bold text-center">Encontre  hemocentros</p>
+              <p className="text-gray-600 text-center">Conheça os bancos de sangue próximos a você!</p>
+            </div>
+          </div>
+        </section>
+
         <section className="pt-16 lg:pt-24" id="sobre">
           <h2>Sobre</h2>
         </section>
@@ -61,9 +96,9 @@ export function Home() {
           <h2>Quem somos</h2>
         </section>
       </div>
-      <footer className="lg:absolute bottom-0 w-full">
+      {/* <footer className="lg:absolute bottom-0 w-full">
         <Footer links={ancors}/>
-      </footer>
+      </footer> */}
     </div>
   )
 }
