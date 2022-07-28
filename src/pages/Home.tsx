@@ -1,4 +1,4 @@
-import { CheckCircle, Kanban, MagnifyingGlass, NewspaperClipping } from "phosphor-react";
+import { CheckCircle, FirstAidKit, Kanban, MagnifyingGlass, NewspaperClipping } from "phosphor-react";
 import { Footer } from "../components/Footer";
 import { LinksProps, Navbar } from "../components/Navbar";
 import Pets from '../assets/gato-e-cachorro.png';
@@ -25,7 +25,7 @@ export function Home() {
         <Navbar links={ancors} />
       </header>
       <div className="lg:px-40 px-2">
-        <section className="pt-16 lg:pt-24 flex flex-row items-center justify-center" id="welcome">
+        <section className="pt-16 lg:pt-40 flex flex-row items-center justify-center" id="welcome">
           <div className="py-6 flex lg:flex-row justify-between flex-col-reverse">
             <div className="lg:w-3/5 w-full">
               <h1 className=" text-red-600 lg:text-6xl text-3xl font-bold ">Faça do seu pet um herói, agende uma consulta!</h1>
@@ -45,7 +45,7 @@ export function Home() {
           </div>
         </section>
 
-        <section className="pt-16 flex flex-col" id="welcome">
+        <section className="pt-16 flex flex-col" id="sobre">
           <div className="flex flex-col items-center">
             <p className="lg:text-4xl font-bold text-gray-800">Sobre</p>
             <p className="text-lg w-3/5 text-center">Unimos bancos de sangue veterinário e tutores em um ambiente digital, 
@@ -78,6 +78,20 @@ export function Home() {
               <p className="text-gray-600 text-center">Conheça os bancos de sangue próximos a você!</p>
             </div>
           </div>
+        </section>
+
+        <section className="lg:py-20 md:px-10 py-5 lg:mt-20 mt-5 lg:px-40 px-2 flex lg:flex-row justify-center items-center flex-col-reverse bg-red-200 rounded-3xl" id="aos-hemocentros">
+            <div className="lg:w-1/2 w-full flex flex-col gap-4">
+              <p className="lg:text-xl font-bold text-gray-600">Aos Hemocentros</p>
+              <p className="lg:text-4xl text-xl font-bold text-gray-800">Hemocentros e veterinários</p>
+              <p className="text-lg">O SUPHER Pets foi criado para te auxiliar a encontrar doadores e gerenciar consultas. Através dele você pode criar alertas de necessidade, visulizar perfis dos animais e agendar consultas.</p>
+              <div className="md:text-start text-center">
+                <ButtonNavbar label="Cadastre-se" path='/register' role='primary' type='button'/>
+              </div>
+            </div>
+            <div className="lg:w-1/2 items-center justify-center text-center flex w-full">
+              <FirstAidKit size={200} color="#f23326" weight="fill" />
+            </div>
         </section>
 
         <section className="pt-16 lg:pt-24" id="sobre">
