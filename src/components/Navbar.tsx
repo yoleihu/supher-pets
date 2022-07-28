@@ -1,7 +1,7 @@
 import { List, X } from 'phosphor-react';
 import { useState } from 'react';
 import Logo from '../assets/logo-supher.png';
-import { Button } from './Button';
+import { ButtonNavbar } from './ButtonNavbar';
 import { NavLink } from './NavLink';
 
 interface NavbarProps {
@@ -60,7 +60,6 @@ export function Navbar({ links }: NavbarProps) {
 				z-[-1] 
 				pr-6 
 				w-full 
-				min-h-screen 
 				text-right 
 				lg:pl-0 
 				pl-9 
@@ -80,8 +79,8 @@ export function Navbar({ links }: NavbarProps) {
 					</li>
 				))}
 				<div className='align-bottom'>
-					<Button label="Registre-se" path='/register' role='secondary' />
-					<Button label="Entre" path='/login' role='primary' />
+					<ButtonNavbar type="button" label="Registre-se" path='/register' role='secondary' />
+					<ButtonNavbar type="button" label="Entre" path='/login' role='primary' />
 				</div>
 			</ul>
 		</div>

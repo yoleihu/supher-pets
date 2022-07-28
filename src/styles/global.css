@@ -4,4 +4,5 @@
 
 body {
     @apply bg-yellow-50;
+    @apply h-full;
 }

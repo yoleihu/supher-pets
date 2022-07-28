@@ -55,7 +55,7 @@ export function Home() {
       <section className="pt-16 lg:pt-24" id="quem-somos">
         <h2>Quem somos</h2>
       </section>
-      <footer>
+      <footer className="lg:absolute bottom-0 w-full">
         <Footer links={ancors}/>
       </footer>
     </div>
