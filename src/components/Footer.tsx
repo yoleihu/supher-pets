@@ -12,9 +12,10 @@ export type LinksProps = {
 export function Footer({ links }: FooterProps) {
 	return (
 		<footer className="
-      lg:h-24
+      		lg:h-24
 			h-fit
-      border-t
+			bg-yellow-50
+			border-t
 			lg:flex 
 			lg:items-center 
 			lg:justify-between 
@@ -27,8 +28,7 @@ export function Footer({ links }: FooterProps) {
 				w-full 
 				transition-all 
 				duration-500 
-				ease-in 
-				bg-yellow-50">
+				ease-in ">
 				{links?.map((linkProps) => (
 					<li
 						key={linkProps.label}

@@ -67,18 +67,19 @@ export function Navbar({ links }: NavbarProps) {
 				duration-500 
 				ease-in 
 				bg-yellow-50 
+				lg:gap-8
 				lg:bg-transparent ${showNav ? 'right-0 pr-6' : 'right-[-1490px]'} `}
 			>
 				{links?.map((linkProps) => (
 					<li 
 						onClick={() => setShowNav(false)} 
 						key={linkProps.label} 
-						className='lg:ml-8 text-xl lg:my-0 my-7'
+						className='text-xl lg:my-0 my-7'
 					>
 						<NavLink link={linkProps.link} label={linkProps.label} />
 					</li>
 				))}
-				<div className='align-bottom'>
+				<div className='align-bottom flex lg:gap-8'>
 					<ButtonNavbar type="button" label="Registre-se" path='/register' role='secondary' />
 					<ButtonNavbar type="button" label="Entre" path='/login' role='primary' />
 				</div>
