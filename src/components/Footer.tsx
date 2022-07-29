@@ -1,3 +1,5 @@
+import { ButtonNavbar } from "./ButtonNavbar";
+import { ButtonUser } from "./ButtonUser";
 import { NavLink } from "./NavLink";
 
 interface FooterProps {
@@ -19,9 +21,12 @@ export function Footer({ links }: FooterProps) {
 			lg:flex 
 			lg:items-center 
 			lg:justify-between 
-			bottom-0"
+			bottom-0
+			px-56
+			flex-col"
 		>
-			<ul className="
+			<div className="flex flex-row lg:items-center lg:justify-between w-full h-fit">
+				<ul className="
 				lg:flex 
 				lg:items-center 
 				lg:justify-start 
@@ -29,16 +34,16 @@ export function Footer({ links }: FooterProps) {
 				transition-all 
 				duration-500 
 				ease-in ">
-				{links?.map((linkProps) => (
-					<li
-						key={linkProps.label}
-						className='lg:ml-8 ml-6 text-xl lg:my-0 my-7'
-					>
-						<NavLink link={linkProps.link} label={linkProps.label} />
-					</li>
-				))}
-			</ul>
-			<h2 className="
+					{links?.map((linkProps) => (
+						<li
+							key={linkProps.label}
+							className='lg:ml-8 ml-6 text-xl lg:my-0 my-7'
+						>
+							<NavLink link={linkProps.link} label={linkProps.label} />
+						</li>
+					))}
+				</ul>
+				<h2 className="
             text-zinc-500 
             font-medium
             text-sm
@@ -49,7 +54,8 @@ export function Footer({ links }: FooterProps) {
             lg:px-8
             px-6
             py-5">
-				Copyright © Supher Pets</h2>
+					Copyright © Supher Pets</h2>
+			</div>
 		</footer>
 	)
 }

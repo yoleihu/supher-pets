@@ -56,7 +56,7 @@ export function Home() {
       <header>
         <Navbar links={ancors} />
       </header>
-      <div className="lg:px-56 px-2">
+      <div className="lg:px-56 px-2 flex flex-col">
         <section className="pt-16 lg:pt-40 flex flex-row items-center justify-center" id="welcome">
           <div className="py-6 flex lg:flex-row justify-between flex-col-reverse">
             <div className="lg:w-3/5 w-full">
@@ -157,9 +157,19 @@ export function Home() {
             </div>
           </div>
         </section>
+        <div className="w-3/5 items-end flex flex-col gap-4 my-16 self-end">
+          <p className="lg:text-4xl text-xl font-bold text-zinc-800 self-start">Contato</p>
+          <div className="flex flex-row justify-between items-center w-full gap-4">
+            <input className="bg-yellow-50 border w-full h-fit border-zinc-200 rounded-xl p-4" placeholder="Nome"></input>
+            <input className="bg-yellow-50 border w-full h-fit border-zinc-200 rounded-xl p-4" placeholder="E-mail"></input>
+          </div>
+          <input className="bg-yellow-50 border w-full h-fit border-zinc-200 rounded-xl p-4" placeholder="Assunto"></input>
+          <input className="bg-yellow-50 border w-full h-fit border-zinc-200 rounded-xl p-4" placeholder="Mensagem"></input>
+          <ButtonNavbar label="Enviar" path="/enviar" type="submit" role="primary" />
+        </div>
       </div>
-      <footer className="mt-20 bottom-0 w-full px-56">
-        <Footer links={ancors}/>
+      <footer className="bottom-0 w-full">
+        <Footer links={ancors} />
       </footer>
     </div>
   )
