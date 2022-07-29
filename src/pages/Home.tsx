@@ -35,7 +35,7 @@ function CollapsibleFaq({ question, response, number }: CollapseProps) {
           <div className="w-20 h-20 bg-green-400 rounded-full flex justify-center items-center">
             <p className="text-4xl text-bold text-yellow-50">{number}</p>
           </div>
-          <p className="text-2xl px-8 text-gray-800">{question}</p>
+          <p className="text-2xl px-8 text-zinc-800">{question}</p>
         </div>
         <div className="header" {...getToggleProps()}>
           {isExpanded ? <CaretDown size={52} color="#b0b0b0" weight="fill" /> : <CaretLeft size={52} color="#b0b0b0" weight="fill" />}
@@ -43,7 +43,7 @@ function CollapsibleFaq({ question, response, number }: CollapseProps) {
       </div>
       <div {...getCollapseProps()}>
         <div className="content">
-          <p className="text-xl p-8 ml-20 my-4 text-gray-600 bg-gray-200 rounded-3xl">{response}</p>
+          <p className="text-xl p-8 ml-20 my-4 text-zinc-600 bg-zinc-200 rounded-3xl">{response}</p>
         </div>
       </div>
     </div>
@@ -79,13 +79,13 @@ export function Home() {
 
         <section className="pt-16 flex flex-col" id="sobre">
           <div className="flex flex-col items-center">
-            <p className="lg:text-4xl font-bold text-gray-800">Sobre</p>
+            <p className="lg:text-4xl font-bold text-zinc-800">Sobre</p>
             <p className="text-lg w-3/5 text-center">Unimos bancos de sangue veterinário e tutores em um ambiente digital,
               afim de facilitar o processo de doação, possibilitando o tratamento de mais animais.</p>
           </div>
           <div className="pt-16 flex flex-col items-center">
-            <p className="lg:text-xl font-bold text-gray-400">Como funciona?</p>
-            <p className="lg:text-4xl font-bold text-gray-800">Principais funcionalidades</p>
+            <p className="lg:text-xl font-bold text-zinc-400">Como funciona?</p>
+            <p className="lg:text-4xl font-bold text-zinc-800">Principais funcionalidades</p>
           </div>
           <div className="flex md:flex-row flex-col justify-center items-center md:items-start gap-20 pt-10">
             <div className="flex flex-col w-40 gap-4">
@@ -93,29 +93,29 @@ export function Home() {
                 <NewspaperClipping size={100} color="#FFF8ED" weight="fill" />
               </div>
               <p className=" text-red-600 text-xl font-bold text-center">Cadastro de multiplos pets</p>
-              <p className="text-gray-600 text-center">Você pode cadastrar todos os seus pets!</p>
+              <p className="text-zinc-600 text-center">Você pode cadastrar todos os seus pets!</p>
             </div>
             <div className="flex flex-col w-40 gap-2">
               <div className="bg-red-600 rounded-full pt-7 pl-7 justify-center w-40 h-40">
                 <Kanban size={100} color="#FFF8ED" weight="fill" />
               </div>
               <p className=" text-red-600 text-xl font-bold text-center">Gerenciamento de consultas</p>
-              <p className="text-gray-600 text-center">Receba notificações sobre as consultas de cada pet e acesse os resultados!</p>
+              <p className="text-zinc-600 text-center">Receba notificações sobre as consultas de cada pet e acesse os resultados!</p>
             </div>
             <div className="flex flex-col w-40 gap-2">
               <div className="bg-red-600 rounded-full pt-8 pl-8 justify-center w-40 h-40">
                 <MagnifyingGlass size={100} color="#FFF8ED" weight="fill" />
               </div>
               <p className=" text-red-600 text-xl font-bold text-center">Encontre  hemocentros</p>
-              <p className="text-gray-600 text-center">Conheça os bancos de sangue próximos a você!</p>
+              <p className="text-zinc-600 text-center">Conheça os bancos de sangue próximos a você!</p>
             </div>
           </div>
         </section>
 
         <section className="lg:py-20 md:px-10 py-5 lg:mt-20 mt-5 lg:px-40 px-2 flex lg:flex-row justify-center items-center flex-col-reverse bg-red-200 rounded-3xl" id="aos-hemocentros">
           <div className="lg:w-1/2 w-full flex flex-col gap-4">
-            <p className="lg:text-xl font-bold text-gray-600">Aos Hemocentros</p>
-            <p className="lg:text-4xl text-xl font-bold text-gray-800">Hemocentros e veterinários</p>
+            <p className="lg:text-xl font-bold text-zinc-600">Aos Hemocentros</p>
+            <p className="lg:text-4xl text-xl font-bold text-zinc-800">Hemocentros e veterinários</p>
             <p className="text-lg">O SUPHER Pets foi criado para te auxiliar a encontrar doadores e gerenciar consultas. Através dele você pode criar alertas de necessidade, visulizar perfis dos animais e agendar consultas.</p>
             <div className="md:text-start text-center">
               <ButtonNavbar label="Cadastre-se" path='/register' role='primary' type='button' />
@@ -127,7 +127,7 @@ export function Home() {
         </section>
 
         <section className="py-5 lg:mt-20 mt-5 lg:px-40 px-2 flex items-start flex-col" id="faq">
-          <p className="lg:text-xl font-bold text-gray-600">FAQ</p>
+          <p className="lg:text-xl font-bold text-zinc-600">FAQ</p>
           <p className="lg:text-4xl text-xl font-bold text-red-600">Perguntas frequentes</p>
           <div className="flex flex-col w-full gap-4 mt-5">
             <CollapsibleFaq question="Pergunta" response="Resposta" number="1" />
@@ -138,19 +138,19 @@ export function Home() {
         </section>
 
         <section className="lg:py-20 md:px-10 py-5 lg:mt-20 mt-5 lg:px-40 px-2 flex items-start flex-col bg-red-200 rounded-3xl" id="quem-somos">
-          <p className="lg:text-xl font-bold text-gray-600">Quem somos</p>
-          <p className="lg:text-4xl text-xl font-bold text-gray-800">Conheça os idealizadores</p>
+          <p className="lg:text-xl font-bold text-zinc-600">Quem somos</p>
+          <p className="lg:text-4xl text-xl font-bold text-zinc-800">Conheça os idealizadores</p>
           <div className="mt-5 lg:w-full w-full flex lg:flex-row flex-col justify-center gap-8">
             <div className="bg-yellow-50 w-full rounded-full flex flex-row p-10 items-center justify-between">
               <div className="gap-4 pl-5">
-                <p className="lg:text-2xl font-bold text-gray-800">Giuliana Missio</p>
+                <p className="lg:text-2xl font-bold text-zinc-800">Giuliana Missio</p>
                 <p className="text-xl text-red-600">Web Developer, 20 anos</p>
               </div>
               <div className="w-24 h-24 bg-red-600 rounded-full"></div>
             </div>
             <div className="bg-yellow-50 w-full rounded-full flex flex-row p-10 items-center justify-between">
               <div className="gap-4 pl-5">
-                <p className="lg:text-2xl font-bold text-gray-800">Yolanda Ferreira</p>
+                <p className="lg:text-2xl font-bold text-zinc-800">Yolanda Ferreira</p>
                 <p className="text-xl text-red-600">Web Developer, 20 anos</p>
               </div>
               <div className="w-24 h-24 bg-red-600 rounded-full"></div>
@@ -158,9 +158,9 @@ export function Home() {
           </div>
         </section>
       </div>
-      {/* <footer className="lg:absolute bottom-0 w-full">
+      <footer className="mt-20 bottom-0 w-full px-56">
         <Footer links={ancors}/>
-      </footer> */}
+      </footer>
     </div>
   )
 }
