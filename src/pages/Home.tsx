@@ -4,6 +4,7 @@ import { LinksProps, Navbar } from "../components/Navbar";
 import Pets from '../assets/gato-e-cachorro.png';
 import { ButtonNavbar } from "../components/ButtonNavbar";
 import useCollapse from 'react-collapsed';
+import emailjs from '@emailjs/browser';
 
 
 let ancors: LinksProps[];
@@ -51,6 +52,18 @@ function CollapsibleFaq({ question, response, number }: CollapseProps) {
 }
 
 export function Home() {
+  const sendEmail = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    emailjs.sendForm('service_ms7fk94', 'template_sorb2cv', e.currentTarget, 'Dn6OsVlPmO2i-Z0EP')
+      .then((result) => {
+          console.log(result.text);
+      }, (error) => {
+          console.log(error.text);
+      });
+      e.currentTarget.reset();
+  };
+
   return (
     <div className="flex flex-col min-h-screen">
       <header>
@@ -60,8 +73,8 @@ export function Home() {
         <section className="pt-16 lg:pt-40 flex flex-row items-center justify-center" id="welcome">
           <div className="py-6 flex lg:flex-row justify-between flex-col-reverse">
             <div className="lg:w-3/5 w-full">
-              <h1 className=" text-red-600 lg:text-6xl text-3xl font-bold ">Faça do seu pet um herói, agende uma consulta!</h1>
-              <div className="py-2">
+              <h1 className=" text-red-600 lg:text-6xl text-3xl font-bold">Faça do seu pet um herói, agende uma consulta!</h1>
+              <div className="py-5 gap-2 flex flex-col">
                 <p className="text-lg">Você sabia que seu pet pode salvar vidas de outros animais através da doação de sangue?</p>
                 <p className="flex flex-row gap-2 items-center text-lg"><CheckCircle size={32} color="#57cba1" weight="fill" />Realize Seu cadastro</p>
                 <p className="flex flex-row gap-2 items-center text-lg"><CheckCircle size={32} color="#57cba1" weight="fill" />Inclua seu pet</p>
@@ -79,8 +92,8 @@ export function Home() {
 
         <section className="pt-16 flex flex-col" id="sobre">
           <div className="flex flex-col items-center">
-            <p className="lg:text-4xl font-bold text-zinc-800">Sobre</p>
-            <p className="text-lg w-3/5 text-center">Unimos bancos de sangue veterinário e tutores em um ambiente digital,
+            <p className="lg:text-4xl font-bold text-zinc-800 pb-4">Sobre</p>
+            <p className="text-lg w-3/5 text-center h-3">Unimos bancos de sangue veterinário e tutores em um ambiente digital,
               afim de facilitar o processo de doação, possibilitando o tratamento de mais animais.</p>
           </div>
           <div className="pt-16 flex flex-col items-center">
@@ -157,16 +170,16 @@ export function Home() {
             </div>
           </div>
         </section>
-        <div className="w-3/5 items-end flex flex-col gap-4 my-16 self-end">
+        <form onSubmit={sendEmail} className="w-3/5 items-end flex flex-col gap-4 my-16 self-end">
           <p className="lg:text-4xl text-xl font-bold text-zinc-800 self-start">Contato</p>
           <div className="flex flex-row justify-between items-center w-full gap-4">
-            <input className="bg-yellow-50 border w-full h-fit border-zinc-200 rounded-xl p-4" placeholder="Nome"></input>
-            <input className="bg-yellow-50 border w-full h-fit border-zinc-200 rounded-xl p-4" placeholder="E-mail"></input>
+            <input className="bg-yellow-50 border w-full h-fit border-zinc-200 rounded-xl p-4" placeholder="Nome" name="nome"></input>
+            <input className="bg-yellow-50 border w-full h-fit border-zinc-200 rounded-xl p-4" placeholder="E-mail" name="email"></input>
           </div>
-          <input className="bg-yellow-50 border w-full h-fit border-zinc-200 rounded-xl p-4" placeholder="Assunto"></input>
-          <input className="bg-yellow-50 border w-full h-fit border-zinc-200 rounded-xl p-4" placeholder="Mensagem"></input>
-          <ButtonNavbar label="Enviar" path="/enviar" type="submit" role="primary" />
-        </div>
+          <input className="bg-yellow-50 border w-full h-fit border-zinc-200 rounded-xl p-4" placeholder="Assunto" name="assunto"></input>
+          <input className="bg-yellow-50 border w-full h-fit border-zinc-200 rounded-xl p-4" placeholder="Mensagem" name="mensagem"></input>
+          <button className="bg-red-600 text-yellow-50 rounded-full px-4 py-1" type="submit">Enviar</button>
+        </form>
       </div>
       <footer className="bottom-0 w-full">
         <Footer links={ancors} />
