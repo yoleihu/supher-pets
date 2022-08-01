@@ -173,11 +173,11 @@ export function Home() {
         <form onSubmit={sendEmail} className="w-3/5 items-end flex flex-col gap-4 my-16 self-end">
           <p className="lg:text-4xl text-xl font-bold text-zinc-800 self-start">Contato</p>
           <div className="flex flex-row justify-between items-center w-full gap-4">
-            <input className="bg-yellow-50 border w-full h-fit border-zinc-200 rounded-xl p-4" placeholder="Nome" name="nome"></input>
-            <input className="bg-yellow-50 border w-full h-fit border-zinc-200 rounded-xl p-4" placeholder="E-mail" name="email"></input>
+            <input className="bg-yellow-50 border w-full h-fit border-zinc-200 rounded-full p-4" placeholder="Nome" name="nome"></input>
+            <input className="bg-yellow-50 border w-full h-fit border-zinc-200 rounded-full p-4" placeholder="E-mail" name="email"></input>
           </div>
-          <input className="bg-yellow-50 border w-full h-fit border-zinc-200 rounded-xl p-4" placeholder="Assunto" name="assunto"></input>
-          <input className="bg-yellow-50 border w-full h-fit border-zinc-200 rounded-xl p-4" placeholder="Mensagem" name="mensagem"></input>
+          <input className="bg-yellow-50 border w-full h-fit border-zinc-200 rounded-full p-4" placeholder="Assunto" name="assunto"></input>
+          <input className="bg-yellow-50 border w-full h-fit border-zinc-200 rounded-full p-4" placeholder="Mensagem" name="mensagem"></input>
           <button className="bg-red-600 text-yellow-50 rounded-full px-4 py-1" type="submit">Enviar</button>
         </form>
       </div>
