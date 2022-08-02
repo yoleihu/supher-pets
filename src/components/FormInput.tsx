@@ -67,7 +67,7 @@ export function FormInput({ isLogin, isRegister, isRecoverPassword }: FormInputP
           </div>
         }
 
-        <div className={`bg-yellow-200 lg:p-16 px-6 py-4 h-fit rounded-xl ${isRecoverPassword ?? 'rounded-tl-none'}`}>
+        <div className={`bg-yellow-200 lg:p-16 px-6 py-4 h-fit rounded-3xl ${isRecoverPassword ?? 'rounded-tl-none'}`}>
           {isRegister &&
             <>
               <div className="flex flex-col lg:gap-6">
