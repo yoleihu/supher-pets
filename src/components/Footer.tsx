@@ -14,48 +14,46 @@ export type LinksProps = {
 export function Footer({ links }: FooterProps) {
 	return (
 		<footer className="
-      		lg:h-24
-			h-fit
 			bg-yellow-50
 			border-t
-			lg:flex 
-			lg:items-center 
-			lg:justify-between 
-			bottom-0
-			px-56
-			flex-col"
+			mt-16
+			flex 
+			flex-col
+			md:flex-row
+			md:items-center 
+			md:justify-between
+			md:px-20
+			lg:px-44
+			px-6"
 		>
-			<div className="flex flex-row lg:items-center lg:justify-between w-full h-fit">
+			<div className="flex lg:items-center lg:justify-between w-full h-fit">
 				<ul className="
-				lg:flex 
-				lg:items-center 
-				lg:justify-start 
-				w-full 
-				transition-all 
-				duration-500 
-				ease-in ">
+				flex 
+				md:flex-row
+				flex-col
+				md:items-center 
+				md:justify-start 
+				w-full">
 					{links?.map((linkProps) => (
 						<li
 							key={linkProps.label}
-							className='lg:ml-8 ml-6 text-xl lg:my-0 my-7'
+							className='md:ml-8 text-xl lg:my-0 my-4'
 						>
 							<NavLink link={linkProps.link} label={linkProps.label} />
 						</li>
 					))}
 				</ul>
-				<h2 className="
+			</div>
+			<h2 className="
             text-zinc-500 
             font-medium
             text-sm
-            lg:text-lg 
+            lg:text-base 
+			text-left
+			md:text-right
             w-full
-            lg:text-right
-            text-left
-            lg:px-8
-            px-6
             py-5">
-					Copyright © Supher Pets</h2>
-			</div>
+				Copyright © Supher Pets</h2>
 		</footer>
 	)
 }

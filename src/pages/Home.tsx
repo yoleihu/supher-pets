@@ -33,18 +33,18 @@ function CollapsibleFaq({ question, response, number }: CollapseProps) {
     <div className="collapsible w-full flex flex-col">
       <div className="flex items-center justify-between w-full">
         <div className="flex flex-row items-center">
-          <div className="w-20 h-20 bg-green-400 rounded-full flex justify-center items-center">
-            <p className="text-4xl text-bold text-yellow-50">{number}</p>
+          <div className="w-16 h-16 bg-green-400 rounded-full flex justify-center items-center">
+            <p className="text-2xl text-bold text-yellow-50">{number}</p>
           </div>
-          <p className="text-2xl px-8 text-zinc-800">{question}</p>
+          <p className="text-xl px-8 text-zinc-800">{question}</p>
         </div>
         <div className="header" {...getToggleProps()}>
-          {isExpanded ? <CaretDown size={52} color="#b0b0b0" weight="fill" /> : <CaretLeft size={52} color="#b0b0b0" weight="fill" />}
+          {isExpanded ? <CaretDown size={44} color="#b0b0b0" weight="fill" /> : <CaretLeft size={44} color="#b0b0b0" weight="fill" />}
         </div>
       </div>
       <div {...getCollapseProps()}>
         <div className="content">
-          <p className="text-xl p-8 ml-20 my-4 text-zinc-600 bg-zinc-200 rounded-3xl">{response}</p>
+          <p className="text-xl p-8 md:ml-20 my-4 text-zinc-600 bg-zinc-200 rounded-3xl">{response}</p>
         </div>
       </div>
     </div>
@@ -57,11 +57,11 @@ export function Home() {
 
     emailjs.sendForm('service_ms7fk94', 'template_sorb2cv', e.currentTarget, 'Dn6OsVlPmO2i-Z0EP')
       .then((result) => {
-          console.log(result.text);
+        console.log(result.text);
       }, (error) => {
-          console.log(error.text);
+        console.log(error.text);
       });
-      e.currentTarget.reset();
+    e.currentTarget.reset();
   };
 
   return (
@@ -69,67 +69,73 @@ export function Home() {
       <header>
         <Navbar links={ancors} />
       </header>
-      <div className="lg:px-56 px-2 flex flex-col">
-        <section className="pt-16 lg:pt-40 flex flex-row items-center justify-center" id="welcome">
-          <div className="py-6 flex lg:flex-row justify-between flex-col-reverse">
+      <div className="lg:px-40 md:px-20 px-5 flex flex-col gap-16">
+        <section className="pt-16 md:pt-40 flex flex-row items-center justify-center" id="welcome">
+          <div className="flex md:flex-row justify-between flex-col-reverse">
             <div className="lg:w-3/5 w-full">
-              <h1 className=" text-red-600 lg:text-6xl text-3xl font-bold">Faça do seu pet um herói, agende uma consulta!</h1>
-              <div className="py-5 gap-2 flex flex-col">
-                <p className="text-lg">Você sabia que seu pet pode salvar vidas de outros animais através da doação de sangue?</p>
-                <p className="flex flex-row gap-2 items-center text-lg"><CheckCircle size={32} color="#57cba1" weight="fill" />Realize Seu cadastro</p>
-                <p className="flex flex-row gap-2 items-center text-lg"><CheckCircle size={32} color="#57cba1" weight="fill" />Inclua seu pet</p>
-                <p className="flex flex-row gap-2 items-center text-lg"><CheckCircle size={32} color="#57cba1" weight="fill" />Procure o receptor mais próximo</p>
+              <h1 className=" text-red-600 md:text-5xl text-xl font-bold">Faça do seu pet um herói, agende uma consulta!</h1>
+              <div className="md:py-5 md:gap-2 flex flex-col">
+                <p className="md:text-lg text-base">Você sabia que seu pet pode salvar vidas de outros animais através da doação de sangue?</p>
+                <p className="flex flex-row gap-2 items-center md:text-lg text-base"><CheckCircle size={32} color="#57cba1" weight="fill" />Realize Seu cadastro</p>
+                <p className="flex flex-row gap-2 items-center md:text-lg text-base"><CheckCircle size={32} color="#57cba1" weight="fill" />Inclua seu pet</p>
+                <p className="flex flex-row gap-2 items-center md:text-lg text-base"><CheckCircle size={32} color="#57cba1" weight="fill" />Procure o receptor mais próximo</p>
               </div>
-              <div className="md:text-start text-center">
+              <div className="text-start">
                 <ButtonNavbar label="Cadastre-se" path='/register' role='primary' type='button' />
               </div>
             </div>
             <div className="lg:w-2/5 w-full">
-              <img src={Pets} className="w-full max-h-fit" />
+              <img src={Pets} className="w-full max-h-fit md:mt-24 mt-4" />
             </div>
           </div>
         </section>
 
-        <section className="pt-16 flex flex-col" id="sobre">
+        <section className="flex flex-col gap-6" id="sobre">
           <div className="flex flex-col items-center">
-            <p className="lg:text-4xl font-bold text-zinc-800 pb-4">Sobre</p>
-            <p className="text-lg w-3/5 text-center h-3">Unimos bancos de sangue veterinário e tutores em um ambiente digital,
+            <p className="md:text-4xl text-xl font-bold text-zinc-800 pb-4">Sobre</p>
+            <p className="text-base md:w-3/5 w-full md:text-center text-justify">Unimos bancos de sangue veterinário e tutores em um ambiente digital,
               afim de facilitar o processo de doação, possibilitando o tratamento de mais animais.</p>
           </div>
-          <div className="pt-16 flex flex-col items-center">
+          <div className="md:pt-16 flex flex-col items-center">
             <p className="lg:text-xl font-bold text-zinc-400">Como funciona?</p>
             <p className="lg:text-4xl font-bold text-zinc-800">Principais funcionalidades</p>
-          </div>
-          <div className="flex md:flex-row flex-col justify-center items-center md:items-start gap-20 pt-10">
-            <div className="flex flex-col w-40 gap-4">
-              <div className="bg-red-600 rounded-full pt-7 pl-7 justify-center w-40 h-40">
-                <NewspaperClipping size={100} color="#FFF8ED" weight="fill" />
+            <div className="flex md:flex-row flex-col justify-center items-center md:items-start md:gap-32 gap-6 pt-10">
+              <div className="flex md:flex-col flex-row items-center md:w-40 w-full gap-4">
+                <div className="bg-red-600 rounded-full pt-6 pl-6 justify-center w-32 h-32">
+                  <NewspaperClipping size={80} color="#FFF8ED" weight="fill" />
+                </div>
+                <div className="flex flex-col items-center w-40 gap-4">
+                  <p className=" text-red-600 text-xl font-bold text-center">Cadastro de multiplos pets</p>
+                  <p className="text-zinc-600 text-center">Você pode cadastrar todos os seus pets!</p>
+                </div>
               </div>
-              <p className=" text-red-600 text-xl font-bold text-center">Cadastro de multiplos pets</p>
-              <p className="text-zinc-600 text-center">Você pode cadastrar todos os seus pets!</p>
-            </div>
-            <div className="flex flex-col w-40 gap-2">
-              <div className="bg-red-600 rounded-full pt-7 pl-7 justify-center w-40 h-40">
-                <Kanban size={100} color="#FFF8ED" weight="fill" />
+              <div className="flex md:flex-col flex-row items-center md:w-40 w-full gap-4">
+                <div className="bg-red-600 rounded-full pt-6 pl-6 justify-center w-32 h-32">
+                  <Kanban size={80} color="#FFF8ED" weight="fill" />
+                </div>
+                <div className="flex flex-col items-center w-40 gap-4">
+                  <p className=" text-red-600 text-xl font-bold text-center">Gerenciamento de consultas</p>
+                  <p className="text-zinc-600 text-center">Receba notificações sobre as consultas de cada pet e acesse os resultados!</p>
+                </div>
               </div>
-              <p className=" text-red-600 text-xl font-bold text-center">Gerenciamento de consultas</p>
-              <p className="text-zinc-600 text-center">Receba notificações sobre as consultas de cada pet e acesse os resultados!</p>
-            </div>
-            <div className="flex flex-col w-40 gap-2">
-              <div className="bg-red-600 rounded-full pt-8 pl-8 justify-center w-40 h-40">
-                <MagnifyingGlass size={100} color="#FFF8ED" weight="fill" />
+              <div className="flex md:flex-col flex-row items-center md:w-40 w-full gap-4">
+                <div className="bg-red-600 rounded-full pt-7 pl-7 justify-center w-32 h-32">
+                  <MagnifyingGlass size={80} color="#FFF8ED" weight="fill" />
+                </div>
+                <div className="flex flex-col items-center w-40 gap-4">
+                  <p className=" text-red-600 text-xl font-bold text-center">Encontre  hemocentros</p>
+                  <p className="text-zinc-600 text-center">Conheça os bancos de sangue próximos a você!</p>
+                </div>
               </div>
-              <p className=" text-red-600 text-xl font-bold text-center">Encontre  hemocentros</p>
-              <p className="text-zinc-600 text-center">Conheça os bancos de sangue próximos a você!</p>
             </div>
           </div>
         </section>
 
-        <section className="lg:py-20 md:px-10 py-5 lg:mt-20 mt-5 lg:px-40 px-2 flex lg:flex-row justify-center items-center flex-col-reverse bg-red-200 rounded-3xl" id="aos-hemocentros">
-          <div className="lg:w-1/2 w-full flex flex-col gap-4">
+        <section className="md:py-16 md:px-10 py-5 lg:px-20 px-4 flex lg:flex-row justify-center items-center flex-col-reverse bg-red-200 rounded-3xl" id="aos-hemocentros">
+          <div className="lg:w-1/2 w-full flex flex-col md:gap-4">
             <p className="lg:text-xl font-bold text-zinc-600">Aos Hemocentros</p>
             <p className="lg:text-4xl text-xl font-bold text-zinc-800">Hemocentros e veterinários</p>
-            <p className="text-lg">O SUPHER Pets foi criado para te auxiliar a encontrar doadores e gerenciar consultas. Através dele você pode criar alertas de necessidade, visulizar perfis dos animais e agendar consultas.</p>
+            <p className="text-base text-justify">O SUPHER Pets foi criado para te auxiliar a encontrar doadores e gerenciar consultas. Através dele você pode criar alertas de necessidade, visulizar perfis dos animais e agendar consultas.</p>
             <div className="md:text-start text-center">
               <ButtonNavbar label="Cadastre-se" path='/register' role='primary' type='button' />
             </div>
@@ -139,7 +145,7 @@ export function Home() {
           </div>
         </section>
 
-        <section className="py-5 lg:mt-20 mt-5 lg:px-40 px-2 flex items-start flex-col" id="faq">
+        <section className="py-5 lg:px-20 px-2 flex items-start flex-col" id="faq">
           <p className="lg:text-xl font-bold text-zinc-600">FAQ</p>
           <p className="lg:text-4xl text-xl font-bold text-red-600">Perguntas frequentes</p>
           <div className="flex flex-col w-full gap-4 mt-5">
@@ -150,34 +156,34 @@ export function Home() {
           </div>
         </section>
 
-        <section className="lg:py-20 md:px-10 py-5 lg:mt-20 mt-5 lg:px-40 px-2 flex items-start flex-col bg-red-200 rounded-3xl" id="quem-somos">
+        <section className="lg:py-16 md:px-10 py-5 lg:px-20 px-4 flex items-start flex-col bg-red-200 rounded-3xl" id="quem-somos">
           <p className="lg:text-xl font-bold text-zinc-600">Quem somos</p>
           <p className="lg:text-4xl text-xl font-bold text-zinc-800">Conheça os idealizadores</p>
-          <div className="mt-5 lg:w-full w-full flex lg:flex-row flex-col justify-center gap-8">
-            <div className="bg-yellow-50 w-full rounded-full flex flex-row p-10 items-center justify-between">
+          <div className="mt-4 lg:w-full w-full flex lg:flex-row flex-col justify-center md:gap-8 gap-4">
+            <div className="bg-yellow-50 h-fit w-full rounded-full flex flex-row p-6 items-center justify-between">
               <div className="gap-4 pl-5">
-                <p className="lg:text-2xl font-bold text-zinc-800">Giuliana Missio</p>
-                <p className="text-xl text-red-600">Web Developer, 20 anos</p>
+                <p className="lg:text-xl font-bold text-zinc-800">Giuliana Missio</p>
+                <p className="text-lg text-red-600">Web Developer, 20 anos</p>
               </div>
               <div className="w-24 h-24 bg-red-600 rounded-full"></div>
             </div>
-            <div className="bg-yellow-50 w-full rounded-full flex flex-row p-10 items-center justify-between">
+            <div className="bg-yellow-50 h-fit w-full rounded-full flex flex-row p-6 items-center justify-between">
               <div className="gap-4 pl-5">
-                <p className="lg:text-2xl font-bold text-zinc-800">Yolanda Ferreira</p>
-                <p className="text-xl text-red-600">Web Developer, 20 anos</p>
+                <p className="lg:text-xl font-bold text-zinc-800">Yolanda Ferreira</p>
+                <p className="text-lg text-red-600">Web Developer, 20 anos</p>
               </div>
               <div className="w-24 h-24 bg-red-600 rounded-full"></div>
             </div>
           </div>
         </section>
-        <form onSubmit={sendEmail} className="w-3/5 items-end flex flex-col gap-4 my-16 self-end">
+        <form onSubmit={sendEmail} className="md:w-3/5 w-full items-end flex flex-col gap-4 self-end md:pr-20">
           <p className="lg:text-4xl text-xl font-bold text-zinc-800 self-start">Contato</p>
           <div className="flex flex-row justify-between items-center w-full gap-4">
-            <input className="bg-yellow-50 border w-full h-fit border-zinc-200 rounded-full p-4" placeholder="Nome" name="nome"></input>
-            <input className="bg-yellow-50 border w-full h-fit border-zinc-200 rounded-full p-4" placeholder="E-mail" name="email"></input>
+            <input className="bg-yellow-50 border w-full h-fit border-zinc-300 rounded-full p-4" placeholder="Nome" name="nome"></input>
+            <input className="bg-yellow-50 border w-full h-fit border-zinc-300 rounded-full p-4" placeholder="E-mail" name="email"></input>
           </div>
-          <input className="bg-yellow-50 border w-full h-fit border-zinc-200 rounded-full p-4" placeholder="Assunto" name="assunto"></input>
-          <input className="bg-yellow-50 border w-full h-fit border-zinc-200 rounded-full p-4" placeholder="Mensagem" name="mensagem"></input>
+          <input className="bg-yellow-50 border w-full h-fit border-zinc-300 rounded-full p-4" placeholder="Assunto" name="assunto"></input>
+          <input className="bg-yellow-50 border w-full h-fit border-zinc-300 rounded-full p-4" placeholder="Mensagem" name="mensagem"></input>
           <button className="bg-red-600 text-yellow-50 rounded-full px-4 py-1" type="submit">Enviar</button>
         </form>
       </div>
