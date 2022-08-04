@@ -136,7 +136,7 @@ export function Home() {
             <p className="lg:text-xl font-bold text-zinc-600">Aos Hemocentros</p>
             <p className="lg:text-4xl text-xl font-bold text-zinc-800">Hemocentros e veterinários</p>
             <p className="text-base text-justify">O SUPHER Pets foi criado para te auxiliar a encontrar doadores e gerenciar consultas. Através dele você pode criar alertas de necessidade, visulizar perfis dos animais e agendar consultas.</p>
-            <div className="md:text-start text-center">
+            <div className="text-start">
               <ButtonNavbar label="Cadastre-se" path='/register' role='primary' type='button' />
             </div>
           </div>

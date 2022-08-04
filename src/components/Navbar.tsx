@@ -79,7 +79,7 @@ export function Navbar({ links }: NavbarProps) {
 						<NavLink link={linkProps.link} label={linkProps.label} />
 					</li>
 				))}
-				<div className='align-bottom flex lg:gap-8'>
+				<div className='py-2 items-end flex md:flex-row flex-col lg:gap-8'>
 					<ButtonNavbar type="button" label="Registre-se" path='/register' role='secondary' />
 					<ButtonNavbar type="button" label="Entre" path='/login' role='primary' />
 				</div>
