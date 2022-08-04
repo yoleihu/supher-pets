@@ -1,5 +1,6 @@
 import { List, X } from 'phosphor-react';
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Logo from '../assets/logo-supher.png';
 import { ButtonNavbar } from './ButtonNavbar';
 import { NavLink } from './NavLink';
@@ -15,6 +16,7 @@ export type LinksProps = {
 
 export function Navbar({ links }: NavbarProps) {
 	const [showNav, setShowNav] = useState(false);
+	const navigate = useNavigate();
 
 	return (
 		<div className='
@@ -35,7 +37,7 @@ export function Navbar({ links }: NavbarProps) {
 			>
 			<div className='cursor-pointer flex items-center text'>
 				<span>
-					<img src={Logo} className="lg:w-80 w-52 max-h-fit pl-6" />
+					<img src={Logo} className="lg:w-80 w-52 max-h-fit pl-6" onClick={() => navigate('/')} />
 				</span>
 			</div>
 			<div
