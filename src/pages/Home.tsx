@@ -101,30 +101,30 @@ export function Home() {
             <p className="lg:text-4xl font-bold text-zinc-800">Principais funcionalidades</p>
             <div className="flex md:flex-row flex-col justify-center items-center md:items-start md:gap-32 gap-6 pt-10">
               <div className="flex md:flex-col flex-row items-center md:w-40 w-full gap-4">
-                <div className="bg-red-600 rounded-full pt-6 pl-6 justify-center w-32 h-32">
-                  <NewspaperClipping size={80} color="#FFF8ED" weight="fill" />
+                <div className="bg-red-600 rounded-full flex items-center justify-center md:w-32 w-20 md:h-32 h-20">
+                  <NewspaperClipping size={"80"} className="md:h-20 h-10" color="#FFF8ED" weight="fill" />
                 </div>
-                <div className="flex flex-col items-center w-40 gap-4">
-                  <p className=" text-red-600 text-xl font-bold text-center">Cadastro de multiplos pets</p>
-                  <p className="text-zinc-600 text-center">Você pode cadastrar todos os seus pets!</p>
-                </div>
-              </div>
-              <div className="flex md:flex-col flex-row items-center md:w-40 w-full gap-4">
-                <div className="bg-red-600 rounded-full pt-6 pl-6 justify-center w-32 h-32">
-                  <Kanban size={80} color="#FFF8ED" weight="fill" />
-                </div>
-                <div className="flex flex-col items-center w-40 gap-4">
-                  <p className=" text-red-600 text-xl font-bold text-center">Gerenciamento de consultas</p>
-                  <p className="text-zinc-600 text-center">Receba notificações sobre as consultas de cada pet e acesse os resultados!</p>
+                <div className="flex flex-col md:items-center items-start md:w-40 w-full gap-4">
+                  <p className=" text-red-600 text-xl font-bold md:text-center text-left">Cadastro de multiplos pets</p>
+                  <p className="text-zinc-600 md:text-center text-left">Você pode cadastrar todos os seus pets!</p>
                 </div>
               </div>
               <div className="flex md:flex-col flex-row items-center md:w-40 w-full gap-4">
-                <div className="bg-red-600 rounded-full pt-7 pl-7 justify-center w-32 h-32">
-                  <MagnifyingGlass size={80} color="#FFF8ED" weight="fill" />
+                <div className="bg-red-600 rounded-full flex items-center justify-center md:w-32 w-20 md:h-32 h-20">
+                  <Kanban size={80} className="md:h-20 h-10" color="#FFF8ED" weight="fill" />
                 </div>
-                <div className="flex flex-col items-center w-40 gap-4">
-                  <p className=" text-red-600 text-xl font-bold text-center">Encontre  hemocentros</p>
-                  <p className="text-zinc-600 text-center">Conheça os bancos de sangue próximos a você!</p>
+                <div className="flex flex-col md:items-center items-start md:w-40 w-full gap-4">
+                  <p className=" text-red-600 text-xl font-bold md:text-center text-left">Gerenciamento de consultas</p>
+                  <p className="text-zinc-600 md:text-center text-left">Receba notificações sobre as consultas de cada pet e acesse os resultados!</p>
+                </div>
+              </div>
+              <div className="flex md:flex-col flex-row items-center md:w-40 w-full gap-4">
+                <div className="bg-red-600 rounded-full flex items-center justify-center md:w-32 w-20 md:h-32 h-20">
+                  <MagnifyingGlass size={80} className="md:h-20 h-10" color="#FFF8ED" weight="fill" />
+                </div>
+                <div className="flex flex-col md:items-center items-start md:w-40 w-full gap-4">
+                  <p className=" text-red-600 text-xl font-bold md:text-center text-left">Encontre hemocentros</p>
+                  <p className="text-zinc-600 md:text-center text-left">Conheça os bancos de sangue próximos a você!</p>
                 </div>
               </div>
             </div>
