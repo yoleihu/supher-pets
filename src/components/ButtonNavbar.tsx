@@ -18,9 +18,7 @@ export function ButtonNavbar({ label, path, type, role }: ButtonNavbarProps) {
 			px-4 py-1 
 			lg:my-0
 			my-1
-			lg:w-fit
-			w-3/4
-			lg:ml-8
+			w-fit
 			border
 			rounded-full 
 			${role === 'primary' ? 'bg-red-600 text-white hover:bg-red-400' : 'text-red-600 hover:text-red-400'}

@@ -1,5 +1,6 @@
 import { List, X } from 'phosphor-react';
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Logo from '../assets/logo-supher.png';
 import { ButtonNavbar } from './ButtonNavbar';
 import { NavLink } from './NavLink';
@@ -15,6 +16,7 @@ export type LinksProps = {
 
 export function Navbar({ links }: NavbarProps) {
 	const [showNav, setShowNav] = useState(false);
+	const navigate = useNavigate();
 
 	return (
 		<div className='
@@ -35,7 +37,7 @@ export function Navbar({ links }: NavbarProps) {
 			>
 			<div className='cursor-pointer flex items-center text'>
 				<span>
-					<img src={Logo} className="lg:w-80 w-52 max-h-fit pl-6" />
+					<img src={Logo} className="lg:w-80 w-52 max-h-fit pl-6" onClick={() => navigate('/')} />
 				</span>
 			</div>
 			<div
@@ -67,18 +69,19 @@ export function Navbar({ links }: NavbarProps) {
 				duration-500 
 				ease-in 
 				bg-yellow-50 
+				lg:gap-8
 				lg:bg-transparent ${showNav ? 'right-0 pr-6' : 'right-[-1490px]'} `}
 			>
 				{links?.map((linkProps) => (
 					<li 
 						onClick={() => setShowNav(false)} 
 						key={linkProps.label} 
-						className='lg:ml-8 text-xl lg:my-0 my-7'
+						className='text-xl lg:my-0 my-7'
 					>
 						<NavLink link={linkProps.link} label={linkProps.label} />
 					</li>
 				))}
-				<div className='align-bottom'>
+				<div className='py-2 items-end flex md:flex-row flex-col lg:gap-8'>
 					<ButtonNavbar type="button" label="Registre-se" path='/register' role='secondary' />
 					<ButtonNavbar type="button" label="Entre" path='/login' role='primary' />
 				</div>
