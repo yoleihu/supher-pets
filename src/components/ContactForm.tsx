@@ -18,9 +18,9 @@ export function ContactForm() {
 
         emailjs.sendForm('service_ms7fk94', 'template_sorb2cv', e.currentTarget, 'Dn6OsVlPmO2i-Z0EP')
             .then((result) => {
-                console.log(result.text);
+                alert("Mensagem enviada com sucesso");
             }, (error) => {
-                console.log(error.text);
+                alert("Erro ao enviar mensagem");
             });
         e.currentTarget.reset();
     };
