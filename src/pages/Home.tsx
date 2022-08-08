@@ -5,6 +5,9 @@ import Pets from '../assets/gato-e-cachorro.png';
 import { ButtonNavbar } from "../components/ButtonNavbar";
 import useCollapse from 'react-collapsed';
 import emailjs from '@emailjs/browser';
+import * as Yup from "yup";
+import { Form, Formik } from "formik";
+import { Input } from "../components/Input";
 
 
 let ancors: LinksProps[];
@@ -19,6 +22,13 @@ interface CollapseProps {
   question: string,
   response: string,
   number: string
+}
+
+interface FormValuesProps {
+  nome: string,
+  email: string,
+  assunto: string,
+  menssagem: string
 }
 
 export function Check() {
@@ -63,6 +73,28 @@ export function Home() {
       });
     e.currentTarget.reset();
   };
+
+  const initialValuesRegister: FormValuesProps = {
+    nome: '',
+    email: '',
+    assunto: '',
+    menssagem: '',
+  }
+
+  const SignupSchema = Yup.object().shape({
+    nome: Yup.string()
+      .min(3, 'O nome deve ter no minímo 3 letras')
+      .matches(/^[A-z]+$/, 'O nome não deve conter números ou caracteres especiais')
+      .required('Campo obrigatório'),
+    email: Yup.string().email('Email inválido')
+      .required('Campo obrigatório'),
+    assunto: Yup.string()
+      .min(3, 'O assunto deve conter no mínimo 3 caracteres')
+      .required('Campo obrigatório'),
+    mensagem: Yup.string()
+      .min(3, 'A menssagem deve conter no mínimo 3 caracteres')
+      .required('Campo obrigatório'),
+  });
 
   return (
     <div className="flex flex-col min-h-screen">
@@ -176,16 +208,27 @@ export function Home() {
             </div>
           </div>
         </section>
-        <form onSubmit={sendEmail} className="md:w-3/5 w-full items-end flex flex-col gap-4 self-end md:pr-20">
-          <p className="lg:text-4xl text-xl font-bold text-zinc-800 self-start">Contato</p>
-          <div className="flex flex-row justify-between items-center w-full gap-4">
-            <input className="bg-yellow-50 border w-full h-fit border-zinc-300 rounded-full p-4" placeholder="Nome" name="nome"></input>
-            <input className="bg-yellow-50 border w-full h-fit border-zinc-300 rounded-full p-4" placeholder="E-mail" name="email"></input>
-          </div>
-          <input className="bg-yellow-50 border w-full h-fit border-zinc-300 rounded-full p-4" placeholder="Assunto" name="assunto"></input>
-          <input className="bg-yellow-50 border w-full h-fit border-zinc-300 rounded-full p-4" placeholder="Mensagem" name="mensagem"></input>
-          <button className="bg-red-600 text-yellow-50 rounded-full px-4 py-1" type="submit">Enviar</button>
-        </form>
+        <div className="flex flex-col w-full items-end md:pr-20">
+          <Formik initialValues={initialValuesRegister}
+            validationSchema={SignupSchema}
+            onSubmit={(values, actions) => {
+              alert(JSON.stringify(values, null, 2));
+              actions.setSubmitting(false);
+            }}>
+            {({ errors, touched }) => (
+              <Form onSubmit={sendEmail} className="flex flex-col lg:gap-3 gap-1 md:w-3/5 w-full justify-center items-end">
+                <p className="lg:text-4xl text-xl font-bold text-zinc-800 self-start">Contato</p>
+                <div className="flex flex-row justify-between items-center w-full gap-4">
+                  <Input id="nome" name={"nome"} label="Nome" type={"text"} errors={errors.nome ?? null} touched={touched.nome ?? null} />
+                  <Input id="email" name={"email"} label="Email" type={"email"} errors={errors.email ?? null} touched={touched.email ?? null} />
+                </div>
+                <Input id="assunto" name={"assunto"} label="Assunto" type={"assunto"} errors={errors.assunto ?? null} touched={touched.assunto ?? null} />
+                <Input id="menssagem" name={"menssagem"} label="Menssagem" type={"menssagem"} errors={errors.menssagem ?? null} touched={touched.menssagem ?? null} />
+                <button className="bg-red-600 text-white hover:bg-red-400 rounded-full h-fit w-fit px-4 py-1 mt-5" type="submit">Enviar</button>
+              </Form>
+            )}
+          </Formik>
+        </div>
       </div>
       <footer className="bottom-0 w-full">
         <Footer links={ancors} />
