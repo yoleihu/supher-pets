@@ -1,5 +1,5 @@
 import { Footer } from "../components/Footer";
-import { FormInput } from "../components/FormInput";
+import { FormInput } from "../components/UserForm";
 import { Navbar } from "../components/Navbar";
 
 export function Login() {

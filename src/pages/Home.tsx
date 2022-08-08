@@ -4,11 +4,8 @@ import { LinksProps, Navbar } from "../components/Navbar";
 import Pets from '../assets/gato-e-cachorro.png';
 import { ButtonNavbar } from "../components/ButtonNavbar";
 import useCollapse from 'react-collapsed';
-import emailjs from '@emailjs/browser';
-import * as Yup from "yup";
-import { Form, Formik } from "formik";
-import { Input } from "../components/Input";
-
+import { ContactForm } from "../components/ContactForm";
+import { ReactElement } from "react";
 
 let ancors: LinksProps[];
 ancors = [
@@ -18,22 +15,34 @@ ancors = [
   { "link": "#quem-somos", "label": "Quem somos" }
 ]
 
+interface AboutItemProps {
+  title: string,
+  text: string,
+  icon: ReactElement
+}
+
+interface DeveloperProps {
+  name: string,
+  descrption: string,
+}
+
 interface CollapseProps {
   question: string,
   response: string,
   number: string
 }
 
-interface FormValuesProps {
-  nome: string,
-  email: string,
-  assunto: string,
-  menssagem: string
-}
-
-export function Check() {
+function AboutItem({ title, text, icon }: AboutItemProps) {
   return (
-    <CheckCircle size={32} color="#57cba1" weight="fill" />
+    <div className="flex md:flex-col flex-row items-center md:w-40 w-full gap-4">
+      <div className="bg-red-600 rounded-full flex items-center justify-center md:w-32 w-20 md:h-32 h-20">
+        {icon}
+      </div>
+      <div className="flex flex-col md:items-center items-start md:w-40 w-full gap-4">
+        <p className=" text-red-600 text-xl font-bold md:text-center text-left">{title}</p>
+        <p className="text-zinc-600 md:text-center text-left">{text}</p>
+      </div>
+    </div>
   )
 }
 
@@ -61,40 +70,19 @@ function CollapsibleFaq({ question, response, number }: CollapseProps) {
   );
 }
 
+function DeveloperItem ({name, descrption} : DeveloperProps) {
+  return(
+    <div className="bg-yellow-50 h-fit w-full rounded-full flex flex-row p-6 items-center justify-between">
+              <div className="gap-4 pl-5">
+                <p className="lg:text-xl font-bold text-zinc-800">{name}</p>
+                <p className="text-lg text-red-600">{descrption}</p>
+              </div>
+              <div className="w-24 h-24 bg-red-600 rounded-full"></div>
+            </div>
+  )
+}
+
 export function Home() {
-  const sendEmail = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-
-    emailjs.sendForm('service_ms7fk94', 'template_sorb2cv', e.currentTarget, 'Dn6OsVlPmO2i-Z0EP')
-      .then((result) => {
-        console.log(result.text);
-      }, (error) => {
-        console.log(error.text);
-      });
-    e.currentTarget.reset();
-  };
-
-  const initialValuesRegister: FormValuesProps = {
-    nome: '',
-    email: '',
-    assunto: '',
-    menssagem: '',
-  }
-
-  const SignupSchema = Yup.object().shape({
-    nome: Yup.string()
-      .min(3, 'O nome deve ter no minímo 3 letras')
-      .matches(/^[A-z]+$/, 'O nome não deve conter números ou caracteres especiais')
-      .required('Campo obrigatório'),
-    email: Yup.string().email('Email inválido')
-      .required('Campo obrigatório'),
-    assunto: Yup.string()
-      .min(3, 'O assunto deve conter no mínimo 3 caracteres')
-      .required('Campo obrigatório'),
-    mensagem: Yup.string()
-      .min(3, 'A menssagem deve conter no mínimo 3 caracteres')
-      .required('Campo obrigatório'),
-  });
 
   return (
     <div className="flex flex-col min-h-screen">
@@ -132,33 +120,15 @@ export function Home() {
             <p className="lg:text-xl font-bold text-zinc-400">Como funciona?</p>
             <p className="lg:text-4xl font-bold text-zinc-800">Principais funcionalidades</p>
             <div className="flex md:flex-row flex-col justify-center items-center md:items-start md:gap-32 gap-6 pt-10">
-              <div className="flex md:flex-col flex-row items-center md:w-40 w-full gap-4">
-                <div className="bg-red-600 rounded-full flex items-center justify-center md:w-32 w-20 md:h-32 h-20">
-                  <NewspaperClipping size={"80"} className="md:h-20 h-10" color="#FFF8ED" weight="fill" />
-                </div>
-                <div className="flex flex-col md:items-center items-start md:w-40 w-full gap-4">
-                  <p className=" text-red-600 text-xl font-bold md:text-center text-left">Cadastro de multiplos pets</p>
-                  <p className="text-zinc-600 md:text-center text-left">Você pode cadastrar todos os seus pets!</p>
-                </div>
-              </div>
-              <div className="flex md:flex-col flex-row items-center md:w-40 w-full gap-4">
-                <div className="bg-red-600 rounded-full flex items-center justify-center md:w-32 w-20 md:h-32 h-20">
-                  <Kanban size={80} className="md:h-20 h-10" color="#FFF8ED" weight="fill" />
-                </div>
-                <div className="flex flex-col md:items-center items-start md:w-40 w-full gap-4">
-                  <p className=" text-red-600 text-xl font-bold md:text-center text-left">Gerenciamento de consultas</p>
-                  <p className="text-zinc-600 md:text-center text-left">Receba notificações sobre as consultas de cada pet e acesse os resultados!</p>
-                </div>
-              </div>
-              <div className="flex md:flex-col flex-row items-center md:w-40 w-full gap-4">
-                <div className="bg-red-600 rounded-full flex items-center justify-center md:w-32 w-20 md:h-32 h-20">
-                  <MagnifyingGlass size={80} className="md:h-20 h-10" color="#FFF8ED" weight="fill" />
-                </div>
-                <div className="flex flex-col md:items-center items-start md:w-40 w-full gap-4">
-                  <p className=" text-red-600 text-xl font-bold md:text-center text-left">Encontre hemocentros</p>
-                  <p className="text-zinc-600 md:text-center text-left">Conheça os bancos de sangue próximos a você!</p>
-                </div>
-              </div>
+              <AboutItem title="Cadastro de multiplos pets"
+                text="Você pode cadastrar todos os seus pets!"
+                icon={<NewspaperClipping size={"80"} className="md:h-20 h-10" color="#FFF8ED" weight="fill" />} />
+              <AboutItem title="Gerenciamento de consultas"
+                text="Receba notificações sobre as consultas de cada pet e acesse os resultados!"
+                icon={<Kanban size={"80"} className="md:h-20 h-10" color="#FFF8ED" weight="fill" />} />
+              <AboutItem title="Encontre hemocentros"
+                text="Conheça os bancos de sangue próximos a você!"
+                icon={<MagnifyingGlass size={"80"} className="md:h-20 h-10" color="#FFF8ED" weight="fill" />} />
             </div>
           </div>
         </section>
@@ -192,43 +162,14 @@ export function Home() {
           <p className="lg:text-xl font-bold text-zinc-600">Quem somos</p>
           <p className="lg:text-4xl text-xl font-bold text-zinc-800">Conheça os idealizadores</p>
           <div className="mt-4 lg:w-full w-full flex lg:flex-row flex-col justify-center md:gap-8 gap-4">
-            <div className="bg-yellow-50 h-fit w-full rounded-full flex flex-row p-6 items-center justify-between">
-              <div className="gap-4 pl-5">
-                <p className="lg:text-xl font-bold text-zinc-800">Giuliana Missio</p>
-                <p className="text-lg text-red-600">Web Developer, 20 anos</p>
-              </div>
-              <div className="w-24 h-24 bg-red-600 rounded-full"></div>
-            </div>
-            <div className="bg-yellow-50 h-fit w-full rounded-full flex flex-row p-6 items-center justify-between">
-              <div className="gap-4 pl-5">
-                <p className="lg:text-xl font-bold text-zinc-800">Yolanda Ferreira</p>
-                <p className="text-lg text-red-600">Web Developer, 20 anos</p>
-              </div>
-              <div className="w-24 h-24 bg-red-600 rounded-full"></div>
-            </div>
+            <DeveloperItem name="Giuliana Missio" descrption="Web Developer, 20 anos"/>
+            <DeveloperItem name="Yolanda Ferreira" descrption="Web Developer, 20 anos"/>
           </div>
         </section>
-        <div className="flex flex-col w-full items-end md:pr-20">
-          <Formik initialValues={initialValuesRegister}
-            validationSchema={SignupSchema}
-            onSubmit={(values, actions) => {
-              alert(JSON.stringify(values, null, 2));
-              actions.setSubmitting(false);
-            }}>
-            {({ errors, touched }) => (
-              <Form onSubmit={sendEmail} className="flex flex-col lg:gap-3 gap-1 md:w-3/5 w-full justify-center items-end">
-                <p className="lg:text-4xl text-xl font-bold text-zinc-800 self-start">Contato</p>
-                <div className="flex flex-row justify-between items-center w-full gap-4">
-                  <Input id="nome" name={"nome"} label="Nome" type={"text"} errors={errors.nome ?? null} touched={touched.nome ?? null} />
-                  <Input id="email" name={"email"} label="Email" type={"email"} errors={errors.email ?? null} touched={touched.email ?? null} />
-                </div>
-                <Input id="assunto" name={"assunto"} label="Assunto" type={"assunto"} errors={errors.assunto ?? null} touched={touched.assunto ?? null} />
-                <Input id="menssagem" name={"menssagem"} label="Menssagem" type={"menssagem"} errors={errors.menssagem ?? null} touched={touched.menssagem ?? null} />
-                <button className="bg-red-600 text-white hover:bg-red-400 rounded-full h-fit w-fit px-4 py-1 mt-5" type="submit">Enviar</button>
-              </Form>
-            )}
-          </Formik>
-        </div>
+
+        <section className="flex flex-col w-full items-end md:pr-20" id="contato">
+          <ContactForm />
+        </section>
       </div>
       <footer className="bottom-0 w-full">
         <Footer links={ancors} />
