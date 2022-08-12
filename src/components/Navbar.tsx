@@ -51,26 +51,28 @@ export function Navbar({ links }: NavbarProps) {
 			</div>
 			<ul className={`
 				mt-0 
-				lg:flex 
+				flex 
 				lg:items-center 
 				lg:justify-end 
-				absolute 
-				lg:pb-0 
-				pb-12 
 				lg:static 
 				lg:z-auto 
-				z-[-1] 
+				lg:pb-0 
+				lg:pl-0 
+				lg:bg-transparent
+				lg:flex-row
+				absolute 
+				pb-12 
 				pr-6 
+				pl-9
+				flex-col
 				w-full 
 				text-right 
-				lg:pl-0 
-				pl-9 
 				transition-all 
-				duration-500 
-				ease-in 
+				ease-in-out 
+				duration-50
+				z-50
 				bg-yellow-50 
-				lg:gap-8
-				lg:bg-transparent ${showNav ? 'right-0 pr-6' : 'right-[-1490px]'} `}
+				${showNav ? 'right-0 pr-6 shadow-md' : 'right-[-100%] transition-all ease-in-out duration-500'} `}
 			>
 				{links?.map((linkProps) => (
 					<li 

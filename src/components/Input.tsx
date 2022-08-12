@@ -35,7 +35,7 @@ export function Input({ id, label, type, name, placeholder, errors, touched, isP
         <button className="text-red-500 underline" onClick={onModal}>Esqueceu a senha?</button>
       }
       </div>
-      <div className="relative flex items-center ">
+      <div className="flex justify-end items-center ">
         <Field
           render={name === ("cpf" || "cnpj") ? ({ field }: any) => (
             name === "cpf" ?
@@ -50,7 +50,7 @@ export function Input({ id, label, type, name, placeholder, errors, touched, isP
           className="shadow placeholder-zinc-500 text-black rounded-full w-full px-3 py-1 lg:text-lg focus:outline-amber-400 "
         />
         {isPassword ?
-          <button type={"button"} className="absolute right-3" onClick={() => setPasswordVisible(!passwordVisible)}>
+          <button type={"button"} className="absolute mr-3" onClick={() => setPasswordVisible(!passwordVisible)}>
             {passwordVisible ?
               <EyeSlash /> :
               <Eye />
