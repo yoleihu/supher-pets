@@ -70,15 +70,15 @@ function CollapsibleFaq({ question, response, number }: CollapseProps) {
   );
 }
 
-function DeveloperItem ({name, descrption} : DeveloperProps) {
+function DeveloperItem({ name, descrption }: DeveloperProps) {
   return(
     <div className="bg-yellow-50 h-fit w-full rounded-full flex flex-row p-6 items-center justify-between">
-              <div className="gap-4 pl-5">
-                <p className="lg:text-xl font-bold text-zinc-800">{name}</p>
-                <p className="text-lg text-red-600">{descrption}</p>
-              </div>
-              <div className="w-24 h-24 bg-red-600 rounded-full"></div>
-            </div>
+      <div className="gap-4 pl-5">
+        <p className="lg:text-xl font-bold text-zinc-800">{name}</p>
+        <p className="text-lg text-red-600">{descrption}</p>
+      </div>
+      <div className="w-24 h-24 bg-red-600 rounded-full"></div>
+    </div>
   )
 }
 
@@ -89,8 +89,8 @@ export function Home() {
       <header>
         <Navbar links={ancors} />
       </header>
-      <div className="lg:px-40 md:px-20 px-5 flex flex-col gap-16">
-        <section className="pt-16 md:pt-40 flex flex-row items-center justify-center" id="welcome">
+      <div className="lg:px-40 md:px-20 px-5 flex flex-col">
+        <section className=" flex flex-row items-center justify-center pt-20" id="welcome">
           <div className="flex md:flex-row justify-between flex-col-reverse">
             <div className="lg:w-3/5 w-full">
               <h1 className=" text-red-600 md:text-5xl text-xl font-bold">Faça do seu pet um herói, agende uma consulta!</h1>
@@ -110,7 +110,7 @@ export function Home() {
           </div>
         </section>
 
-        <section className="flex flex-col gap-6" id="sobre">
+        <section className="flex flex-col pt-20 gap-6" id="sobre">
           <div className="flex flex-col items-center">
             <p className="md:text-4xl text-xl font-bold text-zinc-800 pb-4">Sobre</p>
             <p className="text-base md:w-3/5 w-full md:text-center text-justify">Unimos bancos de sangue veterinário e tutores em um ambiente digital,
@@ -133,21 +133,23 @@ export function Home() {
           </div>
         </section>
 
-        <section className="md:py-16 md:px-10 py-5 lg:px-20 px-4 flex lg:flex-row justify-center items-center flex-col-reverse bg-red-200 rounded-3xl" id="aos-hemocentros">
-          <div className="lg:w-1/2 w-full flex flex-col md:gap-4">
-            <p className="lg:text-xl font-bold text-zinc-600">Aos Hemocentros</p>
-            <p className="lg:text-4xl text-xl font-bold text-zinc-800">Hemocentros e veterinários</p>
-            <p className="text-base text-justify">O SUPHER Pets foi criado para te auxiliar a encontrar doadores e gerenciar consultas. Através dele você pode criar alertas de necessidade, visulizar perfis dos animais e agendar consultas.</p>
-            <div className="text-start">
-              <ButtonNavbar label="Cadastre-se" path='/register' role='primary' type='button' />
+        <section className="pt-20" id="aos-hemocentros">
+          <div className="md:py-16 md:px-10 lg:px-20 px-4 py-5 flex lg:flex-row justify-center items-center flex-col-reverse bg-red-200 rounded-3xl">
+            <div className="lg:w-1/2 w-full flex flex-col md:gap-4">
+              <p className="lg:text-xl font-bold text-zinc-600">Aos Hemocentros</p>
+              <p className="lg:text-4xl text-xl font-bold text-zinc-800">Hemocentros e veterinários</p>
+              <p className="text-base text-justify">O SUPHER Pets foi criado para te auxiliar a encontrar doadores e gerenciar consultas. Através dele você pode criar alertas de necessidade, visulizar perfis dos animais e agendar consultas.</p>
+              <div className="text-start">
+                <ButtonNavbar label="Cadastre-se" path='/register' role='primary' type='button' />
+              </div>
             </div>
-          </div>
-          <div className="lg:w-1/2 items-center justify-center text-center flex w-full">
-            <FirstAidKit size={200} color="#f23326" weight="fill" />
+            <div className="lg:w-1/2 items-center justify-center text-center flex w-full">
+              <FirstAidKit size={200} color="#f23326" weight="fill" />
+            </div>
           </div>
         </section>
 
-        <section className="py-5 lg:px-20 px-2 flex items-start flex-col" id="faq">
+        <section className="lg:px-20 px-2 flex items-start flex-col pt-20" id="faq">
           <p className="lg:text-xl font-bold text-zinc-600">FAQ</p>
           <p className="lg:text-4xl text-xl font-bold text-red-600">Perguntas frequentes</p>
           <div className="flex flex-col w-full gap-4 mt-5">
@@ -158,16 +160,18 @@ export function Home() {
           </div>
         </section>
 
-        <section className="lg:py-16 md:px-10 py-5 lg:px-20 px-4 flex items-start flex-col bg-red-200 rounded-3xl" id="quem-somos">
+        <section className="pt-20" id="quem-somos">
+          <div className="lg:py-16 md:px-10 lg:px-20 py-5 px-4 flex items-start flex-col bg-red-200 rounded-3xl">
           <p className="lg:text-xl font-bold text-zinc-600">Quem somos</p>
           <p className="lg:text-4xl text-xl font-bold text-zinc-800">Conheça os idealizadores</p>
           <div className="mt-4 lg:w-full w-full flex lg:flex-row flex-col justify-center md:gap-8 gap-4">
-            <DeveloperItem name="Giuliana Missio" descrption="Web Developer, 20 anos"/>
-            <DeveloperItem name="Yolanda Ferreira" descrption="Web Developer, 20 anos"/>
+            <DeveloperItem name="Giuliana Missio" descrption="Web Developer, 20 anos" />
+            <DeveloperItem name="Yolanda Ferreira" descrption="Web Developer, 20 anos" />
+          </div>
           </div>
         </section>
 
-        <section className="flex flex-col w-full items-end md:pr-20" id="contato">
+        <section className="flex flex-col w-full items-end md:pr-20 pt-20" id="contato">
           <ContactForm />
         </section>
       </div>
