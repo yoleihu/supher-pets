@@ -16,7 +16,6 @@ export function Footer({ links }: FooterProps) {
 		<footer className="
 			bg-yellow-50
 			border-t
-			mt-16
 			flex 
 			flex-col
 			md:flex-row
@@ -28,12 +27,13 @@ export function Footer({ links }: FooterProps) {
 		>
 			<div className="flex lg:items-center lg:justify-between w-full h-fit">
 				<ul className="
-				flex 
-				md:flex-row
-				flex-col
-				md:items-center 
-				md:justify-start 
-				w-full">
+					flex 
+					md:flex-row
+					flex-col
+					md:items-center 
+					md:justify-start 
+					w-full"
+				>
 					{links?.map((linkProps) => (
 						<li
 							key={linkProps.label}
@@ -45,15 +45,17 @@ export function Footer({ links }: FooterProps) {
 				</ul>
 			</div>
 			<h2 className="
-            text-zinc-500 
-            font-medium
-            text-sm
-            lg:text-base 
-			text-left
-			md:text-right
-            w-full
-            py-5">
-				Copyright © Supher Pets</h2>
+				text-zinc-500 
+				font-medium
+				text-sm
+				lg:text-base 
+				text-left
+				md:text-right
+				w-full
+				py-5"
+			>
+				Copyright © Supher Pets
+			</h2>
 		</footer>
 	)
 }

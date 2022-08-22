@@ -1,7 +1,8 @@
 import { List, X } from 'phosphor-react';
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import Logo from '../assets/logo-supher.png';
+import SmallLogo from '../assets/small-logo-supher.png';
 import { ButtonNavbar } from './ButtonNavbar';
 import { NavLink } from './NavLink';
 
@@ -16,78 +17,102 @@ export type LinksProps = {
 
 export function Navbar({ links }: NavbarProps) {
 	const [showNav, setShowNav] = useState(false);
+	const location = useLocation();
 	const navigate = useNavigate();
+	console.log(location.pathname)
 
 	return (
 		<div className='
+				lg:h-[4.5rem] 
+				lg:flex 
 			bg-yellow-50
 				shadow-md 
 				w-full 
 				fixed 
-				lg:h-24 
-				h-fit 
+				h-16
 				top-0 
 				left-0 
-				lg:flex 
 				items-center 
 				justify-between 
 				py-4 
 				self-center 
 				m-auto'
-			>
+		>
 			<div className='cursor-pointer flex items-center text'>
 				<span>
-					<img src={Logo} className="lg:w-80 w-52 max-h-fit pl-6" onClick={() => navigate('/')} />
+					<img src={Logo} className="lg:w-80 w-52 max-h-fit pl-6 lg:block hidden" onClick={() => navigate('/')} />
+					<img src={SmallLogo} className="lg:w-80 w-[3.75rem] max-h-fit pl-6 lg:hidden block" onClick={() => navigate('/')} />
 				</span>
-			</div>
-			<div
-				onClick={() => setShowNav(!showNav)}
-				className='text-5xl absolute right-0 top-0 p-5 cursor-pointer lg:hidden'
-			>
-				{showNav ?
-					<X size={32} color="#474747" /> :
-					<List size={32} color="#474747" />
+				{(location.pathname !== '/register' && location.pathname !== '/login' && location.pathname !== '/recoverPassword') &&
+					<div
+						onClick={() => setShowNav(!showNav)}
+						className='text-5xl absolute right-0 top-0 p-5 cursor-pointer lg:hidden'
+					>
+						{showNav ?
+							<X size={25} color="#474747" /> :
+							<List size={25} color="#474747" />
+						}
+					</div>
 				}
 			</div>
-			<ul className={`
-				mt-0 
-				flex 
-				lg:items-center 
-				lg:justify-end 
-				lg:static 
-				lg:z-auto 
-				lg:pb-0 
-				lg:pl-0 
+			<div className={`
+				lg:mt-0
+				mt-3
 				lg:bg-transparent
-				lg:flex-row
-				absolute 
-				pb-12 
-				pr-6 
-				pl-9
-				flex-col
-				w-full 
-				text-right 
+				lg:backdrop-blur-none
+				lg:bg-opacity-0
+				lg:h-fit
+				lg:static
+				w-full
+				h-screen
+				absolute
+				justify-end
+				flex
 				transition-all 
 				ease-in-out 
-				duration-50
-				z-50
-				bg-yellow-50 
-				${showNav ? 'right-0 pr-6 shadow-md' : 'right-[-100%] transition-all ease-in-out duration-500'} `}
+				duration-500
+				${showNav ? 'right-0 bg-opacity-30 bg-black backdrop-blur-lg' : 'right-[-100%] '}
+			`}
 			>
-				{links?.map((linkProps) => (
-					<li 
-						onClick={() => setShowNav(false)} 
-						key={linkProps.label} 
-						className='text-xl lg:my-0 my-7'
-					>
-						<NavLink link={linkProps.link} label={linkProps.label} />
-					</li>
-				))}
-				<div className='py-2 items-end flex md:flex-row flex-col lg:gap-8'>
-					<ButtonNavbar type="button" label="Registre-se" path='/register' role='secondary' />
-					<ButtonNavbar type="button" label="Entre" path='/login' role='primary' />
-				</div>
-			</ul>
+				<ul className={`
+					w-3/4
+					rigth-0
+					pb-12 
+					pr-6 
+					pl-9
+					flex
+					text-right 
+					lg:items-center 
+					lg:justify-end 
+					lg:static 
+					lg:z-auto 
+					lg:pb-0 
+					lg:pl-0 
+					lg:gap-8
+					lg:flex-row
+					flex-col
+					bg-yellow-50
+					lg:h-fit
+					h-screen
+				`}
+				>
+					{links?.map((linkProps) => (
+						<li
+							onClick={() => setShowNav(false)}
+							key={linkProps.label}
+							className='text-xl lg:my-0 my-3'
+						>
+							<NavLink link={linkProps.link} label={linkProps.label} />
+						</li>
+					))}
+					{(location.pathname !== '/register' && location.pathname !== '/login' && location.pathname !== '/recoverPassword') &&
+						<div className='py-2 items-end bottom-0 flex lg:flex-row flex-col lg:gap-8'>
+							<ButtonNavbar type="button" label="Registre-se" path='/register' role='secondary' />
+							<ButtonNavbar type="button" label="Entre" path='/login' role='primary' />
+						</div>
+					}
+				</ul>
+			</div>
 		</div>
 	)
 }
