@@ -47,10 +47,10 @@ export function Input({ id, label, type, name, placeholder, errors, touched, isP
           type={handlePassword()}
           placeholder={placeholder}
           name={name}
-          className="shadow placeholder-zinc-500 text-black rounded-full w-full px-3 py-1 lg:text-lg focus:outline-amber-400 "
+          className={`shadow placeholder-zinc-500 text-black w-full px-3 py-1 focus:outline-amber-400 ${isPassword ? 'rounded-l-full' : 'rounded-full'}`}
         />
         {isPassword ?
-          <button type={"button"} className="absolute mr-3" onClick={() => setPasswordVisible(!passwordVisible)}>
+          <button type={"button"} className="px-3 bg-white h-8 rounded-r-full shadow" onClick={() => setPasswordVisible(!passwordVisible)}>
             {passwordVisible ?
               <EyeSlash /> :
               <Eye />
