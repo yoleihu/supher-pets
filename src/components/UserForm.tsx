@@ -15,13 +15,13 @@ interface FormValuesProps {
   confirmPassword: string
 }
 
-interface FormInputProps {
+interface UserFormProps {
   isLogin?: boolean,
   isRegister?: boolean,
   isRecoverPassword?: boolean
 }
 
-export function FormInput({ isLogin, isRegister, isRecoverPassword }: FormInputProps) {
+export function UserForm({ isLogin, isRegister, isRecoverPassword }: UserFormProps) {
   const navigate = useNavigate();
   const [isGuardian, setIsGuardian] = useState(true)
   const [isBloodCenter, setIsBloodCenter] = useState(false)
@@ -67,11 +67,11 @@ export function FormInput({ isLogin, isRegister, isRecoverPassword }: FormInputP
           </div>
         }
 
-        <div className={`bg-yellow-200 lg:p-16 px-6 py-4 h-fit rounded-3xl ${isRecoverPassword ?? 'rounded-tl-none'}`}>
+        <div className={`bg-yellow-200 lg:px-10 lg:py-7 px-6 py-4 h-fit rounded-3xl ${isRecoverPassword ?? 'rounded-tl-none'}`}>
           {isRegister &&
             <>
-              <div className="flex flex-col lg:gap-6">
-                <h2 className="lg:text-3xl text-2xl font-semibold text-zinc-800 text-center">Cadastre-se</h2>
+              <div className="flex flex-col lg:gap-2">
+                <h2 className="lg:text-2xl text-xl font-semibold text-zinc-800 text-center">Cadastre-se</h2>
                 <Formik
                   initialValues={initialValuesRegister}
                   validationSchema={SignupSchema}
@@ -81,7 +81,7 @@ export function FormInput({ isLogin, isRegister, isRecoverPassword }: FormInputP
                   }}
                 >
                   {({ errors, touched }) => (
-                    <Form className="flex flex-col lg:gap-3 gap-1 justify-center items-center">
+                    <Form className="flex flex-col lg:gap-2 gap-1 justify-center items-center">
                       <Input id="name" name={"name"} label="Nome" type={"text"} errors={errors.name ?? null} touched={touched.name ?? null} />
                       {isGuardian ?
                         <Input id="cpf" name={"cpf"} label="CPF" type={"text"} errors={errors.cpf ?? null} touched={touched.cpf ?? null} /> :
@@ -105,10 +105,10 @@ export function FormInput({ isLogin, isRegister, isRecoverPassword }: FormInputP
 
           {isLogin &&
             <>
-              <div className="flex flex-col gap-6">
-                <h2 className="text-3xl font-semibold text-zinc-800 text-center">Login</h2>
+              <div className="flex flex-col gap-2">
+                <h2 className="lg:text-2xl text-xl font-semibold text-zinc-800 text-center">Login</h2>
                 <Formik
-                  initialValues={{email: '', password: ''}}
+                  initialValues={{ email: '', password: '' }}
                   validationSchema={SignupSchema}
                   onSubmit={(values, actions) => {
                     alert(JSON.stringify(values, null, 2));
@@ -116,7 +116,7 @@ export function FormInput({ isLogin, isRegister, isRecoverPassword }: FormInputP
                   }}
                 >
                   {({ errors, touched }) => (
-                    <Form className="flex flex-col gap-3 justify-center items-center">
+                    <Form className="flex flex-col gap-2 justify-center items-center">
                       <Input id="email" name={"email"} label="Email" type={"email"} errors={errors.email ?? null} touched={touched.email ?? null} />
                       <Input id="password" name={"password"} label="Senha" type={"password"} errors={errors.password ?? null} touched={touched.password ?? null} isPassword isLogin onModal={() => setIsModalOpen(true)} />
 
@@ -167,13 +167,13 @@ export function FormInput({ isLogin, isRegister, isRecoverPassword }: FormInputP
               }
             </>
           }
-          
+
           {isRecoverPassword &&
             <>
               <div className="flex flex-col lg:gap-6">
                 <h2 className="lg:text-3xl text-2xl font-semibold text-zinc-800 text-center">Nova senha</h2>
                 <Formik
-                  initialValues={{password: '', confirmPassword: ''}}
+                  initialValues={{ password: '', confirmPassword: '' }}
                   validationSchema={SignupSchema}
                   onSubmit={(values, actions) => {
                     alert(JSON.stringify(values, null, 2));

@@ -1,15 +1,17 @@
 import { Footer } from "../components/Footer";
-import { FormInput } from "../components/UserForm";
+import { UserForm } from "../components/UserForm";
 import { Navbar } from "../components/Navbar";
 
 export function Register() {
   return (
     <>
-      <Navbar />
-      <section className="lg:mt-28 mt-20 mb-3 lg:mb-0">
-        <FormInput isRegister />
+      <header>
+        <Navbar />
+      </header>
+      <section className="lg:mt-20 mt-20 mb-1">
+        <UserForm isRegister />
       </section>
-      <footer className="mt-5">
+      <footer className="mt-6">
         <Footer />
       </footer>
     </>
