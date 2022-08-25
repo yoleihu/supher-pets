@@ -38,7 +38,7 @@ export function Navbar({ links }: NavbarProps) {
 				self-center 
 				m-auto'
 		>
-			<div className='cursor-pointer flex items-center text'>
+			<div className='flex items-center text'>
 				<span>
 					<img src={Logo} className="lg:w-80 w-52 max-h-fit pl-6 lg:block hidden" onClick={() => navigate('/')} />
 					<img src={SmallLogo} className="lg:w-80 w-[3.75rem] max-h-fit pl-6 lg:hidden block" onClick={() => navigate('/')} />
@@ -46,7 +46,7 @@ export function Navbar({ links }: NavbarProps) {
 				{(location.pathname !== '/register' && location.pathname !== '/login' && location.pathname !== '/recoverPassword') &&
 					<div
 						onClick={() => setShowNav(!showNav)}
-						className='text-5xl absolute right-0 top-0 p-5 cursor-pointer lg:hidden'
+						className='text-5xl absolute right-0 top-0 p-5 lg:hidden'
 					>
 						{showNav ?
 							<X size={25} color="#474747" /> :
@@ -56,13 +56,10 @@ export function Navbar({ links }: NavbarProps) {
 				}
 			</div>
 			<div className={`
-				lg:mt-0
-				mt-3
-				lg:bg-transparent
-				lg:backdrop-blur-none
-				lg:bg-opacity-0
 				lg:h-fit
 				lg:static
+				lg:mt-0
+				mt-3
 				w-full
 				h-screen
 				absolute
@@ -71,9 +68,20 @@ export function Navbar({ links }: NavbarProps) {
 				transition-all 
 				ease-in-out 
 				duration-500
-				${showNav ? 'right-0 bg-opacity-30 bg-black backdrop-blur-lg' : 'right-[-100%] '}
-			`}
+				${showNav ? 'right-0' : 'right-[-100%] '}`}
 			>
+				<div className={`
+					lg:bg-transparent
+					lg:backdrop-blur-none
+					lg:bg-opacity-0
+					h-full
+					w-1/4
+					transition-all
+					duration-500	
+					${showNav ? 'bg-opacity-30 bg-black backdrop-blur-lg' : 'bg-transparent'}
+					`}
+					onClick={() => setShowNav(!showNav)}
+				/>
 				<ul className={`
 					w-3/4
 					rigth-0
@@ -94,19 +102,20 @@ export function Navbar({ links }: NavbarProps) {
 					bg-yellow-50
 					lg:h-fit
 					h-screen
+					items-end
 				`}
 				>
 					{links?.map((linkProps) => (
 						<li
 							onClick={() => setShowNav(false)}
 							key={linkProps.label}
-							className='text-xl lg:my-0 my-3'
+							className='text-xl lg:my-0 my-3 w-fit	items-center'
 						>
 							<NavLink link={linkProps.link} label={linkProps.label} />
 						</li>
 					))}
 					{(location.pathname !== '/register' && location.pathname !== '/login' && location.pathname !== '/recoverPassword') &&
-						<div className='py-2 items-end bottom-0 flex lg:flex-row flex-col lg:gap-8'>
+						<div className='py-2 items-end bottom-0 flex lg:flex-row flex-col lg:gap-8 w-full lg:w-fit'>
 							<ButtonNavbar type="button" label="Registre-se" path='/register' role='secondary' />
 							<ButtonNavbar type="button" label="Entre" path='/login' role='primary' />
 						</div>
