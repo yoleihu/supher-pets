@@ -58,11 +58,11 @@ export function ContactForm() {
                 <Form onSubmit={sendEmail} className="flex flex-col lg:gap-3 gap-1 md:w-3/5 w-full justify-center items-end">
                     <p className="lg:text-4xl text-xl font-bold text-zinc-800 self-start">Contato</p>
                     <div className="flex flex-row justify-between items-center w-full gap-4">
-                        <Input id="nome" name={"nome"} label="Nome" type={"text"} errors={errors.nome ?? null} touched={touched.nome ?? null} />
-                        <Input id="email" name={"email"} label="Email" type={"email"} errors={errors.email ?? null} touched={touched.email ?? null} />
+                        <Input id="nome" name={"nome"} placeholder="Nome" type={"text"} errors={errors.nome ?? null} touched={touched.nome ?? null} />
+                        <Input id="email" name={"email"} placeholder="Email" type={"email"} errors={errors.email ?? null} touched={touched.email ?? null} />
                     </div>
-                    <Input id="assunto" name={"assunto"} label="Assunto" type={"assunto"} errors={errors.assunto ?? null} touched={touched.assunto ?? null} />
-                    <Input id="menssagem" name={"menssagem"} label="Menssagem" type={"menssagem"} errors={errors.menssagem ?? null} touched={touched.menssagem ?? null} />
+                    <Input id="assunto" name={"assunto"} placeholder="Assunto" type={"assunto"} errors={errors.assunto ?? null} touched={touched.assunto ?? null} />
+                    <Input id="menssagem" name={"menssagem"} placeholder="Menssagem" type={"menssagem"} errors={errors.menssagem ?? null} touched={touched.menssagem ?? null} />
                     <button className="bg-red-600 text-white hover:bg-red-400 rounded-full h-fit w-fit px-4 py-1 mt-5" type="submit">Enviar</button>
                 </Form>
             )}
