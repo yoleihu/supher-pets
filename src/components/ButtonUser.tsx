@@ -1,13 +1,18 @@
-import { FirstAid, PawPrint } from "phosphor-react"
+import { FirstAid, PawPrint } from "phosphor-react";
 
 interface ButtonUserProps {
-  label: string,
-  isGuardian?: boolean,
-  isBloodCenter?: boolean,
-  onChangeUser: () => void
+  label: string;
+  isGuardian?: boolean;
+  isBloodCenter?: boolean;
+  onChangeUser: () => void;
 }
 
-export function ButtonUser({ label, isGuardian, isBloodCenter, onChangeUser }: ButtonUserProps) {
+export function ButtonUser({
+  label,
+  isGuardian,
+  isBloodCenter,
+  onChangeUser,
+}: ButtonUserProps) {
   return (
     <button
       className={`
@@ -25,16 +30,17 @@ export function ButtonUser({ label, isGuardian, isBloodCenter, onChangeUser }: B
         items-center
         transition-all
         duration-500
-        ${label === 'Hemocentro' ? 'rounded-l-none' : 'rounded-r-none'}
-        ${isGuardian || isBloodCenter ? 'bg-zinc-200 shadow-inner text-zinc-600' : 'bg-white '} 
+        ${label === "Hemocentro" ? "rounded-l-none" : "rounded-r-none"}
+        ${
+          isGuardian || isBloodCenter
+            ? "bg-zinc-200 shadow-inner text-zinc-600"
+            : "bg-white "
+        } 
       `}
       onClick={onChangeUser}
     >
-      {label === 'Hemocentro' ?
-        <FirstAid /> :
-        <PawPrint />
-      }
+      {label === "Hemocentro" ? <FirstAid /> : <PawPrint />}
       {label}
     </button>
-  )
+  );
 }

@@ -4,20 +4,20 @@ import { Navbar } from "../components/Navbar";
 import { useEffect, useState } from "react";
 
 export function RecoverPassword() {
-  const [hasScroolbar, setHasScroolbar] = useState<boolean>()
+  const [hasScroolbar, setHasScroolbar] = useState<boolean>();
 
   useEffect(() => {
     const updateWindow = () => {
-      if ((document.documentElement.offsetHeight + 61) > window.innerHeight) {
-        setHasScroolbar(true)
+      if (document.documentElement.offsetHeight + 61 > window.innerHeight) {
+        setHasScroolbar(true);
       } else {
-        setHasScroolbar(false)
+        setHasScroolbar(false);
       }
     };
-    updateWindow()
+    updateWindow();
     window.addEventListener("resize", updateWindow);
-    return () => window.removeEventListener("resize", updateWindow)
-  }, [])
+    return () => window.removeEventListener("resize", updateWindow);
+  }, []);
 
   return (
     <>
@@ -25,9 +25,11 @@ export function RecoverPassword() {
       <section className="lg:mt-32 sm:mt-20 mt-44 mb-6">
         <UserForm isRecoverPassword />
       </section>
-      <footer className={`w-full ${hasScroolbar ? 'static' : 'bottom-0 absolute'}`}>
+      <footer
+        className={`w-full ${hasScroolbar ? "static" : "bottom-0 absolute"}`}
+      >
         <Footer />
       </footer>
     </>
-  )
+  );
 }
