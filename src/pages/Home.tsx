@@ -106,10 +106,7 @@ export function Home() {
         <Navbar links={ancors} />
       </header>
       <div className="lg:px-40 md:px-20 px-5 flex flex-col">
-        <section
-          className=" flex flex-row items-center justify-center pt-24"
-          id="welcome"
-        >
+        <section className=" flex flex-row items-center justify-center lg:pt-28 pt-20" id="welcome">
           <div className="flex md:flex-row justify-between flex-col-reverse">
             <div className="lg:w-3/5 w-full">
               <h1 className=" text-red-600 md:text-5xl text-xl font-bold">

@@ -1,4 +1,4 @@
-import { List, X } from "phosphor-react";
+  import { List, X } from "phosphor-react";
 import { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import Logo from "../assets/logo-supher.png";
@@ -16,10 +16,9 @@ export type LinksProps = {
 };
 
 export function Navbar({ links }: NavbarProps) {
-  const [showNav, setShowNav] = useState(false);
-  const location = useLocation();
-  const navigate = useNavigate();
-  console.log(location.pathname);
+	const [showNav, setShowNav] = useState(false);
+	const location = useLocation();
+	const navigate = useNavigate();
 
   return (
     <div
@@ -119,36 +118,24 @@ export function Navbar({ links }: NavbarProps) {
 					h-screen
 					items-end
 				`}
-        >
-          {links?.map((linkProps) => (
-            <li
-              onClick={() => setShowNav(false)}
-              key={linkProps.label}
-              className="text-xl lg:my-0 my-3 w-fit	items-center"
-            >
-              <NavLink link={linkProps.link} label={linkProps.label} />
-            </li>
-          ))}
-          {location.pathname !== "/register" &&
-            location.pathname !== "/login" &&
-            location.pathname !== "/recoverPassword" && (
-              <div className="py-2 items-end bottom-0 flex lg:flex-row flex-col lg:gap-8 w-full lg:w-fit">
-                <ButtonNavbar
-                  type="button"
-                  label="Registre-se"
-                  path="/register"
-                  role="secondary"
-                />
-                <ButtonNavbar
-                  type="button"
-                  label="Entre"
-                  path="/login"
-                  role="primary"
-                />
-              </div>
-            )}
-        </ul>
-      </div>
-    </div>
-  );
+				>
+					{links?.map((linkProps) => (
+						<li
+							onClick={() => setShowNav(false)}
+							key={linkProps.label}
+							className='text-xl lg:my-0 my-3 w-fit	items-center'
+						>
+							<NavLink link={linkProps.link} label={linkProps.label} />
+						</li>
+					))}
+					{(location.pathname !== '/register' && location.pathname !== '/login' && location.pathname !== '/recoverPassword') &&
+						<div className='py-2 items-end bottom-0 flex lg:flex-row flex-col lg:gap-8 w-full lg:w-fit'>
+							<ButtonNavbar type="button" label="Registre-se" path='/register' role='secondary' />
+							<ButtonNavbar type="button" label="Entre" path='/login' role='primary' />
+						</div>
+					}
+				</ul>
+			</div>
+		</div>
+	)
 }
