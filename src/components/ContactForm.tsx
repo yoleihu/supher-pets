@@ -1,71 +1,103 @@
-import { Formik, Form } from "formik";
-import { Input } from "./Input";
+import { useFormik } from "formik";
 import * as Yup from "yup";
 import emailjs from '@emailjs/browser';
-
+import { TextField } from "./TextField";
 
 interface FormValuesProps {
-    nome: string,
-    email: string,
-    assunto: string,
-    menssagem: string
+	name: string,
+	email: string,
+	subject: string,
+	message: string
 }
 
 export function ContactForm() {
 
-    const sendEmail = (e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault();
+	const sendEmail = (e: React.FormEvent<HTMLFormElement>) => {
+		e.preventDefault();
 
-        emailjs.sendForm('service_ms7fk94', 'template_sorb2cv', e.currentTarget, 'Dn6OsVlPmO2i-Z0EP')
-            .then((result) => {
-                alert("Mensagem enviada com sucesso");
-            }, (error) => {
-                alert("Erro ao enviar mensagem");
-            });
-        e.currentTarget.reset();
-    };
+		emailjs.sendForm('service_ms7fk94', 'template_sorb2cv', e.currentTarget, 'Dn6OsVlPmO2i-Z0EP')
+			.then((result) => {
+				alert("Mensagem enviada com sucesso");
+			}, (error) => {
+				alert("Erro ao enviar mensagem");
+			});
+		e.currentTarget.reset();
+	};
 
-    const initialValuesRegister: FormValuesProps = {
-        nome: '',
-        email: '',
-        assunto: '',
-        menssagem: '',
-    }
+	const initialValues: FormValuesProps = {
+		name: '',
+		email: '',
+		subject: '',
+		message: '',
+	}
 
-    const SignupSchema = Yup.object().shape({
-        nome: Yup.string()
-            .min(3, 'O nome deve ter no minímo 3 letras')
-            .matches(/^[A-z]+$/, 'O nome não deve conter números ou caracteres especiais')
-            .required('Campo obrigatório'),
-        email: Yup.string().email('Email inválido')
-            .required('Campo obrigatório'),
-        assunto: Yup.string()
-            .min(3, 'O assunto deve conter no mínimo 3 caracteres')
-            .required('Campo obrigatório'),
-        mensagem: Yup.string()
-            .min(3, 'A menssagem deve conter no mínimo 3 caracteres')
-            .required('Campo obrigatório'),
-    });
+	const validationSchema = Yup.object().shape({
+		name: Yup.string()
+			.min(3, 'O nome deve ter no minímo 3 letras')
+			.matches(/^[A-z]+$/, 'O nome não deve conter números ou caracteres especiais')
+			.required('Campo obrigatório'),
+		email: Yup.string().email('Email inválido')
+			.required('Campo obrigatório'),
+		subject: Yup.string()
+			.min(3, 'O assunto deve conter no mínimo 3 caracteres')
+			.required('Campo obrigatório'),
+		message: Yup.string()
+			.min(3, 'A menssagem deve conter no mínimo 3 caracteres')
+			.required('Campo obrigatório'),
+	});
 
-    return (
-        <Formik initialValues={initialValuesRegister}
-            validationSchema={SignupSchema}
-            onSubmit={(values, actions) => {
-                alert(JSON.stringify(values, null, 2));
-                actions.setSubmitting(false);
-            }}>
-            {({ errors, touched }) => (
-                <Form onSubmit={sendEmail} className="flex flex-col lg:gap-3 gap-1 md:w-3/5 w-full justify-center items-end">
-                    <p className="lg:text-4xl text-xl font-bold text-zinc-800 self-start">Contato</p>
-                    <div className="flex flex-row justify-between items-center w-full gap-4">
-                        <Input id="nome" name={"nome"} label="Nome" type={"text"} errors={errors.nome ?? null} touched={touched.nome ?? null} />
-                        <Input id="email" name={"email"} label="Email" type={"email"} errors={errors.email ?? null} touched={touched.email ?? null} />
-                    </div>
-                    <Input id="assunto" name={"assunto"} label="Assunto" type={"assunto"} errors={errors.assunto ?? null} touched={touched.assunto ?? null} />
-                    <Input id="menssagem" name={"menssagem"} label="Menssagem" type={"menssagem"} errors={errors.menssagem ?? null} touched={touched.menssagem ?? null} />
-                    <button className="bg-red-600 text-white hover:bg-red-400 rounded-full h-fit w-fit px-4 py-1 mt-5" type="submit">Enviar</button>
-                </Form>
-            )}
-        </Formik>
-    )
+	const formik = useFormik<FormValuesProps>({
+		initialValues,
+		onSubmit: (values) => { console.log(values) },
+		validationSchema
+	});
+
+	const { values, setFieldValue, handleSubmit, handleBlur, touched, errors } = formik;
+
+	return (
+		<>
+			<form className="flex flex-col lg:gap-3 gap-1 md:w-3/5 w-full justify-center items-end" onSubmit={handleSubmit}>
+			<h2 className="lg:text-4xl text-xl font-bold text-zinc-800 self-start">Contato</h2>
+			<div className="flex flex-row justify-between items-center w-full gap-4">
+			<TextField
+          name="name"
+          placeholder="Nome"
+          value={values.name}
+          onChange={(value) => { setFieldValue('name', value) }}
+          onBlur={handleBlur}
+          errorMessage={(touched.name && errors.name) ? errors.name : undefined}
+        />
+        <TextField
+          name="email"
+          placeholder="Email"
+          value={values.email}
+          onChange={(value) => { setFieldValue('email', value) }}
+          onBlur={handleBlur}
+          errorMessage={(touched.email && errors.email) ? errors.email : undefined}
+        />
+			</div>
+        <TextField
+          name="subject"
+          placeholder="Assunto"
+          value={values.subject}
+          onChange={(value) => { setFieldValue('subject', value) }}
+          onBlur={handleBlur}
+          errorMessage={(touched.subject && errors.subject) ? errors.subject : undefined}
+        />
+        <TextField
+          name="message"
+          placeholder="Mensagem"
+          value={values.message}
+          onChange={(value) => { setFieldValue('message', value) }}
+          onBlur={handleBlur}
+          errorMessage={(touched.message && errors.message) ? errors.message : undefined}
+        />
+
+        <div className="flex flex-col items-center">
+          <button className="bg-sky-800 text-white hover:bg-sky-700 rounded-full h-10 w-fit mt-5 px-4" type="submit">Enviar</button>
+        </div>
+      </form>
+
+		</>
+	)
 }
