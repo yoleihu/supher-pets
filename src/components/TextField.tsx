@@ -66,14 +66,14 @@ export const TextField: FunctionComponent<TextFieldProps> = ({ ...props }) => {
           autoFocus={props.autoFocus}
           className="bg-transparent border-b-[1px] border-zinc-400 placeholder-zinc-400 text-black px-3 py-1 focus:outline-none w-full"
         />
-        {props.isPassword ?
-          <button type={"button"} className="px-3 bg-white h-[2.063rem] border-b-[1px] border-zinc-400" onClick={() => setPasswordVisible(!passwordVisible)}>
-            {passwordVisible ?
-              <EyeSlash /> :
-              <Eye />
+        {props.isPassword
+          ? <button type={"button"} className="px-3 bg-white h-[2.063rem] border-b-[1px] border-zinc-400" onClick={() => setPasswordVisible(!passwordVisible)}>
+            {passwordVisible
+              ? <EyeSlash />
+              : <Eye />
             }
-          </button> :
-          null}
+          </button>
+          : null}
       </div>
       {props.errorMessage && (
         <span className="text-red-600 text-xs">
