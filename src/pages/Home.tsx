@@ -1,7 +1,6 @@
 import {
   CaretDown,
   CaretLeft,
-  CaretRight,
   CheckCircle,
   FirstAidKit,
   Kanban,
@@ -103,7 +102,12 @@ export function Home() {
   return (
     <div className="flex flex-col min-h-screen">
       <header>
-        <Navbar links={ancors} />
+        <Navbar links={ancors}>
+          <div className='py-2 items-end bottom-0 flex lg:flex-row flex-col lg:gap-8 w-full lg:w-fit'>
+            <ButtonNavbar type="button" label="Registre-se" path='/register' role='secondary' />
+            <ButtonNavbar type="button" label="Entre" path='/login' role='primary' />
+          </div>
+        </Navbar>
       </header>
       <div className="lg:px-40 md:px-20 px-5 flex flex-col">
         <section className=" flex flex-row items-center justify-center lg:pt-28 pt-20" id="welcome">
