@@ -1,5 +1,4 @@
-import { ButtonNavbar } from "./ButtonNavbar";
-import { ButtonUser } from "./ButtonUser";
+import { useEffect, useState } from "react";
 import { NavLink } from "./NavLink";
 
 interface FooterProps {
@@ -12,9 +11,24 @@ export type LinksProps = {
 };
 
 export function Footer({ links }: FooterProps) {
+  const [hasScroolbar, setHasScroolbar] = useState<boolean>();
+
+  useEffect(() => {
+    const updateWindow = () => {
+      if (document.documentElement.offsetHeight + 61 > window.innerHeight) {
+        setHasScroolbar(true);
+      } else {
+        setHasScroolbar(false);
+      }
+    };
+    updateWindow();
+    window.addEventListener("resize", updateWindow);
+    return () => window.removeEventListener("resize", updateWindow);
+  }, []);
+
   return (
     <footer
-      className="
+      className={`
 			bg-yellow-50
 			border-t
 			flex 
@@ -24,7 +38,10 @@ export function Footer({ links }: FooterProps) {
 			md:justify-between
 			md:px-20
 			lg:px-44
-			px-6"
+			px-6
+      w-full
+      ${hasScroolbar ? "static" : "bottom-0 absolute"}
+      `}
     >
       <div className="flex lg:items-center lg:justify-between w-full h-fit">
         <ul
