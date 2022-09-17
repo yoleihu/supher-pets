@@ -2,6 +2,8 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import emailjs from '@emailjs/browser';
 import { TextField } from "./TextField";
+import { useState } from "react";
+import { ButtonAsync } from "./ButtonAsync";
 
 interface FormValuesProps {
 	name: string,
@@ -11,17 +13,25 @@ interface FormValuesProps {
 }
 
 export function ContactForm() {
+	const [isLoading, setIsLoading] = useState(false);
+	const [toSend, setToSend] = useState({
+		name: '',
+		email: '',
+		subject: '',
+		message: '',
+	});
 
-	const sendEmail = (e: React.FormEvent<HTMLFormElement>) => {
-		e.preventDefault();
 
-		emailjs.sendForm('service_ms7fk94', 'template_sorb2cv', e.currentTarget, 'Dn6OsVlPmO2i-Z0EP')
-			.then((result) => {
-				alert("Mensagem enviada com sucesso");
-			}, (error) => {
-				alert("Erro ao enviar mensagem");
-			});
-		e.currentTarget.reset();
+	const sendEmail = async () => {
+		try {
+			setIsLoading(true)
+			emailjs.send('service_ms7fk94', 'template_sorb2cv', toSend, 'Dn6OsVlPmO2i-Z0EP')
+			console.log("Mensagem enviada com sucesso");
+		} catch (error) {
+			alert("Erro ao enviar mensagem");
+		} finally {
+			setIsLoading(false)
+		}
 	};
 
 	const initialValues: FormValuesProps = {
@@ -48,55 +58,64 @@ export function ContactForm() {
 
 	const formik = useFormik<FormValuesProps>({
 		initialValues,
-		onSubmit: (values) => { console.log(values) },
+		onSubmit: (values, { resetForm }) => { sendEmail(); resetForm() },
 		validationSchema
 	});
 
-	const { values, setFieldValue, handleSubmit, handleBlur, touched, errors } = formik;
+	const { values, setFieldValue, handleSubmit, handleBlur, touched, errors, isValid } = formik;
 
 	return (
 		<>
 			<form className="flex flex-col lg:gap-3 gap-1 md:w-3/5 w-full justify-center items-end" onSubmit={handleSubmit}>
-			<h2 className="lg:text-4xl text-xl font-bold text-zinc-800 self-start">Contato</h2>
-			<div className="flex flex-row justify-between items-center w-full gap-4">
-			<TextField
-          name="name"
-          placeholder="Nome"
-          value={values.name}
-          onChange={(value) => { setFieldValue('name', value) }}
-          onBlur={handleBlur}
-          errorMessage={(touched.name && errors.name) ? errors.name : undefined}
-        />
-        <TextField
-          name="email"
-          placeholder="Email"
-          value={values.email}
-          onChange={(value) => { setFieldValue('email', value) }}
-          onBlur={handleBlur}
-          errorMessage={(touched.email && errors.email) ? errors.email : undefined}
-        />
-			</div>
-        <TextField
-          name="subject"
-          placeholder="Assunto"
-          value={values.subject}
-          onChange={(value) => { setFieldValue('subject', value) }}
-          onBlur={handleBlur}
-          errorMessage={(touched.subject && errors.subject) ? errors.subject : undefined}
-        />
-        <TextField
-          name="message"
-          placeholder="Mensagem"
-          value={values.message}
-          onChange={(value) => { setFieldValue('message', value) }}
-          onBlur={handleBlur}
-          errorMessage={(touched.message && errors.message) ? errors.message : undefined}
-        />
+				<h2 className="lg:text-4xl text-xl font-bold text-zinc-800 self-start">Contato</h2>
+				<div className="flex flex-row justify-between items-center w-full gap-4">
+					<TextField
+						name="name"
+						placeholder="Nome"
+						value={values.name}
+						onChange={(value) => { setFieldValue('name', value); setToSend({ ...toSend, name: value }) }}
+						onBlur={handleBlur}
+						errorMessage={(touched.name && errors.name) ? errors.name : undefined}
+					/>
+					<TextField
+						name="email"
+						placeholder="Email"
+						value={values.email}
+						onChange={(value) => { setFieldValue('email', value); setToSend({ ...toSend, email: value }) }}
+						onBlur={handleBlur}
+						errorMessage={(touched.email && errors.email) ? errors.email : undefined}
+					/>
+				</div>
+				<TextField
+					name="subject"
+					placeholder="Assunto"
+					value={values.subject}
+					onChange={(value) => { setFieldValue('subject', value); setToSend({ ...toSend, subject: value }) }}
+					onBlur={handleBlur}
+					errorMessage={(touched.subject && errors.subject) ? errors.subject : undefined}
+				/>
+				<TextField
+					name="message"
+					placeholder="Mensagem"
+					value={values.message}
+					onChange={(value) => { setFieldValue('message', value); setToSend({ ...toSend, message: value }) }}
+					onBlur={handleBlur}
+					errorMessage={(touched.message && errors.message) ? errors.message : undefined}
+				/>
 
-        <div className="flex flex-col items-center">
-          <button className="bg-sky-800 text-white hover:bg-sky-700 rounded-full h-10 w-fit mt-5 px-4" type="submit">Enviar</button>
-        </div>
-      </form>
+				<div className="flex flex-col items-center">
+					<ButtonAsync
+						isLoading={isLoading}
+						disabled={isLoading || !isValid}
+						className="bg-sky-800 text-white hover:bg-sky-700 rounded-full h-10 w-fit mt-5 px-4 flex justify-center items-center disabled:bg-gray-300 disabled:text-gray-700" type="submit"
+					>
+						<>
+						{console.log(isValid)}
+						Enviar
+						</>
+					</ButtonAsync>
+				</div>
+			</form>
 
 		</>
 	)

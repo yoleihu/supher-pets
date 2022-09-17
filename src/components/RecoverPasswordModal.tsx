@@ -1,9 +1,10 @@
 import { Modal } from "./Modal";
-
+import emailjs from '@emailjs/browser';
 import * as Yup from "yup";
 import { useFormik } from "formik";
 import { TextField } from "./TextField";
-import { useNavigate } from "react-router-dom";
+import { useState } from "react";
+import { ButtonAsync } from "./ButtonAsync";
 
 interface RecoverPasswordModalProps {
   onClose: () => void
@@ -14,7 +15,23 @@ interface FormValuesProps {
 }
 
 export const RecoverPasswordModal = ({ onClose }: RecoverPasswordModalProps) => {
-  const navigate = useNavigate();
+  const [isLoading, setIsLoading] = useState(false);
+  const [toSend, setToSend] = useState({
+    from_email: '',
+    token: '123456',
+  });
+
+  const sendEmail = async () => {
+    try {
+      setIsLoading(true)
+      emailjs.send('service_a7m1m8i', 'template_1xf8ift', toSend, 'Dn6OsVlPmO2i-Z0EP')
+      console.log("Mensagem enviada com sucesso");
+     } catch (error) {
+      alert("Erro ao enviar mensagem");
+     } finally {
+      setIsLoading(false)
+     }
+  };
 
   const initialValues: FormValuesProps = {
     email: '',
@@ -28,8 +45,8 @@ export const RecoverPasswordModal = ({ onClose }: RecoverPasswordModalProps) => 
 
   const formik = useFormik<FormValuesProps>({
     initialValues,
-    onSubmit: (values) => { console.log(values) },
-    validationSchema
+    onSubmit: () => { sendEmail(); onClose() },
+    validationSchema,
   });
 
   const { values, setFieldValue, handleSubmit, handleBlur, touched, errors } = formik;
@@ -41,26 +58,27 @@ export const RecoverPasswordModal = ({ onClose }: RecoverPasswordModalProps) => 
           name="email"
           placeholder="Email"
           value={values.email}
-          onChange={(value) => { setFieldValue('email', value) }}
+          onChange={(value) => { setFieldValue('email', value); setToSend({ ...toSend, from_email: value }) }}
           onBlur={handleBlur}
           errorMessage={(touched.email && errors.email) ? errors.email : undefined}
         />
 
-        <div className="w-3/5 flex items-center justify-center p-6 gap-2 ">
+        <div className="w-fit flex items-center justify-center lg:p-6 p-2 gap-2 ">
           <button
-            className="text-sky-800 hover:text-sky-700 border border-sky-800 hover:border-sky-700 rounded-full h-10 w-3/4 mt-5"
+            className="text-sky-800 hover:text-sky-700 border border-sky-800 hover:border-sky-700 rounded-full h-10 w-fit px-3 mt-5"
             type="button"
             onClick={onClose}
           >
             Cancelar
           </button>
-          <button
-            className="bg-sky-800 text-white hover:bg-sky-700 rounded-full h-10 w-3/4 mt-5"
-            onClick={() => navigate('/recoverPassword')}
+          <ButtonAsync
+            className="bg-sky-800 text-white hover:bg-sky-700 rounded-full h-10 w-fit px-3 mt-5 flex items-center justify-center gap-1"
             type="submit"
+            isLoading={isLoading}
+            disabled={isLoading}
           >
             Enviar email
-          </button>
+          </ButtonAsync>
         </div>
       </form>
     </Modal>
