@@ -1,6 +1,6 @@
 import * as Yup from "yup";
 import { useFormik } from "formik";
-import { TextField } from "./TextField";
+import { TextField } from "../TextField";
 
 interface FormValuesProps {
   password: string,

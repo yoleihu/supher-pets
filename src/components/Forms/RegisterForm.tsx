@@ -1,9 +1,9 @@
 import * as Yup from "yup";
 import { useFormik } from "formik";
-import { formatPhoneNumber } from "../utils/mask/phoneMask";
-import { TextField } from "./TextField";
-import { formatCnpj } from "../utils/mask/cnpjMask";
-import { formatCpf } from "../utils/mask/cpfMask";
+import { formatPhoneNumber } from "../../utils/mask/phoneMask";
+import { TextField } from "../TextField";
+import { formatCnpj } from "../../utils/mask/cnpjMask";
+import { formatCpf } from "../../utils/mask/cpfMask";
 
 interface FormValuesProps {
   name: string,

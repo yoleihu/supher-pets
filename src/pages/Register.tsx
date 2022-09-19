@@ -1,5 +1,5 @@
 import { Footer } from "../components/Footer";
-import { UserForm } from "../components/UserForm";
+import { UserForm } from "../components/Forms/UserForm";
 import { Navbar } from "../components/Navbar";
 
 export function Register() {

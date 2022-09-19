@@ -1,9 +1,9 @@
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import emailjs from '@emailjs/browser';
-import { TextField } from "./TextField";
+import { TextField } from "../TextField";
 import { useState } from "react";
-import { ButtonAsync } from "./ButtonAsync";
+import { ButtonAsync } from "../Buttons/ButtonAsync";
 
 interface FormValuesProps {
 	name: string,
@@ -62,7 +62,7 @@ export function ContactForm() {
 		validationSchema
 	});
 
-	const { values, setFieldValue, handleSubmit, handleBlur, touched, errors, isValid } = formik;
+	const { values, setFieldValue, handleSubmit, handleBlur, touched, errors } = formik;
 
 	return (
 		<>
@@ -106,13 +106,10 @@ export function ContactForm() {
 				<div className="flex flex-col items-center">
 					<ButtonAsync
 						isLoading={isLoading}
-						disabled={isLoading || !isValid}
+						disabled={isLoading}
 						className="bg-sky-800 text-white hover:bg-sky-700 rounded-full h-10 w-fit mt-5 px-4 flex justify-center items-center disabled:bg-gray-300 disabled:text-gray-700" type="submit"
 					>
-						<>
-						{console.log(isValid)}
 						Enviar
-						</>
 					</ButtonAsync>
 				</div>
 			</form>

@@ -1,6 +1,6 @@
 import { MagnifyingGlass, PencilSimple, Plus } from "phosphor-react";
 import { useState } from "react";
-import { ButtonNavbar } from "../components/ButtonNavbar";
+import { ButtonNavbar } from "../components/Buttons/ButtonNavbar";
 import { Footer } from "../components/Footer";
 import { Navbar } from "../components/Navbar";
 import { Pets, PetsProps } from "../components/Pets";
