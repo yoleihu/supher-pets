@@ -1,9 +1,9 @@
 import { useState } from "react";
-import { ButtonUser } from "./ButtonUser";
+import { ButtonUser } from "../Buttons/ButtonUser";
 import { RegisterForm } from "./RegisterForm";
 import { LoginForm } from "./LoginForm";
 import { RecoverPasswordForm } from "./RecoverPasswordForm";
-import { RecoverPasswordModal } from "./RecoverPasswordModal";
+import { RecoverPasswordModal } from "../RecoverPasswordModal";
 
 interface UserFormProps {
   isLogin?: boolean;
@@ -40,7 +40,7 @@ export function UserForm({
             <>
               <LoginForm isGuardian={isGuardian} onForgotPassword={() => setIsRecoverModalOpen(true)} />
               {isRecoverModalOpen &&
-                <RecoverPasswordModal onClose={() => setIsRecoverModalOpen(false)} />
+                <RecoverPasswordModal isOpen={isRecoverModalOpen} onClose={() => setIsRecoverModalOpen(false)} />
               }
             </>
           }

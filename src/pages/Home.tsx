@@ -10,9 +10,9 @@ import {
 import { Footer } from "../components/Footer";
 import { LinksProps, Navbar } from "../components/Navbar";
 import Pets from "../assets/gato-e-cachorro.png";
-import { ButtonNavbar } from "../components/ButtonNavbar";
+import { ButtonNavbar } from "../components/Buttons/ButtonNavbar";
 import useCollapse from "react-collapsed";
-import { ContactForm } from "../components/ContactForm";
+import { ContactForm } from "../components/Forms/ContactForm";
 import { ReactElement } from "react";
 
 let ancors: LinksProps[];

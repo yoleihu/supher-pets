@@ -1,7 +1,7 @@
 import { MagnifyingGlass, PencilSimple, Plus } from "phosphor-react";
 import { useState } from "react";
 import { Appointment, AppointmentProps } from "../components/Appointment";
-import { ButtonNavbar } from "../components/ButtonNavbar";
+import { ButtonNavbar } from "../components/Buttons/ButtonNavbar";
 import { Footer } from "../components/Footer";
 import { Navbar } from "../components/Navbar";
 import { TextField } from "../components/TextField";
