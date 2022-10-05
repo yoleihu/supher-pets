@@ -46,10 +46,9 @@ export function PetModal({ pet, isOpen, isEditing, onClose }: PetModalProps) {
     // validationSchema,
   });
 
-  const { values, setFieldValue, handleSubmit, handleChange, handleBlur, touched, errors } = formik;
+  const { values, setFieldValue, handleSubmit, handleChange, touched, errors } = formik;
 
   return (
-
     <Dialog open={isOpen} onClose={onClose} className="flex items-center justify-center p-4 text-center fixed inset-0 overflow-y-auto duration-200 ease-in-out">
       <div className="fixed inset-0 bg-black/30" />
       <Dialog.Panel className="w-full max-w-md transform rounded-2xl h-4/6 bg-white p-6 text-left align-middle shadow-xl transition-all">

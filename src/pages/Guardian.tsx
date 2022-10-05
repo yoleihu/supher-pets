@@ -14,7 +14,7 @@ export function Guardian() {
   const [searchBloodCenter, setSearchBloodCenter] = useState('');
   const [openEditProfileModal, setOpenEditProfileModal] = useState(false);
   const [openPetModal, setOpenPetModal] = useState(false);
-  const pets = useGuardianInformationStore();
+  const guardianInformationStore = useGuardianInformationStore();
 
   return (
     <>
@@ -42,12 +42,9 @@ export function Guardian() {
           <hr className="border-1 border-sky-800 my-4" />
           <h1 className="text-xl">Seus Pets:</h1>
           <div className="flex gap-4 mt-4">
-            {pets.listPets() && pets.listPets().map(pet => (
+            {guardianInformationStore.pets && guardianInformationStore.pets.map(pet => (
               <>
-                <Pets pet={pet}
-                // name={pet.name} species={pet.species} 
-                // onEditing={() => {setOpenPetModal(true), setIsEditindPet(true)}} 
-                />
+                <Pets pet={pet} />
               </>
             ))}
             <button onClick={() => setOpenPetModal(true)} className="rounded-full w-20 h-20 bg-red-200 opacity-60 hover:bg-red-200 hover:opacity-80">
