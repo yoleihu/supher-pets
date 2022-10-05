@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { StoreContext } from "./GuardianInformationContext";
+import { GuardianStoreContext } from "./GuardianInformationContext";
 
 export interface PetsProps {
   id: string,
@@ -14,18 +14,14 @@ export interface PetsProps {
 }
 
 export class GuardianInformationStore {
-  private pets: Array<PetsProps> = [];
+  pets: Array<PetsProps> = [];
 
   addPet = (pet: PetsProps) => {
     this.pets.push(pet)
   }
-
-  listPets = (): Array<PetsProps> => {
-    return this.pets
-  }
 }
 
-export const StoreProvider = StoreContext.Provider;
+export const StoreProvider = GuardianStoreContext.Provider;
 export const useGuardianInformationStore = (): GuardianInformationStore => {
-  return useContext(StoreContext);
+  return useContext(GuardianStoreContext);
 }
