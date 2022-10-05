@@ -3,7 +3,8 @@ import { ButtonUser } from "../Buttons/ButtonUser";
 import { RegisterForm } from "./RegisterForm";
 import { LoginForm } from "./LoginForm";
 import { RecoverPasswordForm } from "./RecoverPasswordForm";
-import { RecoverPasswordModal } from "../RecoverPasswordModal";
+import { RecoverPasswordModal } from "../Modals/RecoverPasswordModal";
+import { TermsModal } from "../Modals/TermsModal";
 
 interface UserFormProps {
   isLogin?: boolean;
@@ -19,7 +20,7 @@ export function UserForm({
   const [isGuardian, setIsGuardian] = useState(true);
   const [isBloodCenter, setIsBloodCenter] = useState(false);
   const [isRecoverModalOpen, setIsRecoverModalOpen] = useState(false);
-  const [openTerm, setOpenTerm] = useState(false);
+  const [isTermsModalOpen, setIsTermsModalOpen] = useState(false);
 
   return (
     <div className="flex flex-col justify-center items-center mx-4 lg:mx-0">
@@ -33,7 +34,12 @@ export function UserForm({
 
         <div className={`bg-white shadow lg:px-10 lg:py-7 px-6 py-4 h-fit rounded-3xl`}>
           {isRegister &&
-            <RegisterForm isGuardian={isGuardian} onTermsModal={() => setOpenTerm(true)} />
+            <>
+              <RegisterForm isGuardian={isGuardian} onTermsModal={() => setIsTermsModalOpen(true)} />
+              {isTermsModalOpen &&
+              <TermsModal isOpen={isRegister} onClose={() => setIsTermsModalOpen(false)} />
+              }
+            </>
           }
 
           {isLogin &&
