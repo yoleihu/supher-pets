@@ -1,11 +1,10 @@
-import { Modal } from "./Modal";
 import emailjs from '@emailjs/browser';
 import * as Yup from "yup";
 import { useFormik } from "formik";
-import { TextField } from "./TextField";
-import { Fragment, useState } from "react";
-import { ButtonAsync } from "./Buttons/ButtonAsync";
-import { Dialog, Transition } from "@headlessui/react";
+import { TextField } from "../TextField";
+import { useState } from "react";
+import { ButtonAsync } from "../Buttons/ButtonAsync";
+import { Dialog } from "@headlessui/react";
 
 interface RecoverPasswordModalProps {
   isOpen: boolean,
