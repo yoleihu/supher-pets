@@ -21,7 +21,7 @@ export class GuardianInformationStore {
   }
 }
 
-export const StoreProvider = GuardianStoreContext.Provider;
+export const GuardianStoreProvider = GuardianStoreContext.Provider;
 export const useGuardianInformationStore = (): GuardianInformationStore => {
   return useContext(GuardianStoreContext);
 }

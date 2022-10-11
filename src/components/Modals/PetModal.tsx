@@ -18,7 +18,7 @@ interface PetModalProps {
 }
 
 export function PetModal({ pet, isOpen, isEditing, onClose }: PetModalProps) {
-  const pets = useGuardianInformationStore();
+  const guardianInformationStore = useGuardianInformationStore();
   const [seeMore, setSeeMore] = useState(false);
 
   const initialValues: PetsProps = {
@@ -38,12 +38,16 @@ export function PetModal({ pet, isOpen, isEditing, onClose }: PetModalProps) {
       .min(3, 'O nome deve ter no minímo 3 letras')
       .matches(/^[A-z ]+$/, 'O nome não deve conter números ou caracteres especiais')
       .required('Campo obrigatório'),
+    sex: Yup.string()
+      .required('Selecione o sexo'),
+    species: Yup.string()
+      .required('Selecione a espécie')
   });
 
   const formik = useFormik<PetsProps>({
     initialValues,
-    onSubmit: (values) => { pets.addPet(values); onClose() },
-    // validationSchema,
+    onSubmit: (values) => { guardianInformationStore.addPet(values); onClose() },
+    validationSchema,
   });
 
   const { values, setFieldValue, handleSubmit, handleChange, touched, errors } = formik;
@@ -71,8 +75,20 @@ export function PetModal({ pet, isOpen, isEditing, onClose }: PetModalProps) {
                 </label>
               </li>
             </ul>
+            {(touched.species && errors.species) ?
+              <span className="text-red-600 text-xs text-center">
+                {errors.species}
+              </span> :
+              null
+            }
 
-            <TextField name="name" placeholder="Nome" value={values.name} onChange={(value) => setFieldValue('name', value)} />
+            <TextField
+              name="name"
+              placeholder="Nome"
+              value={values.name}
+              onChange={(value) => setFieldValue('name', value)}
+              errorMessage={(touched.name && errors.name) ? errors.name : undefined}
+            />
             <ul className="flex gap-12 justify-center">
               <li className="w-fit">
                 <input type="radio" id="female" name="sex" value="female" className="hidden peer" onChange={handleChange} checked={values.sex === "female"} />
@@ -89,6 +105,13 @@ export function PetModal({ pet, isOpen, isEditing, onClose }: PetModalProps) {
                 </label>
               </li>
             </ul>
+            {(touched.sex && errors.sex) ?
+              <span className="text-red-600 text-xs text-center">
+                {errors.sex}
+              </span> :
+              null
+            }
+
             <p>Aptidez para doação:</p>
             <ul className="flex gap-6 justify-center">
               <li className="w-fit">

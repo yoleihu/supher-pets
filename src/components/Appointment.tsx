@@ -1,11 +1,5 @@
 import { FilePdf, PencilSimple } from "phosphor-react";
-
-export interface AppointmentProps {
-  date: string,
-  type: string,
-  pet: string,
-  result?: boolean,
-}
+import { AppointmentProps } from "../store/BloodCenterInformationStore";
 
 export function Appointment({ date, type, pet, result }: AppointmentProps) {
   return (
