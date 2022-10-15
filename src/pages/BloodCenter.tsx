@@ -8,13 +8,15 @@ import { ProfileModal } from "../components/Modals/ProfileModal";
 import { TextField } from "../components/TextField";
 import { AppointmentModal } from "../components/Modals/AppointmentModal";
 import { useBloodCenterInformationStore } from "../store/BloodCenterInformationStore";
+import { AlertModal } from "../components/Modals/AlertModal";
 
 export function BloodCenter() {
-  const bloodCenterInformationStore = useBloodCenterInformationStore();  
+  const bloodCenterInformationStore = useBloodCenterInformationStore();
   const [isSearchingPet, setIsSearchingPet] = useState(false);
   const [searchPet, setSearchPet] = useState('');
   const [openEditProfileModal, setOpenEditProfileModal] = useState(false);
-  const [openAppointmentModal, setAppointmentModal] = useState(false);
+  const [openAppointmentModal, setOpenAppointmentModal] = useState(false);
+  const [openAlertModal, setOpenAlertModal] = useState(false);
 
   return (
     <>
@@ -23,7 +25,11 @@ export function BloodCenter() {
       }
 
       {openAppointmentModal &&
-        <AppointmentModal isOpen={openAppointmentModal} onClose={() => { setAppointmentModal(false) }} />
+        <AppointmentModal isOpen={openAppointmentModal} onClose={() => { setOpenAppointmentModal(false) }} />
+      }
+
+      {openAlertModal &&
+        <AlertModal isOpen={openAlertModal} onClose={() => { setOpenAlertModal(false) }} />
       }
 
       <Navbar>
@@ -43,9 +49,9 @@ export function BloodCenter() {
           <h1 className="text-xl">Suas Consultas:</h1>
           <div className="flex flex-col gap-4 mt-4 w-full">
             {bloodCenterInformationStore.appointments && bloodCenterInformationStore.appointments.map(appointment => (
-              <Appointment date={appointment.date} type={appointment.type} pet={appointment.pet} result={appointment.result} />
+              <Appointment appointment={appointment} />
             ))}
-            <button onClick={() => setAppointmentModal(true)} className="w-fit self-end rounded-full p-4 bg-sky-800 hover:bg-sky-700">
+            <button onClick={() => setOpenAppointmentModal(true)} className="w-fit self-end rounded-full p-4 bg-sky-800 hover:bg-sky-700">
               <Plus className="m-auto" size={25} color="#ffffff" />
             </button>
           </div>
@@ -69,10 +75,21 @@ export function BloodCenter() {
             }
           </div>
           <div className="bg-white min-h-[11rem] shadow rounded-3xl p-5 flex flex-col w-full justify-between">
-            <h1 className="text-lg font-medium">Criar Alerta</h1>
-            <button onClick={() => console.log("oi")} className="self-end w-fit rounded-full p-2 bg-sky-800 hover:bg-sky-700">
-              <Plus className="m-auto" size={15} color="#ffffff" />
-            </button>
+            <>
+              <h1 className="text-lg font-medium">Criar Alerta</h1>
+              {bloodCenterInformationStore.alerts && bloodCenterInformationStore.alerts.map(alert => (
+                <div className="flex items-center gap-3">
+                  {alert.species === "dog" 
+                    ? <img src="/assets/dog-icon.png" className="h-5" />
+                    : <img src="/assets/cat-icon.png" />
+                  }
+                  <p>{alert.bloodType}</p>
+                </div>
+              ))}
+              <button onClick={() => setOpenAlertModal(true)} className="self-end w-fit rounded-full p-2 bg-sky-800 hover:bg-sky-700">
+                <Plus className="m-auto" size={15} color="#ffffff" />
+              </button>
+            </>
           </div>
         </div>
       </div>

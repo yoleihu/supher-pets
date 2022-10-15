@@ -5,9 +5,6 @@ import { PetModal } from "./Modals/PetModal";
 
 interface PetsButtonProps {
   pet: PetsProps,
-  // name: string,
-  // species: string,
-  // onEditing: () => void
 }
 
 export function Pets({ pet }: PetsButtonProps) {
