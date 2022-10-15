@@ -8,11 +8,21 @@ export interface AppointmentProps {
   result?: boolean,
 }
 
+export interface AlertProps {
+  species: "dog" | "cat" | "",
+  bloodType: string,
+}
+
 export class BloodCenterInformationStore {
   appointments: Array<AppointmentProps> = [];
+  alerts: Array<AlertProps> = [];
 
   addAppointment = (appointment: AppointmentProps) => {
     this.appointments.push(appointment)
+  }
+
+  createAlert = (alert: AlertProps) => {
+    this.alerts.push(alert)
   }
 }
 
