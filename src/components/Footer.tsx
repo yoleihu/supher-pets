@@ -40,7 +40,7 @@ export function Footer({ links }: FooterProps) {
 			lg:px-44
 			px-6
       w-full
-      ${hasScroolbar ? "static" : "bottom-0 absolute"}
+      ${hasScroolbar ? "static mt-6" : "bottom-0 absolute"}
       `}
     >
       <div className="flex lg:items-center lg:justify-between w-full h-fit">
