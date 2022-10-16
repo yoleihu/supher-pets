@@ -16,10 +16,10 @@ export function Pets({ pet }: PetsButtonProps) {
         <PetModal pet={pet} isOpen={isEditingPet} isEditing onClose={() => { setIsEditindPet(false) }} />
       }
 
-      <div className="flex flex-col text-center">
+      <div className="flex flex-col text-center w-fit">
         <button onClick={() => setIsEditindPet(true)} className="rounded-full w-20 h-20 bg-red-200 bg-opacity-60 hover:bg-red-200 hover:bg-opacity-80 flex justify-end items-end">
           <img className=" h-14 m-auto" src={pet.species === 'dog' ? "/assets/dog-icon.png" : "/assets/cat-icon.png"} />
-          <PencilSimple className="fixed bg-sky-800 p-1 rounded-full" size={24} color={"#ffffff"} />
+          <PencilSimple className="absolute bg-sky-800 p-1 rounded-full" size={24} color={"#ffffff"} />
         </button>
         <label>{pet.name}</label>
       </div>
