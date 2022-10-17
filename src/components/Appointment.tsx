@@ -32,7 +32,7 @@ export function Appointment({ appointment }: AppointmentButtonProps) {
             </button>
           }
         </div>
-        <button className="rounded-full bg-sky-800 h-fit">
+        <button className="rounded-full bg-sky-800 h-fit" onClick={() => setIsEditindAppointment(true)}>
           <PencilSimple className="bg-sky-800 p-1 rounded-full" size={24} color={"#ffffff"} />
         </button>
       </div>
