@@ -64,10 +64,10 @@ export function Guardian() {
         </div>
       </div>
       <div className="absolute bottom-20 right-5 lg:hidden">
-        <button className="self-end w-fit rounded-full p-4 bg-sky-800 hover:bg-sky-700" onClick={() => setIsPetsScreen(!isPetsScreen)}>
+        <button className="self-end w-fit rounded-full p-3 bg-sky-800 hover:bg-sky-700" onClick={() => setIsPetsScreen(!isPetsScreen)}>
           {isPetsScreen
-            ? <FirstAid className="m-auto" size={25} color="#ffffff" />
-            : <PawPrint className="m-auto" size={25} color="#ffffff" />
+            ? <FirstAid className="m-auto" size={20} color="#ffffff" />
+            : <PawPrint className="m-auto" size={20} color="#ffffff" />
           }
         </button>
       </div>
