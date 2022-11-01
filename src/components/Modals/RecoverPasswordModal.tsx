@@ -87,7 +87,6 @@ export const RecoverPasswordModal = ({ isOpen, onClose }: RecoverPasswordModalPr
                   </ButtonAsync>
                 </div>
               </form>
-
             </Dialog.Description>
           </Dialog.Panel>
         </div>
