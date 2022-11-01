@@ -94,62 +94,66 @@ export function AppointmentModal({ appointment, isOpen, isEditing, onClose }: Ap
         <ConfirmDeleteModal id={appointment?.id} itemDeleted="pet" isOpen={deleteAppointmentModalOpen} onClose={() => setDeleteAppointmentModalOpen(false)} />
       }
 
-      <Dialog open={isOpen} onClose={onClose} className="flex items-center justify-center p-4 text-center fixed inset-0 overflow-y-auto duration-200 ease-in-out">
+      <Dialog open={isOpen} onClose={onClose} className="flex items-center justify-center">
         <div className="fixed inset-0 bg-black/30" />
-        <Dialog.Panel className="w-full max-w-md transform rounded-2xl h-fit bg-white p-6 text-left align-middle shadow-xl transition-all">
-          <Dialog.Title className="font-semibold text-2xl mb-5">Criar Consulta</Dialog.Title>
-          <Dialog.Description className="flex flex-col justify-between">
-            <form className="gap-4 flex flex-col" onSubmit={handleSubmit}>
-              <TextField
-                name="type"
-                placeholder="Tipo da consulta"
-                value={values.type}
-                onChange={(value) => setFieldValue('type', value)}
-                errorMessage={(touched.type && errors.type) ? errors.type : undefined}
-              />
-              <TextField
-                name="petId"
-                placeholder="Pet"
-                value={values.petId}
-                onChange={(value) => setFieldValue('petId', value)}
-                errorMessage={(touched.petId && errors.petId) ? errors.petId : undefined}
-              />
+        <div className="fixed inset-0 overflow-y-auto">
+          <div className="flex min-h-full items-center justify-center p-4">
+            <Dialog.Panel className="w-full max-w-md transform rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
+              <Dialog.Title className="font-semibold text-2xl mb-5">Criar Consulta</Dialog.Title>
+              <Dialog.Description className="flex flex-col justify-between">
+                <form className="gap-4 flex flex-col" onSubmit={handleSubmit}>
+                  <TextField
+                    name="type"
+                    placeholder="Tipo da consulta"
+                    value={values.type}
+                    onChange={(value) => setFieldValue('type', value)}
+                    errorMessage={(touched.type && errors.type) ? errors.type : undefined}
+                  />
+                  <TextField
+                    name="petId"
+                    placeholder="Pet"
+                    value={values.petId}
+                    onChange={(value) => setFieldValue('petId', value)}
+                    errorMessage={(touched.petId && errors.petId) ? errors.petId : undefined}
+                  />
 
-              <TextField
-                name="data"
-                placeholder="Data"
-                type="text"
-                onChange={(value) => setFieldValue('data', formatDate(value))}
-                value={values.data}
-              />
-              <div className="flex flex-col gap-2">
-                <label htmlFor="result" className="text-zinc-700 pl-3">Resultado exame: <span className="text-zinc-400 text-xs">(opicional)</span></label>
-                <input
-                  id="result"
-                  name="result"
-                  type="file"
-                  accept="application/pdf"
-                  onChange={convertToBase64}
-                  className="block w-full text-sm text-zinc-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-red-50 file:text-red-700 hover:file:bg-red-100"
-                />
-              </div>
-              <div className="flex justify-between">
-                <button onClick={() => setDeleteAppointmentModalOpen(true)}>
-                  <Trash color="red" size={25} />
-                </button>
+                  <TextField
+                    name="data"
+                    placeholder="Data"
+                    type="text"
+                    onChange={(value) => setFieldValue('data', formatDate(value))}
+                    value={values.data}
+                  />
+                  <div className="flex flex-col gap-2">
+                    <label htmlFor="result" className="text-zinc-700 pl-3">Resultado exame: <span className="text-zinc-400 text-xs">(opicional)</span></label>
+                    <input
+                      id="result"
+                      name="result"
+                      type="file"
+                      accept="application/pdf"
+                      onChange={convertToBase64}
+                      className="block w-full text-sm text-zinc-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-red-50 file:text-red-700 hover:file:bg-red-100"
+                    />
+                  </div>
+                  <div className="flex justify-between">
+                    <button onClick={() => setDeleteAppointmentModalOpen(true)}>
+                      <Trash color="red" size={25} />
+                    </button>
 
-                <ButtonAsync
-                  disabled={isLoading}
-                  isLoading={isLoading}
-                  className="bg-sky-800 text-white hover:bg-sky-700 rounded-full h-10 w-fit mt-2 px-4 flex justify-center items-center disabled:bg-gray-300 disabled:text-gray-700"
-                  type="submit"
-                >
-                  {isEditing ? 'Atualizar' : 'Adicionar'}
-                </ButtonAsync>
-              </div>
-            </form>
-          </Dialog.Description>
-        </Dialog.Panel>
+                    <ButtonAsync
+                      disabled={isLoading}
+                      isLoading={isLoading}
+                      className="bg-sky-800 text-white hover:bg-sky-700 rounded-full h-10 w-fit mt-2 px-4 flex justify-center items-center disabled:bg-gray-300 disabled:text-gray-700"
+                      type="submit"
+                    >
+                      {isEditing ? 'Atualizar' : 'Adicionar'}
+                    </ButtonAsync>
+                  </div>
+                </form>
+              </Dialog.Description>
+            </Dialog.Panel>
+          </div>
+        </div>
       </Dialog>
     </>
   )

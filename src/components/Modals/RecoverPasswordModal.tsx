@@ -53,41 +53,45 @@ export const RecoverPasswordModal = ({ isOpen, onClose }: RecoverPasswordModalPr
   const { values, setFieldValue, handleSubmit, handleBlur, touched, errors } = formik;
 
   return (
-    <Dialog open={isOpen} onClose={onClose} className="flex min-h-full items-center justify-center p-4 text-center fixed inset-0 overflow-y-auto">
+    <Dialog open={isOpen} onClose={onClose} className="flex items-center justify-center">
       <div className="fixed inset-0 bg-black/30" />
-      <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
-        <Dialog.Title className="font-semibold text-2xl mb-5">Recuperar Senha</Dialog.Title>
-        <Dialog.Description>
-          <form className="flex w-full flex-col justify-center items-end" onSubmit={handleSubmit}>
-            <TextField
-              name="email"
-              placeholder="Email"
-              value={values.email}
-              onChange={(value) => { setFieldValue('email', value); setToSend({ ...toSend, from_email: value }) }}
-              onBlur={handleBlur}
-              errorMessage={(touched.email && errors.email) ? errors.email : undefined}
-            />
+      <div className="fixed inset-0 overflow-y-auto">
+        <div className="flex min-h-full items-center justify-center p-4">
+          <Dialog.Panel className="w-full max-w-md transform rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
+            <Dialog.Title className="font-semibold text-2xl mb-5">Recuperar Senha</Dialog.Title>
+            <Dialog.Description>
+              <form className="flex w-full flex-col justify-center items-end" onSubmit={handleSubmit}>
+                <TextField
+                  name="email"
+                  placeholder="Email"
+                  value={values.email}
+                  onChange={(value) => { setFieldValue('email', value); setToSend({ ...toSend, from_email: value }) }}
+                  onBlur={handleBlur}
+                  errorMessage={(touched.email && errors.email) ? errors.email : undefined}
+                />
 
-            <div className="w-fit flex items-center justify-center lg:p-6 p-2 gap-2 ">
-              <button
-                className="text-sky-800 hover:text-sky-700 border border-sky-800 hover:border-sky-700 rounded-full h-10 w-fit px-3"
-                onClick={onClose}
-              >
-                Cancelar
-              </button>
-              <ButtonAsync
-                className="bg-sky-800 text-white hover:bg-sky-700 rounded-full h-10 w-fit px-3 flex items-center justify-center gap-1"
-                type="submit"
-                isLoading={isLoading}
-                disabled={isLoading}
-              >
-                Enviar email
-              </ButtonAsync>
-            </div>
-          </form>
+                <div className="w-fit flex items-center justify-center lg:p-6 p-2 gap-2 ">
+                  <button
+                    className="text-sky-800 hover:text-sky-700 border border-sky-800 hover:border-sky-700 rounded-full h-10 w-fit px-3"
+                    onClick={onClose}
+                  >
+                    Cancelar
+                  </button>
+                  <ButtonAsync
+                    className="bg-sky-800 text-white hover:bg-sky-700 rounded-full h-10 w-fit px-3 flex items-center justify-center gap-1"
+                    type="submit"
+                    isLoading={isLoading}
+                    disabled={isLoading}
+                  >
+                    Enviar email
+                  </ButtonAsync>
+                </div>
+              </form>
 
-        </Dialog.Description>
-      </Dialog.Panel>
+            </Dialog.Description>
+          </Dialog.Panel>
+        </div>
+      </div>
     </Dialog>
   )
 }

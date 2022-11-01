@@ -57,7 +57,7 @@ export function BloodCenter() {
           <h1 className="text-xl">Suas Consultas:</h1>
           <div className="flex flex-col gap-4 mt-4 w-full">
             {appointments && appointments.map(appointment => (
-              <Appointments appointment={appointment} />
+              <Appointments appointment={appointment} key={appointment.id} />
             ))}
             <button onClick={() => setOpenAppointmentModal(true)} className="w-fit self-end rounded-full p-4 bg-sky-800 hover:bg-sky-700">
               <Plus className="m-auto" size={25} color="#ffffff" />
@@ -86,7 +86,7 @@ export function BloodCenter() {
             <>
               <h1 className="text-lg font-medium">Criar Alerta</h1>
               {alerts && alerts.map(alert => (
-                <Alerts alert={alert} />
+                <Alerts alert={alert} key={alert.id} />
               ))}
               <button onClick={() => setOpenAlertModal(true)} className="self-end  w-fit rounded-full p-2 bg-sky-800 hover:bg-sky-700">
                 <Plus className="m-auto" size={15} color="#ffffff" />
