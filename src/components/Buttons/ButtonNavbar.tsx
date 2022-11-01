@@ -1,19 +1,23 @@
+import { useContext } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+import { UserContext } from "../../context/UserContext";
 
 interface ButtonNavbarProps {
   label: string;
-  path: string;
+  path?: string;
   type: "button" | "submit";
   role: "primary" | "secondary";
+  isSignOutButton?: boolean
 }
 
-export function ButtonNavbar({ label, path, type, role }: ButtonNavbarProps) {
+export function ButtonNavbar({ label, path, type, role, isSignOutButton }: ButtonNavbarProps) {
   const navigate = useNavigate();
   const location = useLocation();
+  const { signOut } = useContext(UserContext);
 
   return (
     <button
-      onClick={() => navigate(path)}
+      onClick={() => {isSignOutButton ? signOut() : navigate(path ?? '')}}
       type={type}
       className={`
         px-4 py-1 

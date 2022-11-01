@@ -5,9 +5,9 @@ import { Navbar } from "../components/Navbar";
 import { Pets } from "../components/Pets";
 import { ProfileModal } from "../components/Modals/ProfileModal";
 import { TextField } from "../components/TextField";
-import { useState } from 'react'
+import { useContext, useState } from 'react'
 import { PetModal } from "../components/Modals/PetModal";
-import { useGuardianInformationStore } from "../store/GuardianInformationStore";
+import { UserContext } from "../context/UserContext";
 
 export function Guardian() {
   const [isSearching, setIsSearching] = useState(false);
@@ -15,7 +15,8 @@ export function Guardian() {
   const [openEditProfileModal, setOpenEditProfileModal] = useState(false);
   const [openPetModal, setOpenPetModal] = useState(false);
   const [isPetsScreen, setIsPetsScreen] = useState(true);
-  const guardianInformationStore = useGuardianInformationStore();
+  const { pets } = useContext(UserContext);
+  const user = JSON.parse(localStorage.getItem("USERINFO") ?? '');
 
   return (
     <>
@@ -28,12 +29,12 @@ export function Guardian() {
       }
 
       <Navbar>
-        <ButtonNavbar type="button" label="Sair" path="/" role='secondary' />
+        <ButtonNavbar type="button" label="Sair" role='secondary' isSignOutButton />
       </Navbar>
       <div className="lg:mt-28 mt-20 lg:mx-32 sm:mx-12 mx-6 lg:flex lg:gap-14">
         <div className={`lg:w-4/6 lg:block ${!isPetsScreen && 'hidden w-full'}`}>
           <div className="flex justify-between items-center">
-            <h1 className="md:text-3xl text-xl">Olá Pessoa!</h1>
+            <h1 className="md:text-3xl text-xl">Olá {(user.name as string + ' ').split(' ').shift()}!</h1>
             <button onClick={() => setOpenEditProfileModal(true)} className="px-1 py-1 lg:my-0 my-1 w-fit rounded-full">
               <PencilSimple color="#075985" size={24} />
             </button>
@@ -41,10 +42,8 @@ export function Guardian() {
           <hr className="border-1 border-sky-800 my-4" />
           <h1 className="text-xl">Seus Pets:</h1>
           <div className="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-6 gap-4 mt-4 justify-items-center">
-            {guardianInformationStore.pets && guardianInformationStore.pets.map(pet => (
-              <>
-                <Pets pet={pet} />
-              </>
+            {pets && pets.map(pet => (
+              <Pets pet={pet} />
             ))}
             <button onClick={() => setOpenPetModal(true)} className="rounded-full w-20 h-20 bg-red-200 opacity-60 hover:bg-red-200 hover:opacity-80">
               <Plus className="m-auto" size={34} color="#b91c1c" />

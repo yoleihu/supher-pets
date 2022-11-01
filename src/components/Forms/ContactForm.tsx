@@ -44,7 +44,7 @@ export function ContactForm() {
 	const validationSchema = Yup.object().shape({
 		name: Yup.string()
 			.min(3, 'O nome deve ter no minímo 3 letras')
-			.matches(/^[A-z]+$/, 'O nome não deve conter números ou caracteres especiais')
+			.matches(/^[A-Za-zÀ-ÿ ]+$/, 'O nome não deve conter números ou caracteres especiais')
 			.required('Campo obrigatório'),
 		email: Yup.string().email('Email inválido')
 			.required('Campo obrigatório'),
@@ -107,7 +107,8 @@ export function ContactForm() {
 					<ButtonAsync
 						isLoading={isLoading}
 						disabled={isLoading}
-						className="bg-sky-800 text-white hover:bg-sky-700 rounded-full h-10 w-fit mt-5 px-4 flex justify-center items-center disabled:bg-gray-300 disabled:text-gray-700" type="submit"
+						className="bg-sky-800 text-white hover:bg-sky-700 rounded-full h-10 w-fit mt-5 px-4 flex justify-center items-center disabled:bg-gray-300 disabled:text-gray-700" 
+						type="submit"
 					>
 						Enviar
 					</ButtonAsync>
