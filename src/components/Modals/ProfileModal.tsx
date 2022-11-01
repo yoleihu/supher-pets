@@ -118,120 +118,124 @@ export function ProfileModal({ isOpen, isGuardian, onClose }: ProfileModalProps)
 
   return (
     <>
-    {deleteAccountModalOpen && 
-      <ConfirmDeleteModal itemDeleted={isGuardian ? 'guardian' : 'bloodCenter'} isOpen={deleteAccountModalOpen} onClose={() => setDeleteAccountModalOpen(false)} />
-    }
+      {deleteAccountModalOpen &&
+        <ConfirmDeleteModal itemDeleted={isGuardian ? 'guardian' : 'bloodCenter'} isOpen={deleteAccountModalOpen} onClose={() => setDeleteAccountModalOpen(false)} />
+      }
 
-    <Dialog open={isOpen} onClose={onClose} className="flex items-center justify-center p-4 text-center fixed inset-0 overflow-y-auto duration-200 ease-in-out">
-      <div className="fixed inset-0 bg-black/30" />
-      <Dialog.Panel className="w-full max-w-md transform rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
-        <Dialog.Title className="font-semibold text-2xl mb-5">Editar Perfil</Dialog.Title>
-        <Dialog.Description>
-          <form className="flex flex-col gap-4 " onSubmit={handleSubmit}>
-            {isGuardian
-              ? <TextField
-                disabled
-                name="cpf"
-                placeholder="CPF"
-                value={values.cpf}
-                onChange={(value) => setFieldValue('cpf', formatCpf(value))}
-                errorMessage={(touched.cpf && errors.cpf) ? errors.cpf : undefined}
-              />
-              : <TextField
-                disabled
-                name="cnpj"
-                placeholder="CNPJ"
-                value={values.cnpj}
-                onChange={(value) => setFieldValue('cnpj', formatCnpj(value))}
-                errorMessage={(touched.cnpj && errors.cnpj) ? errors.cnpj : undefined}
-              />
-            }
-            <TextField
-              name="name"
-              placeholder="Nome"
-              value={values.name}
-              onChange={(value) => setFieldValue('name', value)}
-              errorMessage={(touched.name && errors.name) ? errors.name : undefined}
-            />
-            <TextField
-              name="email"
-              placeholder="Email"
-              value={values.email}
-              onChange={(value) => setFieldValue('email', value)}
-              errorMessage={(touched.email && errors.email) ? errors.email : undefined}
-            />
-            <TextField
-              name="telephone"
-              placeholder="Celular"
-              value={values.telephone}
-              onChange={(value) => setFieldValue('telephone', formatPhoneNumber(value))}
-              errorMessage={(touched.telephone && errors.telephone) ? errors.telephone : undefined}
-            />
-            <TextField
-              name="cep"
-              placeholder="CEP"
-              value={values.cep ?? ''}
-              onChange={(value) => setFieldValue('cep', formatCep(value))}
-              errorMessage={(touched.cep && errors.cep) ? errors.cep : undefined}
-            />
-            <div className="flex gap-3">
-              <ComboBox
-                name="state"
-                value={values.state ?? ''}
-                onChange={(value) => setFieldValue('state', value)}
-                options={stateOptions}
-                errorMessage={(touched.state && errors.state) ? errors.state : undefined}
-              />
-              <TextField
-                name="city"
-                placeholder="Cidade"
-                value={values.city ?? ''}
-                onChange={(value) => setFieldValue('city', value)}
-                errorMessage={(touched.city && errors.city) ? errors.city : undefined}
-              />
-            </div>
-            <TextField
-              name="address"
-              placeholder="Rua"
-              value={values.address ?? ''}
-              onChange={(value) => setFieldValue('address', value)}
-              errorMessage={(touched.address && errors.address) ? errors.address : undefined}
-            />
-            <div className="flex gap-3">
-              <TextField
-                name="number"
-                placeholder="Nº"
-                value={values.number ?? ''}
-                onChange={(value) => setFieldValue('number', value)}
-                errorMessage={(touched.number && errors.number) ? errors.number : undefined}
-              />
-              <TextField
-                name="district"
-                placeholder="Bairro"
-                value={values.district ?? ''}
-                onChange={(value) => setFieldValue('district', value)}
-                errorMessage={(touched.district && errors.district) ? errors.district : undefined}
-              />
-            </div>
+      <Dialog open={isOpen} onClose={onClose} className="flex items-center justify-center">
+        <div className="fixed inset-0 bg-black/30" />
+        <div className="fixed inset-0 overflow-y-auto">
+          <div className="flex min-h-full items-center justify-center p-4">
+            <Dialog.Panel className="w-full max-w-md transform rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
+              <Dialog.Title className="font-semibold text-2xl mb-5">Editar Perfil</Dialog.Title>
+              <Dialog.Description>
+                <form className="flex flex-col gap-4 " onSubmit={handleSubmit}>
+                  {isGuardian
+                    ? <TextField
+                      disabled
+                      name="cpf"
+                      placeholder="CPF"
+                      value={values.cpf}
+                      onChange={(value) => setFieldValue('cpf', formatCpf(value))}
+                      errorMessage={(touched.cpf && errors.cpf) ? errors.cpf : undefined}
+                    />
+                    : <TextField
+                      disabled
+                      name="cnpj"
+                      placeholder="CNPJ"
+                      value={values.cnpj}
+                      onChange={(value) => setFieldValue('cnpj', formatCnpj(value))}
+                      errorMessage={(touched.cnpj && errors.cnpj) ? errors.cnpj : undefined}
+                    />
+                  }
+                  <TextField
+                    name="name"
+                    placeholder="Nome"
+                    value={values.name}
+                    onChange={(value) => setFieldValue('name', value)}
+                    errorMessage={(touched.name && errors.name) ? errors.name : undefined}
+                  />
+                  <TextField
+                    name="email"
+                    placeholder="Email"
+                    value={values.email}
+                    onChange={(value) => setFieldValue('email', value)}
+                    errorMessage={(touched.email && errors.email) ? errors.email : undefined}
+                  />
+                  <TextField
+                    name="telephone"
+                    placeholder="Celular"
+                    value={values.telephone}
+                    onChange={(value) => setFieldValue('telephone', formatPhoneNumber(value))}
+                    errorMessage={(touched.telephone && errors.telephone) ? errors.telephone : undefined}
+                  />
+                  <TextField
+                    name="cep"
+                    placeholder="CEP"
+                    value={values.cep ?? ''}
+                    onChange={(value) => setFieldValue('cep', formatCep(value))}
+                    errorMessage={(touched.cep && errors.cep) ? errors.cep : undefined}
+                  />
+                  <div className="flex gap-3">
+                    <ComboBox
+                      name="state"
+                      value={values.state ?? ''}
+                      onChange={(value) => setFieldValue('state', value)}
+                      options={stateOptions}
+                      errorMessage={(touched.state && errors.state) ? errors.state : undefined}
+                    />
+                    <TextField
+                      name="city"
+                      placeholder="Cidade"
+                      value={values.city ?? ''}
+                      onChange={(value) => setFieldValue('city', value)}
+                      errorMessage={(touched.city && errors.city) ? errors.city : undefined}
+                    />
+                  </div>
+                  <TextField
+                    name="address"
+                    placeholder="Rua"
+                    value={values.address ?? ''}
+                    onChange={(value) => setFieldValue('address', value)}
+                    errorMessage={(touched.address && errors.address) ? errors.address : undefined}
+                  />
+                  <div className="flex gap-3">
+                    <TextField
+                      name="number"
+                      placeholder="Nº"
+                      value={values.number ?? ''}
+                      onChange={(value) => setFieldValue('number', value)}
+                      errorMessage={(touched.number && errors.number) ? errors.number : undefined}
+                    />
+                    <TextField
+                      name="district"
+                      placeholder="Bairro"
+                      value={values.district ?? ''}
+                      onChange={(value) => setFieldValue('district', value)}
+                      errorMessage={(touched.district && errors.district) ? errors.district : undefined}
+                    />
+                  </div>
 
-            <div className="flex justify-between">
-              <button onClick={() => setDeleteAccountModalOpen(true)}>
-                <Trash color="red" size={25} />
-              </button>
+                  <div className="flex justify-between">
+                    <button onClick={() => setDeleteAccountModalOpen(true)}>
+                      <Trash color="red" size={25} />
+                    </button>
 
-              <ButtonAsync 
-                disabled={isLoading} 
-                isLoading={isLoading} 
-                className="bg-sky-800 text-white hover:bg-sky-700 rounded-full h-10 w-fit mt-2 px-4 flex justify-center items-center disabled:bg-gray-300 disabled:text-gray-700" 
-                type="submit"
-              >
-                Atualizar
-              </ButtonAsync>
-            </div>
-          </form>
-        </Dialog.Description>
-      </Dialog.Panel>
-    </Dialog>
+                    <ButtonAsync
+                      disabled={isLoading}
+                      isLoading={isLoading}
+                      className="bg-sky-800 text-white hover:bg-sky-700 rounded-full h-10 w-fit mt-2 px-4 flex justify-center items-center disabled:bg-gray-300 disabled:text-gray-700"
+                      type="submit"
+                    >
+                      Atualizar
+                    </ButtonAsync>
+                  </div>
+                </form>
+              </Dialog.Description>
+            </Dialog.Panel>
+          </div>
+        </div>
+      </Dialog>
     </>
   )
 }

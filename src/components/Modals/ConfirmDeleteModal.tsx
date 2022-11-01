@@ -16,7 +16,7 @@ export function ConfirmDeleteModal({ id, itemDeleted, isOpen, onClose }: Confirm
 
   const onConfirmDelete = async () => {
     switch (itemDeleted) {
-      case 'alert': 
+      case 'alert':
         deleteAlert(id!);
         break;
       case 'appointment':
@@ -45,23 +45,27 @@ export function ConfirmDeleteModal({ id, itemDeleted, isOpen, onClose }: Confirm
   }
 
   return (
-    <Dialog open={isOpen} onClose={onClose} className="flex min-h-full items-center justify-center p-4 text-center fixed inset-0 overflow-y-auto">
+    <Dialog open={isOpen} onClose={onClose} className="flex items-center justify-center">
       <div className="fixed inset-0 bg-black/30" />
-      <Dialog.Panel className="w-full max-w-lg transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
-        <Dialog.Description className="p-5 text-justify">
-          <Dialog.Title className="font-semibold lg:text-2xl text-lg mb-5">{`Tem certeza que deseja excluir ${handleText()}?`}</Dialog.Title>
-          <div className="flex gap-4 w-full justify-end">
-            <button onClick={onClose} className="flex items-center gap-1 hover:bg-red-100 py-1 px-2 rounded-2xl">
-              <X color={'red'} size={20} />
-              Não
-            </button>
-            <button onClick={() => onConfirmDelete()} className="flex items-center gap-1 hover:bg-emerald-100 py-1 px-2 rounded-2xl">
-              <Check color={'green'} size={20} />
-              Sim
-            </button>
-          </div>
-        </Dialog.Description>
-      </Dialog.Panel>
+      <div className="fixed inset-0 overflow-y-auto">
+        <div className="flex min-h-full items-center justify-center p-4">
+          <Dialog.Panel className="w-full max-w-md transform rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
+            <Dialog.Description className="p-5 text-justify">
+              <Dialog.Title className="font-semibold lg:text-2xl text-lg mb-5">{`Tem certeza que deseja excluir ${handleText()}?`}</Dialog.Title>
+              <div className="flex gap-4 w-full justify-end">
+                <button onClick={onClose} className="flex items-center gap-1 hover:bg-red-100 py-1 px-2 rounded-2xl">
+                  <X color={'red'} size={20} />
+                  Não
+                </button>
+                <button onClick={() => onConfirmDelete()} className="flex items-center gap-1 hover:bg-emerald-100 py-1 px-2 rounded-2xl">
+                  <Check color={'green'} size={20} />
+                  Sim
+                </button>
+              </div>
+            </Dialog.Description>
+          </Dialog.Panel>
+        </div>
+      </div>
     </Dialog>
   )
 }

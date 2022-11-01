@@ -43,7 +43,7 @@ export function Guardian() {
           <h1 className="text-xl">Seus Pets:</h1>
           <div className="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-6 gap-4 mt-4 justify-items-center">
             {pets && pets.map(pet => (
-              <Pets pet={pet} />
+              <Pets pet={pet} key={pet.id} />
             ))}
             <button onClick={() => setOpenPetModal(true)} className="rounded-full w-20 h-20 bg-red-200 opacity-60 hover:bg-red-200 hover:opacity-80">
               <Plus className="m-auto" size={34} color="#b91c1c" />
