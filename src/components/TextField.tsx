@@ -64,7 +64,7 @@ export const TextField: FunctionComponent<TextFieldProps> = ({ ...props }) => {
           max={props.maxValue}
           data-testid={props['data-testid']}
           autoFocus={props.autoFocus}
-          className="bg-transparent border-b-[1px] border-zinc-400 placeholder-zinc-400 text-black px-3 py-1 focus:outline-none w-full"
+          className="bg-transparent border-b-[1px] border-zinc-400 placeholder-zinc-400 text-black disabled:text-zinc-400 px-3 py-1 focus:outline-none w-full"
         />
         {props.isPassword
           ? <button type={"button"} className="px-3 bg-white h-[2.063rem] border-b-[1px] border-zinc-400" onClick={() => setPasswordVisible(!passwordVisible)}>
