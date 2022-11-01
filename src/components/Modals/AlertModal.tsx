@@ -64,18 +64,18 @@ export function AlertModal({ isOpen, onClose }: AlertModalProps) {
               <Dialog.Title className="font-semibold text-2xl mb-5">Criar Alerta</Dialog.Title>
               <Dialog.Description className="flex flex-col justify-between">
                 <form className="gap-4 flex flex-col" onSubmit={handleSubmit}>
-                  <ul className="flex gap-12 max-h-32 justify-center">
-                    <li className="w-fit min-w-[6.75rem]" onClick={() => setFieldValue('bloodType', '')}>
+                  <ul className="flex lg:gap-12 gap-6 max-h-32 justify-center">
+                    <li className="w-fit lg:min-w-[6.75rem] min-w-[6rem]" onClick={() => setFieldValue('bloodType', '')}>
                       <input type="radio" id="dog" name="species" value="DOG" className="hidden peer" onChange={handleChange} checked={values.species === "DOG"} />
                       <label htmlFor="dog" className="flex flex-col justify-between items-center p-5 text-gray-500 bg-white rounded-lg border border-gray-200 peer-checked:border-red-500 peer-checked:text-red-500 hover:text-gray-600 hover:bg-gray-100">
-                        <img src={"/assets/dog-icon.png"} className="h-14" />
+                        <img src={"/assets/dog-icon.png"} className="lg:h-14 h-12" />
                         <p>Cachorro</p>
                       </label>
                     </li>
-                    <li className="w-fit min-w-[6.75rem]" onClick={() => setFieldValue('bloodType', '')}>
+                    <li className="w-fit lg:min-w-[6.75rem] min-w-[6rem]" onClick={() => setFieldValue('bloodType', '')}>
                       <input type="radio" id="cat" name="species" value="CAT" className="hidden peer" onChange={handleChange} checked={values.species === "CAT"} />
                       <label htmlFor="cat" className="flex flex-col justify-between items-center p-5 text-gray-500 rounded-lg border border-gray-200 peer-checked:border-red-500 peer-checked:text-red-500 hover:text-gray-600 hover:bg-gray-100">
-                        <img src={"/assets/cat-icon.png"} className="h-14" />
+                        <img src={"/assets/cat-icon.png"} className="lg:h-14 h-12" />
                         <p>Gato</p>
                       </label>
                     </li>
@@ -86,7 +86,6 @@ export function AlertModal({ isOpen, onClose }: AlertModalProps) {
                     </span> :
                     null
                   }
-
                   <ComboBox
                     disabled={!values.species}
                     name="bloodType"
@@ -94,7 +93,6 @@ export function AlertModal({ isOpen, onClose }: AlertModalProps) {
                     options={values.species === 'DOG' ? dogsBloodTypeOptions : catsBloodTypeOptions}
                     errorMessage={(touched.bloodType && errors.bloodType) ? errors.bloodType : undefined}
                   />
-
                   <button className="bg-sky-800 text-white hover:bg-sky-700 rounded-full h-10 w-fit mt-2 px-4 self-end" type="submit">Criar</button>
                 </form>
               </Dialog.Description>
