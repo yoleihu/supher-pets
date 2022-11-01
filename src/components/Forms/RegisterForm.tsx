@@ -4,6 +4,12 @@ import { formatPhoneNumber } from "../../utils/mask/phoneMask";
 import { TextField } from "../TextField";
 import { formatCnpj } from "../../utils/mask/cnpjMask";
 import { formatCpf } from "../../utils/mask/cpfMask";
+import supherClient from "../../service/SupherClient";
+import { ButtonAsync } from "../Buttons/ButtonAsync";
+import { useContext, useState } from "react";
+import { UserContext } from "../../context/UserContext";
+import { cnpj, cpf } from "cpf-cnpj-validator";
+import { validatePhone } from "../../utils/validators/phone";
 
 interface FormValuesProps {
   name: string,
@@ -22,6 +28,37 @@ interface RegisterFormProps {
 }
 
 export const RegisterForm = ({ isGuardian, onTermsModal }: RegisterFormProps) => {
+  const [isLoading, setIsLoading] = useState(false);
+  const { signUpGuardian, signUpBloodCenter } = useContext(UserContext);
+
+  const onHandleSubmit = async (values: FormValuesProps) => {
+    setIsLoading(true);
+
+    if (isGuardian) {
+      const guardian = {
+        cpf: values.cpf,
+        name: values.name,
+        email: values.email,
+        telephone: values.phone,
+        password: values.password
+      }
+
+      await signUpGuardian(guardian)
+    } else {
+      const bloodCenter = {
+        cnpj: values.cnpj,
+        name: values.name,
+        email: values.email,
+        telephone: values.phone,
+        password: values.password
+      }
+
+      await signUpBloodCenter(bloodCenter)
+    }
+
+    setIsLoading(false)
+  }
+
   const initialValues: FormValuesProps = {
     name: '',
     cpf: '',
@@ -36,18 +73,25 @@ export const RegisterForm = ({ isGuardian, onTermsModal }: RegisterFormProps) =>
   const validationSchema = Yup.object().shape({
     name: Yup.string()
       .min(3, 'O nome deve ter no minímo 3 letras')
-      .matches(/^[A-z ]+$/, 'O nome não deve conter números ou caracteres especiais')
+      .matches(/^[A-Za-zÀ-ÿ ]+$/, 'O nome não deve conter números ou caracteres especiais')
       .required('Campo obrigatório'),
-    cpf: isGuardian ?
-      Yup.string().length(14, "CPF Inválido").required('Campo obrigatório') :
-      Yup.string().nullable(),
-    cnpj: !isGuardian ?
-      Yup.string().length(18, "CNPJ Inválido").required('Campo obrigatório') :
-      Yup.string().nullable(),
+    cpf: isGuardian
+      ? Yup.string()
+        .test('test-invalid-cpf', 'CPF Inválido', (value) => cpf.isValid(value ?? ''))
+        .length(14, "CPF Inválido")
+        .required('Campo obrigatório')
+      : Yup.string().nullable(),
+    cnpj: !isGuardian 
+      ? Yup.string()
+        .test('test-invalid-cnpj', 'CNPJ Inválido', (value) => cnpj.isValid(value ?? ''))
+        .length(18, "CNPJ Inválido")
+        .required('Campo obrigatório') 
+      : Yup.string().nullable(),
     email: Yup.string()
       .email('Email inválido')
       .required('Campo obrigatório'),
     phone: Yup.string()
+      .test('test-invalid-cnpj', 'Celular Inválido', (value) => validatePhone(value ?? ''))
       .length(15, "Celular Inválido")
       .required('Campo obrigatório'),
     password: Yup.string()
@@ -65,7 +109,7 @@ export const RegisterForm = ({ isGuardian, onTermsModal }: RegisterFormProps) =>
 
   const formik = useFormik<FormValuesProps>({
     initialValues,
-    onSubmit: (values) => { isGuardian ? console.log({ ...values, cnpj: null }) : console.log({ ...values, cpf: null }) },
+    onSubmit: ((values) => { onHandleSubmit(values) }),
     validationSchema
   });
 
@@ -74,7 +118,7 @@ export const RegisterForm = ({ isGuardian, onTermsModal }: RegisterFormProps) =>
   return (
     <>
       <form className="flex flex-col gap-3" onSubmit={handleSubmit}>
-      <h2 className="lg:text-2xl text-xl font-semibold text-zinc-800 text-center mb-3">Cadastro {isGuardian ? 'Tutor' : 'Hemocentro'}</h2>
+        <h2 className="lg:text-2xl text-xl font-semibold text-zinc-800 text-center mb-3">Cadastro {isGuardian ? 'Tutor' : 'Hemocentro'}</h2>
         <TextField
           name="name"
           placeholder="Nome"
@@ -136,18 +180,18 @@ export const RegisterForm = ({ isGuardian, onTermsModal }: RegisterFormProps) =>
           isPassword
         />
         <div className="flex gap-2 items-center">
-          <input name="terms" checked={values.terms} onClick={() => {setFieldTouched('terms')}} value={"terms"} onChange={handleChange} type={"checkbox"} className={"w-fit accent-sky-800"} />
+          <input name="terms" checked={values.terms} onClick={() => { setFieldTouched('terms') }} value={"terms"} onChange={handleChange} type={"checkbox"} className={"w-fit accent-sky-800"} />
           <label className="text-sm">Concordo com os <a onClick={onTermsModal} className="text-sky-800 underline font-bold">termos de uso e política de privacidade</a></label>
         </div>
-        {(touched.terms && errors.terms) ? 
-        <span className="text-red-600 text-xs">
-          {errors.terms}
-        </span> :
-        null
+        {(touched.terms && errors.terms) ?
+          <span className="text-red-600 text-xs">
+            {errors.terms}
+          </span> :
+          null
         }
 
         <div className="flex flex-col items-center">
-          <button className="bg-sky-800 text-white hover:bg-sky-700 rounded-full h-10 w-fit mt-5 px-4" type="submit">Cadastrar</button>
+          <ButtonAsync isLoading={isLoading} className="bg-sky-800 text-white hover:bg-sky-700 rounded-full h-10 w-fit mt-5 px-4" type="submit">Cadastrar</ButtonAsync>
         </div>
       </form>
     </>
