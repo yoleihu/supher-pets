@@ -24,7 +24,7 @@ export function UserForm({
 
   return (
     <div className="flex flex-col justify-center items-center mx-4 lg:mx-0">
-      <div className="max-w-lg w-2/5">
+      <div className="max-w-lg lg:w-2/5">
         {(isRegister || isLogin) &&
           <div className="justify-around flex mb-5">
             <ButtonUser isGuardian={isGuardian} label={"Tutor"} onChangeUser={() => { setIsGuardian(true), setIsBloodCenter(false) }} />
