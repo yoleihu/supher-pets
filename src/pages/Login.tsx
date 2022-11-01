@@ -8,9 +8,6 @@ import { UserContext } from "../context/UserContext";
 export function Login() {
   const { authenticatedGuardian, authenticatedBloodCenter } = useContext(UserContext);
 
-  console.log('authenticatedGuardian', authenticatedGuardian)
-  console.log('authenticatedBloodCenter', authenticatedBloodCenter)
-
   if (authenticatedGuardian) {
     return <Navigate to={`/guardian/${localStorage.getItem("USERINFO_ID")}`} />
   } else if (authenticatedBloodCenter) {

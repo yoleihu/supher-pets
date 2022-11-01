@@ -1,8 +1,8 @@
 import { createContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { AlertInput } from '../interfaces/Alert';
-import { AppointmentInput } from '../interfaces/Appointment';
-import { PetOutput, PetRegister } from '../interfaces/Pet';
+import { AlertInput, AlertOutput } from '../interfaces/Alert';
+import { AppointmentInput, AppointmentOutput } from '../interfaces/Appointment';
+import { PetOutput, PetInput } from '../interfaces/Pet';
 import { BloodCenterRegister, BloodCenterUpdate, GuardianRegister, GuardianUpdate, Login } from '../interfaces/User';
 import supherClient from '../service/SupherClient';
 
@@ -14,13 +14,13 @@ interface UserContextProps {
   authenticatedGuardian: boolean,
   authenticatedBloodCenter: boolean,
   pets: PetOutput[],
-  alerts: AlertInput[],
-  appointments: AppointmentInput[],
+  alerts: AlertOutput[],
+  appointments: AppointmentOutput[],
   signInGuardian: (guardian: Login) => Promise<void>,
   signUpGuardian: (guardian: GuardianRegister) => Promise<void>,
   updateGuardian: (guardian: GuardianUpdate) => Promise<void>,
-  addPet: (pet: PetRegister) => Promise<void>,
-  updatePet: (pet: PetRegister, petId: string) => Promise<void>,
+  addPet: (pet: PetInput) => Promise<void>,
+  updatePet: (pet: PetInput, petId: string) => Promise<void>,
   deletePet: (petId: string) => Promise<void>,
   signInBloodCenter: (bloodCenter: Login) => Promise<void>,
   signUpBloodCenter: (bloodCenter: BloodCenterRegister) => Promise<void>,
@@ -64,8 +64,8 @@ function AuthGuardian({ children }: AuthGuardianProps) {
   const [userGuardian, setUserGuardian] = useState<GuardianResponse | null>(null);
   const [pets, setPets] = useState<PetOutput[]>([]);
   const [userBloodCenter, setUserBloodCenter] = useState<BloodCenterResponse | null>(null);
-  const [alerts, setAlerts] = useState<AlertInput[]>([]);
-  const [appointments, setAppointments] = useState<AppointmentInput[]>([]);
+  const [alerts, setAlerts] = useState<AlertOutput[]>([]);
+  const [appointments, setAppointments] = useState<AppointmentOutput[]>([]);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -80,7 +80,6 @@ function AuthGuardian({ children }: AuthGuardianProps) {
         if('cpf' in storageUser) {
           setUserGuardian(storageUser);
           storagePets && setPets(JSON.parse(storagePets));
-          console.log(pets)
         } else if('cnpj' in storageUser) {
           setUserBloodCenter(storageUser);
           storageAlerts && setAlerts(JSON.parse(storageAlerts));
@@ -133,14 +132,14 @@ function AuthGuardian({ children }: AuthGuardianProps) {
     }
   }
 
-  const addPet = async (pet: PetRegister) => {
+  const addPet = async (pet: PetInput) => {
     const response = await supherClient.addPet(pet);
 
     setPets([...pets, response])
     localStorage.setItem("PETS", JSON.stringify(pets))
   }
 
-  const updatePet = async (pet: PetRegister, petId: string) => {
+  const updatePet = async (pet: PetInput, petId: string) => {
     await supherClient.updatePet(pet, petId)
 
     if(userGuardian) {

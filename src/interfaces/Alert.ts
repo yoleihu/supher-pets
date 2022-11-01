@@ -5,6 +5,6 @@ export interface AlertInput {
   data: string,
 }
 
-export interface AlertOuput extends AlertInput {
+export interface AlertOutput extends AlertInput {
   id: string,
 }
