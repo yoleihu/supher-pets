@@ -1,7 +1,7 @@
 import axios from "axios"
 import { AlertInput } from "../interfaces/Alert";
 import { AppointmentInput } from "../interfaces/Appointment";
-import { PetRegister } from "../interfaces/Pet";
+import { PetInput } from "../interfaces/Pet";
 import { BloodCenterRegister, BloodCenterUpdate, GuardianRegister, GuardianUpdate, Login } from "../interfaces/User";
 
 export class SupherClient {
@@ -130,7 +130,7 @@ export class SupherClient {
     }
   }
 
-  async addPet(pet: PetRegister) {
+  async addPet(pet: PetInput) {
     try {
       const response = await this.api.post('/pet', pet)
       return response.data
@@ -139,7 +139,7 @@ export class SupherClient {
     }
   }
 
-  async updatePet(pet: PetRegister, petId: string) {
+  async updatePet(pet: PetInput, petId: string) {
     try {
       const response = await this.api.patch(`/pet/${petId}`, pet)
       return response.data

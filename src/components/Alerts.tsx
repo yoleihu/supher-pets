@@ -1,11 +1,11 @@
 import { DateTime } from "luxon"
 import { Trash } from "phosphor-react"
 import { useState } from "react"
-import { AlertOuput } from "../interfaces/Alert"
+import { AlertOutput } from "../interfaces/Alert"
 import { ConfirmDeleteModal } from "./Modals/ConfirmDeleteModal"
 
 interface AlertsProps {
-  alert: AlertOuput,
+  alert: AlertOutput,
 }
 
 export const Alerts = ({ alert }: AlertsProps) => {

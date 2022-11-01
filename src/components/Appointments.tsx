@@ -1,11 +1,11 @@
 import { DateTime } from "luxon";
 import { FilePdf, PencilSimple } from "phosphor-react";
 import { useState } from "react";
-import { AppointmentInput } from "../interfaces/Appointment";
-import { AppointmentModal, AppointmentProps } from "./Modals/AppointmentModal";
+import { AppointmentOutput } from "../interfaces/Appointment";
+import { AppointmentModal } from "./Modals/AppointmentModal";
 
 interface AppointmentButtonProps {
-  appointment: AppointmentInput,
+  appointment: AppointmentOutput,
 }
 
 export function Appointments({ appointment }: AppointmentButtonProps) {

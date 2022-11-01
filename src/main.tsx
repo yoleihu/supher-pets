@@ -5,7 +5,7 @@ import './styles/global.css'
 
 const root = ReactDOM.createRoot(document.getElementById('root')!)
 
-supherClient.defineInterceptors()
+// supherClient.defineInterceptors()
 
 root.render(
   <PrincipalRoutes />

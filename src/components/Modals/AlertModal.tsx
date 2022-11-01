@@ -8,7 +8,6 @@ import { AlertInput } from "../../interfaces/Alert";
 import { DateTime } from "luxon";
 import { useContext, useState } from "react";
 import { UserContext } from "../../context/UserContext";
-import { ConfirmDeleteModal } from "./ConfirmDeleteModal";
 
 interface AlertModalProps {
   isOpen: boolean,
@@ -30,8 +29,6 @@ export function AlertModal({ isOpen, onClose }: AlertModalProps) {
       bloodCenterId: JSON.parse(localStorage.getItem("USERINFO_ID")!),
       data: DateTime.now().toISO(),
     }
-
-    console.log(alert)
 
     await createAlert(alert)
     onClose()

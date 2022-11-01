@@ -1,4 +1,4 @@
-export interface PetRegister {
+export interface PetInput {
   guardianId: string,
   name: string,
   sexOfPet: "FEMALE" | "MALE" | "",
@@ -10,6 +10,6 @@ export interface PetRegister {
   statusToDonation?: "FIT" | "UNFIT" | "UNKNOW" | null,
 }
 
-export interface PetOutput extends PetRegister {
+export interface PetOutput extends PetInput {
   id: string
 }
