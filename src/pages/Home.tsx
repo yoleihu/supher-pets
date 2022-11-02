@@ -10,6 +10,16 @@ import {
 import { Footer } from "../components/Footer";
 import { LinksProps, Navbar } from "../components/Navbar";
 import Pets from "../assets/gato-e-cachorro.png";
+import Form from "../assets/pet-form.png";
+import PetShop from "../assets/pet-shop.png";
+import Calendar from "../assets/calendar.png";
+import Attach from "../assets/attach.png";
+import Location from "../assets/location.png";
+import Appoitment from "../assets/appointment.png";
+import PetForm from "../assets/pet-certificate.png";
+import Yo from "../assets/yo.png";
+import Giu from "../assets/giu.png";
+
 import { ButtonNavbar } from "../components/Buttons/ButtonNavbar";
 import useCollapse from "react-collapsed";
 import { ContactForm } from "../components/Forms/ContactForm";
@@ -32,6 +42,7 @@ interface AboutItemProps {
 interface DeveloperProps {
   name: string;
   descrption: string;
+  image: ReactElement;
 }
 
 interface CollapseProps {
@@ -43,11 +54,9 @@ interface CollapseProps {
 function AboutItem({ title, text, icon }: AboutItemProps) {
   return (
     <div className="flex md:flex-col flex-row items-center md:w-40 w-full gap-4">
-      <div className="bg-red-600 rounded-full flex items-center justify-center md:w-32 w-20 md:h-32 h-20">
-        {icon}
-      </div>
+      {icon}
       <div className="flex flex-col md:items-center items-start md:w-40 w-full gap-4">
-        <p className=" text-red-600 text-xl font-bold md:text-center text-left">
+        <p className=" text-cyan-900 text-xl font-bold md:text-center text-left">
           {title}
         </p>
         <p className="text-zinc-600 md:text-center text-left">{text}</p>
@@ -86,14 +95,16 @@ function CollapsibleFaq({ question, response, number }: CollapseProps) {
   );
 }
 
-function DeveloperItem({ name, descrption }: DeveloperProps) {
+function DeveloperItem({ name, descrption, image }: DeveloperProps) {
   return (
-    <div className="bg-yellow-50 h-fit w-full rounded-full flex flex-row p-6 items-center justify-between">
+    <div className="border-zinc-400 border-2 h-fit w-full rounded-3xl flex flex-row p-6 items-center justify-between">
       <div className="gap-4 pl-5">
         <p className="lg:text-xl font-bold text-zinc-800">{name}</p>
         <p className="text-lg text-red-600">{descrption}</p>
       </div>
-      <div className="w-24 h-24 bg-red-600 rounded-full"></div>
+      <div >
+        {image}
+      </div>
     </div>
   );
 }
@@ -113,24 +124,24 @@ export function Home() {
         <section className=" flex flex-row items-center justify-center lg:pt-28 pt-20" id="welcome">
           <div className="flex md:flex-row justify-between flex-col-reverse">
             <div className="lg:w-3/5 w-full">
-              <h1 className=" text-red-600 md:text-5xl text-xl font-bold">
-                Faça do seu pet um herói, agende uma consulta!
+              <h1 className=" text-cyan-900 md:text-5xl text-xl font-bold">
+                Faça do seu pet um herói, agende uma doação de sangue!
               </h1>
               <div className="md:py-5 md:gap-2 flex flex-col">
-                <p className="md:text-lg text-base">
+                <p className="md:text-xl text-base">
                   Você sabia que seu pet pode salvar vidas de outros animais
-                  através da doação de sangue?
+                  através da doação sanguínea?
                 </p>
-                <p className="flex flex-row gap-2 items-center md:text-lg text-base">
-                  <CheckCircle size={32} color="#57cba1" weight="fill" />
+                <p className="flex flex-row gap-2 items-center md:text-xl text-base">
+                  <CheckCircle size={40} className="text-green-400" weight="fill" />
                   Realize Seu cadastro
                 </p>
-                <p className="flex flex-row gap-2 items-center md:text-lg text-base">
-                  <CheckCircle size={32} color="#57cba1" weight="fill" />
+                <p className="flex flex-row gap-2 items-center md:text-xl text-base">
+                  <CheckCircle size={40} className="text-green-400" weight="fill" />
                   Inclua seu pet
                 </p>
-                <p className="flex flex-row gap-2 items-center md:text-lg text-base">
-                  <CheckCircle size={32} color="#57cba1" weight="fill" />
+                <p className="flex flex-row gap-2 items-center md:text-xl text-base">
+                  <CheckCircle size={40} className="text-green-400" weight="fill" />
                   Procure o receptor mais próximo
                 </p>
               </div>
@@ -154,10 +165,10 @@ export function Home() {
             <p className="md:text-4xl text-xl font-bold text-zinc-800 pb-4">
               Sobre
             </p>
-            <p className="text-base md:w-3/5 w-full md:text-center text-justify">
+            <p className="text-base md:w-3/5 w-full md:text-center text-justify md:text-xl">
               Unimos bancos de sangue veterinário e tutores em um ambiente
               digital, afim de facilitar o processo de doação, possibilitando o
-              tratamento de mais animais.
+              tratamento de diversos animais.
             </p>
           </div>
           <div className="md:pt-16 flex flex-col items-center">
@@ -165,41 +176,26 @@ export function Home() {
             <p className="lg:text-4xl font-bold text-zinc-800">
               Principais funcionalidades
             </p>
-            <div className="flex md:flex-row flex-col justify-center items-center md:items-start md:gap-32 gap-6 pt-10">
+            <div className="flex md:flex-row flex-col justify-center items-center md:items-start md:gap-32 gap-6">
               <AboutItem
                 title="Cadastro de multiplos pets"
                 text="Você pode cadastrar todos os seus pets!"
                 icon={
-                  <NewspaperClipping
-                    size={"80"}
-                    className="md:h-20 h-10"
-                    color="#FFF8ED"
-                    weight="fill"
-                  />
+                  <img src={PetForm} className="w-20 max-h-fit md:mt-24 mt-4" />
                 }
               />
               <AboutItem
                 title="Gerenciamento de consultas"
                 text="Receba notificações sobre as consultas de cada pet e acesse os resultados!"
                 icon={
-                  <Kanban
-                    size={"80"}
-                    className="md:h-20 h-10"
-                    color="#FFF8ED"
-                    weight="fill"
-                  />
+                  <img src={Calendar} className="w-20 max-h-fit md:mt-24 mt-4" />
                 }
               />
               <AboutItem
                 title="Encontre hemocentros"
                 text="Conheça os bancos de sangue próximos a você!"
                 icon={
-                  <MagnifyingGlass
-                    size={"80"}
-                    className="md:h-20 h-10"
-                    color="#FFF8ED"
-                    weight="fill"
-                  />
+                  <img src={Location} className="w-20 max-h-fit md:mt-24 mt-4" />
                 }
               />
             </div>
@@ -207,7 +203,7 @@ export function Home() {
         </section>
 
         <section className="pt-20" id="aos-hemocentros">
-          <div className="md:py-16 md:px-10 lg:px-20 px-4 py-5 flex lg:flex-row justify-center items-center flex-col-reverse bg-red-200 rounded-3xl">
+          <div className="md:py-16 md:px-10 lg:px-20 px-4 py-5 flex lg:flex-row justify-center items-center flex-col-reverse bg-white shadow rounded-3xl">
             <div className="lg:w-1/2 w-full flex flex-col md:gap-4">
               <p className="lg:text-xl font-bold text-zinc-600">
                 Aos Hemocentros
@@ -229,8 +225,8 @@ export function Home() {
                 />
               </div>
             </div>
-            <div className="lg:w-1/2 items-center justify-center text-center flex w-full">
-              <FirstAidKit size={200} color="#f23326" weight="fill" />
+            <div className="lg:w-1/2 items-end justify-end lg:pr-24 text-center flex w-full">
+            <img src={PetShop} className="w-56 max-h-fit" />
             </div>
           </div>
         </section>
@@ -245,30 +241,50 @@ export function Home() {
           </p>
           <div className="flex flex-col w-full gap-4 mt-5">
             <CollapsibleFaq
-              question="Pergunta"
-              response="Resposta"
+              question="Todos os gatos e cães podem doar sangue?"
+              response="Todos que estejam saudáveis e tenham o peso e idade seguros, você pode verificar se eles estão aptos cadastrando-os e agendando uma consulta"
               number="1"
             />
             <CollapsibleFaq
-              question="Pergunta"
-              response="Resposta"
+              question="Quais os benefícios de doar sangue?"
+              response="O procedimento conta com o exame de sangue para identificar a tipagem sanguínea, além disso, diversas clínicas oferecerem exames adicionais gratuitos."
               number="2"
             />
             <CollapsibleFaq
-              question="Pergunta"
-              response="Resposta"
+              question="Como saber se meu pet pode doar sangue?"
+              response="Ao realizar o cadastro do seu pet você saberá se o seu pet é apto para doação de acordo com as informações cadastradas, os veterinários também avaliam a saúde, peso e idade do animal na primeira consulta."
               number="3"
             />
             <CollapsibleFaq
-              question="Pergunta"
-              response="Resposta"
+              question="A doação de sangue veterinário oferece riscos ao pet?"
+              response="Não, é um procedimento seguro e sem efeitos colaterais."
               number="4"
+            />
+            <CollapsibleFaq
+              question="Gatos e cães possuem tipos sanguíneos?"
+              response="Sim, os tipos sanguíneos são diferentes para cada espécie, ou seja, o esquema de tipagem sanguínea é distinto entre cães e gatos, e diferentes também dos humanos."
+              number="5"
+            />
+            <CollapsibleFaq
+              question="Qual o intervalo de tempo entre uma doação e outra?"
+              response="Cada hemocentro aplica seu intervalo de acordo com a saúde do cão, popularmente o período é de em média três meses."
+              number="6"
+            />
+            <CollapsibleFaq
+              question="Qual a quantidade de sangue que colhem de cada pet?"
+              response="Em média 20 do volume do sangue do doador."
+              number="7"
+            />
+            <CollapsibleFaq
+              question="Onde posso levar meu amiguinho de quatro patas para doação?"
+              response="Para descobrir os hemocentros mais próximos de você basta criar sua conta e visualizar a lista de hemocentros no lado direito da página."
+              number="8"
             />
           </div>
         </section>
 
         <section className="pt-20" id="quem-somos">
-          <div className="lg:py-16 md:px-10 lg:px-20 py-5 px-4 flex items-start flex-col bg-red-200 rounded-3xl">
+          <div className="lg:py-16 md:px-10 lg:px-20 py-5 px-4 flex items-start flex-col bg-white shadow rounded-3xl">
             <p className="lg:text-xl font-bold text-zinc-600">Quem somos</p>
             <p className="lg:text-4xl text-xl font-bold text-zinc-800">
               Conheça os idealizadores
@@ -277,10 +293,12 @@ export function Home() {
               <DeveloperItem
                 name="Giuliana Missio"
                 descrption="Web Developer, 20 anos"
+                image={<img src={Giu} className="w-20 max-h-fit" />}
               />
               <DeveloperItem
                 name="Yolanda Ferreira"
                 descrption="Web Developer, 20 anos"
+                image={<img src={Yo} className="w-20 max-h-fit" />}
               />
             </div>
           </div>
