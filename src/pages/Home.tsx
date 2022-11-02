@@ -10,13 +10,13 @@ import {
 import { Footer } from "../components/Footer";
 import { LinksProps, Navbar } from "../components/Navbar";
 import Pets from "../assets/gato-e-cachorro.png";
+import SupherPets from "../assets/supher-pets.png";
+
 import Form from "../assets/pet-form.png";
-import PetShop from "../assets/pet-shop.png";
+import PetShop from "../assets/kit.png";
 import Calendar from "../assets/calendar.png";
-import Attach from "../assets/attach.png";
-import Location from "../assets/location.png";
-import Appoitment from "../assets/appointment.png";
-import PetForm from "../assets/pet-certificate.png";
+import Local from "../assets/local.jpeg";
+
 import Yo from "../assets/yo.png";
 import Giu from "../assets/giu.png";
 
@@ -53,13 +53,17 @@ interface CollapseProps {
 
 function AboutItem({ title, text, icon }: AboutItemProps) {
   return (
-    <div className="flex md:flex-col flex-row items-center md:w-40 w-full gap-4">
+    <div className="flex md:flex-col flex-row items-center md:w-52 w-full gap-4 md:mt-10 mt-4">
       {icon}
       <div className="flex flex-col md:items-center items-start md:w-40 w-full gap-4">
         <p className=" text-cyan-900 text-xl font-bold md:text-center text-left">
           {title}
         </p>
-        <p className="text-zinc-600 md:text-center text-left">{text}</p>
+        <div className="md:w-52 w-full">
+          <p className="text-zinc-600 text-lg md:text-center text-left">
+            {text}
+          </p>
+        </div>
       </div>
     </div>
   );
@@ -71,7 +75,7 @@ function CollapsibleFaq({ question, response, number }: CollapseProps) {
     <div className="collapsible w-full flex flex-col">
       <div className="flex items-center justify-between w-full">
         <div className="flex flex-row items-center">
-          <div className="w-16 h-16 bg-green-400 rounded-full flex justify-center items-center">
+          <div className="w-16 h-16 bg-green-400 rounded-full flex justify-center items-center shadow-lg">
             <p className="text-2xl text-bold text-yellow-50">{number}</p>
           </div>
           <p className="text-xl px-8 text-zinc-800">{question}</p>
@@ -102,9 +106,7 @@ function DeveloperItem({ name, descrption, image }: DeveloperProps) {
         <p className="lg:text-xl font-bold text-zinc-800">{name}</p>
         <p className="text-lg text-red-600">{descrption}</p>
       </div>
-      <div >
-        {image}
-      </div>
+      <div>{image}</div>
     </div>
   );
 }
@@ -114,14 +116,27 @@ export function Home() {
     <div className="flex flex-col min-h-screen">
       <header>
         <Navbar links={ancors}>
-          <div className='py-2 items-end bottom-0 flex lg:flex-row flex-col lg:gap-8 w-full lg:w-fit'>
-            <ButtonNavbar type="button" label="Registre-se" path='/register' role='secondary' />
-            <ButtonNavbar type="button" label="Entre" path='/login' role='primary' />
+          <div className="py-2 items-end bottom-0 flex lg:flex-row flex-col lg:gap-8 w-full lg:w-fit">
+            <ButtonNavbar
+              type="button"
+              label="Registre-se"
+              path="/register"
+              role="secondary"
+            />
+            <ButtonNavbar
+              type="button"
+              label="Entre"
+              path="/login"
+              role="primary"
+            />
           </div>
         </Navbar>
       </header>
       <div className="lg:px-40 md:px-20 px-5 flex flex-col">
-        <section className=" flex flex-row items-center justify-center lg:pt-28 pt-20" id="welcome">
+        <section
+          className=" flex flex-row items-center justify-center lg:pt-28 pt-20"
+          id="welcome"
+        >
           <div className="flex md:flex-row justify-between flex-col-reverse">
             <div className="lg:w-3/5 w-full">
               <h1 className=" text-cyan-900 md:text-5xl text-xl font-bold">
@@ -133,15 +148,27 @@ export function Home() {
                   através da doação sanguínea?
                 </p>
                 <p className="flex flex-row gap-2 items-center md:text-xl text-base">
-                  <CheckCircle size={40} className="text-green-400" weight="fill" />
+                  <CheckCircle
+                    size={40}
+                    className="text-green-400"
+                    weight="fill"
+                  />
                   Realize Seu cadastro
                 </p>
                 <p className="flex flex-row gap-2 items-center md:text-xl text-base">
-                  <CheckCircle size={40} className="text-green-400" weight="fill" />
+                  <CheckCircle
+                    size={40}
+                    className="text-green-400"
+                    weight="fill"
+                  />
                   Inclua seu pet
                 </p>
                 <p className="flex flex-row gap-2 items-center md:text-xl text-base">
-                  <CheckCircle size={40} className="text-green-400" weight="fill" />
+                  <CheckCircle
+                    size={40}
+                    className="text-green-400"
+                    weight="fill"
+                  />
                   Procure o receptor mais próximo
                 </p>
               </div>
@@ -155,7 +182,7 @@ export function Home() {
               </div>
             </div>
             <div className="lg:w-2/5 w-full">
-              <img src={Pets} className="w-full max-h-fit md:mt-24 mt-4" />
+              <img src={SupherPets} className="w-full max-h-fit mt-4" />
             </div>
           </div>
         </section>
@@ -176,26 +203,29 @@ export function Home() {
             <p className="lg:text-4xl font-bold text-zinc-800">
               Principais funcionalidades
             </p>
-            <div className="flex md:flex-row flex-col justify-center items-center md:items-start md:gap-32 gap-6">
+            <div className="flex md:flex-row flex-col justify-center items-center md:items-start md:gap-40 gap-6">
               <AboutItem
                 title="Cadastro de multiplos pets"
                 text="Você pode cadastrar todos os seus pets!"
                 icon={
-                  <img src={PetForm} className="w-20 max-h-fit md:mt-24 mt-4" />
+                  <img src={Form} className="w-40 p-1 max-h-fit " />
                 }
               />
               <AboutItem
                 title="Gerenciamento de consultas"
                 text="Receba notificações sobre as consultas de cada pet e acesse os resultados!"
                 icon={
-                  <img src={Calendar} className="w-20 max-h-fit md:mt-24 mt-4" />
+                  <img
+                    src={Calendar}
+                    className="w-40 p-1 max-h-fit"
+                  />
                 }
               />
               <AboutItem
                 title="Encontre hemocentros"
                 text="Conheça os bancos de sangue próximos a você!"
                 icon={
-                  <img src={Location} className="w-20 max-h-fit md:mt-24 mt-4" />
+                  <img src={Local} className="w-40 max-h-fit " />
                 }
               />
             </div>
@@ -226,7 +256,7 @@ export function Home() {
               </div>
             </div>
             <div className="lg:w-1/2 items-end justify-end lg:pr-24 text-center flex w-full">
-            <img src={PetShop} className="w-56 max-h-fit" />
+              <img src={PetShop} className="w-56 max-h-fit" />
             </div>
           </div>
         </section>
