@@ -1,4 +1,4 @@
-import { FirstAid, MagnifyingGlass, PawPrint, PencilSimple, Plus } from "phosphor-react";
+import { FirstAid, List, MagnifyingGlass, PawPrint, PencilSimple, Plus } from "phosphor-react";
 import { ButtonNavbar } from "../components/Buttons/ButtonNavbar";
 import { Footer } from "../components/Footer";
 import { Navbar } from "../components/Navbar";
@@ -9,12 +9,18 @@ import { useContext, useState } from 'react'
 import { PetModal } from "../components/Modals/PetModal";
 import { UserContext } from "../context/UserContext";
 
+enum CurrentScreen {
+  FINDBLOODCENTER = 'findBloodCenter',
+  PETS = 'pets',
+}
+
 export function Guardian() {
   const [isSearching, setIsSearching] = useState(false);
   const [searchBloodCenter, setSearchBloodCenter] = useState('');
   const [openEditProfileModal, setOpenEditProfileModal] = useState(false);
   const [openPetModal, setOpenPetModal] = useState(false);
-  const [isPetsScreen, setIsPetsScreen] = useState(true);
+  const [screenOptionsOpen, setScreenOpitionsOpen] = useState(false);
+  const [currentScreen, setCurrentScreen] = useState<CurrentScreen>(CurrentScreen.PETS);
   const { pets } = useContext(UserContext);
   const user = JSON.parse(localStorage.getItem("USERINFO") ?? '');
 
@@ -32,7 +38,7 @@ export function Guardian() {
         <ButtonNavbar type="button" label="Sair" role='secondary' isSignOutButton />
       </Navbar>
       <div className="lg:mt-28 mt-20 lg:mx-32 sm:mx-12 mx-6 lg:flex lg:gap-14">
-        <div className={`lg:w-4/6 lg:block ${!isPetsScreen && 'hidden w-full'}`}>
+        <div className={`lg:w-4/6 lg:block ${currentScreen !== 'pets' && 'hidden w-full'}`}>
           <div className="flex justify-between items-center">
             <h1 className="md:text-3xl text-xl">Olá {(user.name as string + ' ').split(' ').shift()}!</h1>
             <button onClick={() => setOpenEditProfileModal(true)} className="px-1 py-1 lg:my-0 my-1 w-fit rounded-full">
@@ -50,7 +56,7 @@ export function Guardian() {
             </button>
           </div>
         </div>
-        <div className={`lg:w-2/6 lg:block bg-white shadow rounded-3xl p-5 min-h-[22rem] ${isPetsScreen && 'hidden w-full'}`}>
+        <div className={`lg:w-2/6 lg:block bg-white shadow rounded-3xl p-5 min-h-[22rem] ${currentScreen !== 'findBloodCenter' && 'hidden w-full'}`}>
           {isSearching
             ? <TextField placeholder="Pesquise aqui" onBlur={() => { !searchBloodCenter && setIsSearching(false) }} autoFocus value={searchBloodCenter} onChange={(value) => setSearchBloodCenter(value)} />
             : <div className="flex justify-between">
@@ -62,12 +68,21 @@ export function Guardian() {
           }
         </div>
       </div>
-      <div className="absolute bottom-20 right-5 lg:hidden">
-        <button className="self-end w-fit rounded-full p-3 bg-sky-800 hover:bg-sky-700" onClick={() => setIsPetsScreen(!isPetsScreen)}>
-          {isPetsScreen
-            ? <FirstAid className="m-auto" size={20} color="#ffffff" />
-            : <PawPrint className="m-auto" size={20} color="#ffffff" />
-          }
+      <div className="absolute bottom-20 right-5 lg:hidden flex flex-col justify-end gap-2">
+        {screenOptionsOpen &&
+          <div className="bottom-16 right-2 p-3 rounded-lg gap-3 flex flex-col w-full items-end lg:hidden bg-sky-800 text-white">
+            <button className={`flex gap-2 ${currentScreen === 'pets' && 'hidden'}`} onClick={() => { setCurrentScreen(CurrentScreen.PETS); setScreenOpitionsOpen(false) }}>
+              Pets
+              <PawPrint className="m-auto" size={15} color="#ffffff" />
+            </button>
+            <button className={`flex gap-2 ${currentScreen === 'findBloodCenter' && 'hidden'}`} onClick={() => { setCurrentScreen(CurrentScreen.FINDBLOODCENTER); setScreenOpitionsOpen(false) }}>
+              Buscar Hemocentros
+              <FirstAid className="m-auto" size={15} color="#ffffff" />
+            </button>
+          </div>
+        }
+        <button className="self-end w-fit rounded-full p-3 bg-sky-800 hover:bg-sky-700" onClick={() => setScreenOpitionsOpen(!screenOptionsOpen)}>
+          <List className="m-auto" size={20} color="#ffffff" />
         </button>
       </div>
       <Footer />
