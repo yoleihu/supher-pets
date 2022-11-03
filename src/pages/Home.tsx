@@ -10,7 +10,7 @@ import {
 import { Footer } from "../components/Footer";
 import { LinksProps, Navbar } from "../components/Navbar";
 import Pets from "../assets/gato-e-cachorro.png";
-import SupherPets from "../assets/supher-pets.png";
+import SupherPets from "../assets/supherpets.png";
 
 import Form from "../assets/pet-form.png";
 import PetShop from "../assets/kit.png";
