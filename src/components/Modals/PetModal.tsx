@@ -193,7 +193,7 @@ export function PetModal({ pet, isOpen, isEditing, onClose }: PetModalProps) {
                     <ButtonAsync
                       disabled={isLoading}
                       isLoading={isLoading}
-                      className="bg-sky-800 text-white hover:bg-sky-700 rounded-full h-10 w-fit mt-2 px-4 flex justify-center items-center disabled:bg-gray-300 disabled:text-gray-700"
+                      className="bg-sky-800 text-white hover:bg-sky-700 rounded-full h-10 w-fit mt-2 px-4 flex justify-center items-center gap-2 disabled:bg-gray-300 disabled:text-gray-700"
                       type="submit"
                     >
                       {isEditing ? 'Atualizar' : 'Adicionar'}

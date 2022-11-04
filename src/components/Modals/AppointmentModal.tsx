@@ -99,7 +99,7 @@ export function AppointmentModal({ appointment, isOpen, isEditing, onClose }: Ap
         <div className="fixed inset-0 overflow-y-auto">
           <div className="flex min-h-full items-center justify-center p-4">
             <Dialog.Panel className="w-full max-w-md transform rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
-              <Dialog.Title className="font-semibold text-2xl mb-5">Criar Consulta</Dialog.Title>
+              <Dialog.Title className="font-semibold text-2xl mb-5">{isEditing ? 'Atualizar' : 'Criar'} Consulta</Dialog.Title>
               <Dialog.Description className="flex flex-col justify-between">
                 <form className="gap-4 flex flex-col" onSubmit={handleSubmit}>
                   <TextField
@@ -135,10 +135,12 @@ export function AppointmentModal({ appointment, isOpen, isEditing, onClose }: Ap
                       className="block w-full text-sm text-zinc-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-red-50 file:text-red-700 hover:file:bg-red-100"
                     />
                   </div>
-                  <div className="flex justify-between">
-                    <button onClick={() => setDeleteAppointmentModalOpen(true)}>
-                      <Trash color="red" size={25} />
-                    </button>
+                  <div className={`w-full flex ${isEditing ? 'justify-between' : 'justify-end'}`}>
+                    {isEditing &&
+                      <button onClick={() => setDeleteAppointmentModalOpen(true)}>
+                        <Trash color="red" size={25} />
+                      </button>
+                    }
 
                     <ButtonAsync
                       disabled={isLoading}
