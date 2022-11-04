@@ -11,6 +11,13 @@ interface AppointmentButtonProps {
 export function Appointments({ appointment }: AppointmentButtonProps) {
   const [isEditingAppointment, setIsEditindAppointment] = useState(false);
 
+  const downloadPdf = () => {
+    const downloadLink = document.createElement('a') as HTMLAnchorElement;
+    downloadLink.href = appointment.result!;
+    downloadLink.download = `Resultado pet:${appointment.petId}`;
+    downloadLink.click();
+  }
+
   return (
     <>
       {isEditingAppointment &&
@@ -26,7 +33,7 @@ export function Appointments({ appointment }: AppointmentButtonProps) {
           <div className="flex flex-col items-end gap-1">
             <p>{DateTime.fromISO(appointment?.data ?? new Date()).toFormat('dd/LL/yyyy')}</p>
             {appointment.result &&
-              <button className="flex items-center gap-1 text-sm">
+              <button className="flex items-center gap-1 text-sm" onClick={() => downloadPdf()}>
                 Resultado:
                 <FilePdf size={18} />
               </button>

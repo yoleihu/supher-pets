@@ -17,15 +17,13 @@ export const Alerts = ({ alert }: AlertsProps) => {
         <ConfirmDeleteModal id={alert.id} itemDeleted="alert" isOpen={deleteAlertModalOpen} onClose={() => setDeleteAlertModalOpen(false)} />
       }
 
-      <div className="flex items-center gap-3 w-full">
-        {alert.species === "DOG"
-          ? <img src="/assets/dog-icon.png" className="h-6" />
-          : <img src="/assets/cat-icon.png" className="h-6" />
-        }
-        <div className="flex flex-col">
-          <p>Tipo: {alert.bloodType}</p>
-          <p>{DateTime.fromISO(alert.data).setLocale('br').toFormat('D')}</p>
-        </div>
+      <div className="flex items-center justify-between w-full gap-3 lg:mt-2">
+          {alert.species === "DOG"
+            ? <img src="/assets/dog-icon.png" className="h-6" />
+            : <img src="/assets/cat-icon.png" className="h-6" />
+          }
+            <p>Tipo: {alert.bloodType}</p>
+            <p>{DateTime.fromISO(alert.data).setLocale('br').toFormat('D')}</p>
         <button onClick={() => setDeleteAlertModalOpen(true)}>
           <Trash color="red" size={20} />
         </button>
