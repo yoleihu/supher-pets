@@ -24,7 +24,7 @@ export function Footer({ links }: FooterProps) {
     updateWindow();
     window.addEventListener("resize", updateWindow);
     return () => window.removeEventListener("resize", updateWindow);
-  }, []);
+  }, [document.documentElement.offsetHeight]);
 
   return (
     <footer

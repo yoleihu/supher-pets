@@ -70,13 +70,14 @@ function AuthGuardian({ children }: AuthGuardianProps) {
 
   useEffect(() => {
     const loadingStoreData = async () => {
-      const storageUser = JSON.parse(localStorage.getItem('USERINFO') ?? '');
+      const storageUserRaw = localStorage.getItem('USERINFO');
       const storageToken = localStorage.getItem('TOKEN');
       const storagePets = localStorage.getItem("PETS");
       const storageAlerts = localStorage.getItem("ALERTS");
       const storageAppointments = localStorage.getItem("APPOINTMENTS");
       
-      if (storageToken && storageUser) {
+      if (storageToken && storageUserRaw) {
+        const storageUser = JSON.parse(storageUserRaw);
         if('cpf' in storageUser) {
           setUserGuardian(storageUser);
           storagePets && setPets(JSON.parse(storagePets));

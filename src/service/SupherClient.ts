@@ -2,11 +2,13 @@ import axios from "axios"
 import { AlertInput } from "../interfaces/Alert";
 import { AppointmentInput } from "../interfaces/Appointment";
 import { PetInput } from "../interfaces/Pet";
+import { RecoverPassword } from "../interfaces/RecoverPassword";
 import { BloodCenterRegister, BloodCenterUpdate, GuardianRegister, GuardianUpdate, Login } from "../interfaces/User";
 
 export class SupherClient {
   api = axios.create({
-    baseURL: "https://supher-api.herokuapp.com/",
+    baseURL: 
+    "https://supher-api.herokuapp.com/",
     // "http://localhost:3000" 
     });
 
@@ -94,6 +96,15 @@ export class SupherClient {
     }
   }
 
+  async recoverPasswordBloodCenter(recoverPasswordBody: RecoverPassword) {
+    try {
+      const response = await this.api.post('/blood-center/generate-link', recoverPasswordBody)
+      return response.data
+    } catch(error) {
+      console.log(error)
+    }
+  }
+
   async loginBloodCenter(bloodCenter: Login) {
     try {
       const response = await this.api.post('/blood-center/login', bloodCenter)
@@ -105,7 +116,7 @@ export class SupherClient {
 
   async updateBloodCenter(bloodCenter: BloodCenterUpdate, id: string) {
     try {
-      const response = await this.api.patch(`/guardian/${id}`, bloodCenter)
+      const response = await this.api.patch(`/blood-center/${id}`, bloodCenter)
       return response.data
     } catch (error) {
       console.log(error)
@@ -177,7 +188,7 @@ export class SupherClient {
 
   async listNearBloodCenter(cep: string) {
     try {
-      const response = await this.api.get(`/blood-center/list-nears`);
+      const response = await this.api.get(`/blood-center/list-nears/${cep}`);
       return response.data
     } catch (error) {
       console.log(error)

@@ -5,6 +5,7 @@ import { TextField } from "../TextField";
 import { useState } from "react";
 import { ButtonAsync } from "../Buttons/ButtonAsync";
 import { Dialog } from "@headlessui/react";
+import supherClient from '../../service/SupherClient';
 
 interface RecoverPasswordModalProps {
   isOpen: boolean,
@@ -19,18 +20,32 @@ export const RecoverPasswordModal = ({ isOpen, onClose }: RecoverPasswordModalPr
   const [isLoading, setIsLoading] = useState(false);
   const [toSend, setToSend] = useState({
     from_email: '',
-    token: '123456',
+    token: ''
   });
+
+  const onHandleSubmit = async ({ email }: FormValuesProps) => {
+    // setIsLoading(true)
+
+    const body = {
+      email,
+      url: "http://localhost:3006/recoverPassword"
+    };
+
+    const response = await supherClient.recoverPasswordBloodCenter(body);
+    
+    setToSend({from_email: email, token: response});
+    
+    // await sendEmail();
+    setIsLoading(false);
+    // onClose()
+  }
 
   const sendEmail = async () => {
     try {
-      setIsLoading(true)
-      emailjs.send('service_a7m1m8i', 'template_1xf8ift', toSend, 'Dn6OsVlPmO2i-Z0EP')
+      await emailjs.send('service_a7m1m8i', 'template_1xf8ift', toSend, 'Dn6OsVlPmO2i-Z0EP')
       console.log("Mensagem enviada com sucesso");
     } catch (error) {
       alert("Erro ao enviar mensagem");
-    } finally {
-      setIsLoading(false)
     }
   };
 
@@ -46,7 +61,7 @@ export const RecoverPasswordModal = ({ isOpen, onClose }: RecoverPasswordModalPr
 
   const formik = useFormik<FormValuesProps>({
     initialValues,
-    onSubmit: () => { sendEmail(); onClose() },
+    onSubmit: ((values) => { onHandleSubmit(values) }), 
     validationSchema,
   });
 
@@ -65,7 +80,7 @@ export const RecoverPasswordModal = ({ isOpen, onClose }: RecoverPasswordModalPr
                   name="email"
                   placeholder="Email"
                   value={values.email}
-                  onChange={(value) => { setFieldValue('email', value); setToSend({ ...toSend, from_email: value }) }}
+                  onChange={(value) => { setFieldValue('email', value);  }}
                   onBlur={handleBlur}
                   errorMessage={(touched.email && errors.email) ? errors.email : undefined}
                 />
@@ -78,7 +93,7 @@ export const RecoverPasswordModal = ({ isOpen, onClose }: RecoverPasswordModalPr
                     Cancelar
                   </button>
                   <ButtonAsync
-                    className="bg-sky-800 text-white hover:bg-sky-700 rounded-full h-10 w-fit px-3 flex items-center justify-center gap-1"
+                    className="bg-sky-800 text-white hover:bg-sky-700 rounded-full h-10 w-fit mt-2 px-4 flex justify-center items-center gap-2 disabled:bg-gray-300 disabled:text-gray-700"
                     type="submit"
                     isLoading={isLoading}
                     disabled={isLoading}
