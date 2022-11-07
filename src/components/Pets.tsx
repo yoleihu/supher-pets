@@ -21,6 +21,7 @@ export function Pets({ pet }: PetsButtonProps) {
           <img className=" h-14 m-auto" src={pet.species === 'DOG' ? "/assets/dog-icon.png" : "/assets/cat-icon.png"} />
           <PencilSimple className="absolute bg-sky-800 p-1 rounded-full" size={24} color={"#ffffff"} />
         </button>
+        <label className="text-zinc-500 text-xs">Id: {pet.id}</label>
         <label>{pet.name}</label>
       </div>
     </>

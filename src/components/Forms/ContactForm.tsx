@@ -105,10 +105,10 @@ export function ContactForm() {
 
 				<div className="flex flex-col items-center">
 					<ButtonAsync
+						type="submit"
 						isLoading={isLoading}
 						disabled={isLoading}
-						className="bg-sky-800 text-white hover:bg-sky-700 rounded-full h-10 w-fit mt-5 px-4 flex justify-center items-center disabled:bg-gray-300 disabled:text-gray-700" 
-						type="submit"
+						className="bg-sky-800 text-white hover:bg-sky-700 rounded-full h-10 w-fit mt-2 px-4 flex justify-center items-center gap-2 disabled:bg-gray-300 disabled:text-gray-700"
 					>
 						Enviar
 					</ButtonAsync>
