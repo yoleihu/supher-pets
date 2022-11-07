@@ -1,6 +1,7 @@
 import { DateTime } from "luxon";
 import { FilePdf, PencilSimple } from "phosphor-react";
 import { useState } from "react";
+import { toast } from "react-toastify";
 import { AppointmentOutput } from "../interfaces/Appointment";
 import { AppointmentModal } from "./Modals/AppointmentModal";
 
@@ -16,6 +17,8 @@ export function Appointments({ appointment }: AppointmentButtonProps) {
     downloadLink.href = appointment.result!;
     downloadLink.download = `Resultado pet:${appointment.petId}`;
     downloadLink.click();
+    
+    toast.success('Arquivo baixado com sucesso')
   }
 
   return (
