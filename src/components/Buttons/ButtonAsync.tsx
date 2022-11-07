@@ -1,4 +1,4 @@
-import { CircleNotch, SpinnerGap } from "phosphor-react";
+import { CircleNotch } from "phosphor-react";
 
 export type ButtonAsyncProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
   type: string,

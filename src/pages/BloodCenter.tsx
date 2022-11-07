@@ -1,4 +1,4 @@
-import { CalendarBlank, List, MagnifyingGlass, PawPrint, PencilSimple, Plus, WarningCircle } from "phosphor-react";
+import { CalendarBlank, CircleNotch, List, MagnifyingGlass, PawPrint, PencilSimple, Plus, WarningCircle } from "phosphor-react";
 import { useContext, useEffect, useState } from "react";
 import { Appointments } from "../components/Appointments";
 import { ButtonNavbar } from "../components/Buttons/ButtonNavbar";
@@ -23,7 +23,8 @@ enum CurrentScreen {
 export function BloodCenter() {
   const [isSearchingPet, setIsSearchingPet] = useState(false);
   const [searchPet, setSearchPet] = useState('');
-  const [findPet, setFindPet] = useState<PetOutput | null>(null)
+  const [findPet, setFindPet] = useState<PetOutput | null>(null);
+  const [isLoadingPet, setIsLoadingPet] = useState(false);
   const [openEditProfileModal, setOpenEditProfileModal] = useState(false);
   const [openAppointmentModal, setOpenAppointmentModal] = useState(false);
   const [openAlertModal, setOpenAlertModal] = useState(false);
@@ -34,14 +35,19 @@ export function BloodCenter() {
 
   useEffect(() => {
     const onGetPet = async () => {
-      if(searchPet.length > 0) {
-        const response = await supherClient.getPet(searchPet)
-        setFindPet(response)
-      } else {
-        setFindPet(null)
+      try {
+        setIsLoadingPet(true)
+        if (searchPet.length > 0) {
+          const response = await supherClient.getPet(searchPet)
+          setFindPet(response)
+        } else {
+          setFindPet(null)
+        }
+      } finally {
+        setIsLoadingPet(false)
       }
     }
-    
+
     onGetPet()
   }, [searchPet])
 
@@ -62,11 +68,11 @@ export function BloodCenter() {
       <Navbar>
         <ButtonNavbar type="button" label="Sair" path="/" role='secondary' isSignOutButton />
       </Navbar>
-        {(!user.cep || !user.address || !user.number || !user.state || !user.city || !user.district) &&
-          <div className="w-full text-center absolute top-14 lg:top-16 bg-red-200">
-            <p>Cadastre seu endereço para os tutores de pets te encontrarem</p>
-          </div>
-        }
+      {(!user.cep || !user.address || !user.number || !user.state || !user.city || !user.district) &&
+        <div className="w-full text-center absolute top-14 lg:top-16 text-sm lg:text-base bg-red-200">
+          <p>Cadastre seu endereço para te encontrarem</p>
+        </div>
+      }
       <div className="lg:mt-28 mt-20 lg:mx-32 sm:mx-12 mx-6 flex gap-14">
         <div className={`lg:w-4/6 lg:block w-full ${currentScreen !== 'appointments' && 'hidden'}`}>
           <div className="flex justify-between items-center">
@@ -94,25 +100,30 @@ export function BloodCenter() {
         <div className={`lg:w-2/6 w-full lg:block flex flex-col gap-4 ${currentScreen === 'appointments' && 'hidden'}`}>
           <div className={`bg-white min-h-[11rem] shadow rounded-3xl p-5 lg:block ${currentScreen !== 'findPets' && 'hidden'}`}>
             <>
-            {isSearchingPet
-              ? <TextField
-                pattern="numeric"
-                placeholder="Pesquise o id do pet"
-                onBlur={() => { !searchPet && setIsSearchingPet(false) }}
-                autoFocus
-                value={searchPet}
-                onChange={(value) => setSearchPet(value)}
-              />
-              : <div className="flex justify-between">
-                <h1 className="text-lg font-medium">Buscar Pets</h1>
-                <button onClick={() => setIsSearchingPet(true)}>
-                  <MagnifyingGlass />
-                </button>
-              </div>
-            }
-            {findPet &&
-              <FindPet pet={findPet} />
-            }
+              {isSearchingPet
+                ? <TextField
+                  pattern="numeric"
+                  placeholder="Pesquise o id do pet"
+                  onBlur={() => { !searchPet && setIsSearchingPet(false) }}
+                  autoFocus
+                  value={searchPet}
+                  onChange={(value) => setSearchPet(value)}
+                />
+                : <div className="flex justify-between">
+                  <h1 className="text-lg font-medium">Buscar Pets</h1>
+                  <button onClick={() => setIsSearchingPet(true)}>
+                    <MagnifyingGlass />
+                  </button>
+                </div>
+              }
+              {isLoadingPet &&
+                <div className="w-full h-full flex items-center justify-center">
+                  <CircleNotch size={50} className="animate-spin" />
+                </div>
+              }
+              {findPet &&
+                <FindPet pet={findPet} />
+              }
             </>
           </div>
           <div className={`bg-white min-h-[11rem] shadow rounded-3xl p-5 flex flex-col w-full gap-6 lg:block lg:mt-4 ${currentScreen !== 'alerts' && 'hidden'}`}>
