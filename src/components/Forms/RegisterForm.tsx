@@ -4,7 +4,6 @@ import { formatPhoneNumber } from "../../utils/mask/phoneMask";
 import { TextField } from "../TextField";
 import { formatCnpj } from "../../utils/mask/cnpjMask";
 import { formatCpf } from "../../utils/mask/cpfMask";
-import supherClient from "../../service/SupherClient";
 import { ButtonAsync } from "../Buttons/ButtonAsync";
 import { useContext, useState } from "react";
 import { UserContext } from "../../context/UserContext";
@@ -81,11 +80,11 @@ export const RegisterForm = ({ isGuardian, onTermsModal }: RegisterFormProps) =>
         .length(14, "CPF Inválido")
         .required('Campo obrigatório')
       : Yup.string().nullable(),
-    cnpj: !isGuardian 
+    cnpj: !isGuardian
       ? Yup.string()
         .test('test-invalid-cnpj', 'CNPJ Inválido', (value) => cnpj.isValid(value ?? ''))
         .length(18, "CNPJ Inválido")
-        .required('Campo obrigatório') 
+        .required('Campo obrigatório')
       : Yup.string().nullable(),
     email: Yup.string()
       .email('Email inválido')
@@ -191,7 +190,14 @@ export const RegisterForm = ({ isGuardian, onTermsModal }: RegisterFormProps) =>
         }
 
         <div className="flex flex-col items-center">
-          <ButtonAsync isLoading={isLoading} className="bg-sky-800 text-white hover:bg-sky-700 rounded-full h-10 w-fit mt-5 px-4" type="submit">Cadastrar</ButtonAsync>
+          <ButtonAsync
+            type="submit"
+            isLoading={isLoading}
+            disabled={isLoading}
+            className="bg-sky-800 text-white hover:bg-sky-700 rounded-full h-10 w-fit mt-2 px-4 flex justify-center items-center gap-2 disabled:bg-gray-300 disabled:text-gray-700"
+          >
+            Cadastrar
+          </ButtonAsync>
         </div>
       </form>
     </>
