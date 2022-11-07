@@ -1,4 +1,5 @@
 import axios from "axios"
+import { toast } from "react-toastify";
 import { AlertInput } from "../interfaces/Alert";
 import { AppointmentInput } from "../interfaces/Appointment";
 import { PetInput } from "../interfaces/Pet";
@@ -7,10 +8,10 @@ import { BloodCenterRegister, BloodCenterUpdate, GuardianRegister, GuardianUpdat
 
 export class SupherClient {
   api = axios.create({
-    baseURL: 
-    "https://supher-api.herokuapp.com/",
+    baseURL:
+      "https://supher-api.herokuapp.com/",
     // "http://localhost:3000" 
-    });
+  });
 
   // async defineInterceptors() {
   //   this.api.interceptors.response.use(response => {
@@ -47,7 +48,8 @@ export class SupherClient {
       const response = await this.api.post('/guardian', guardian)
       return response.data
     } catch (error) {
-      console.log(error)
+      toast.error('Erro de conexão')
+      throw new Error()
     }
   }
 
@@ -56,7 +58,13 @@ export class SupherClient {
       const response = await this.api.post('/guardian/login', guardian)
       return response.data
     } catch (error) {
-      console.log(error)
+      const { message } = error as Error;
+      if (message.includes('401')) {
+        toast.error('Email ou senha incorretos')
+      } else {
+        toast.error('Erro de conexão')
+      }
+      throw new Error()
     }
   }
 
@@ -65,7 +73,8 @@ export class SupherClient {
       const result = await this.api.patch(`/guardian/${id}`, guardian)
       return result.data
     } catch (error) {
-      console.log(error)
+      toast.error('Erro de conexão')
+      throw new Error()
     }
   }
 
@@ -74,7 +83,8 @@ export class SupherClient {
       const response = await this.api.get(`/guardian/${guardian}`);
       return response.data
     } catch (error) {
-      console.log(error)
+      toast.error('Erro de conexão')
+      throw new Error()
     }
   }
 
@@ -82,8 +92,9 @@ export class SupherClient {
     try {
       const response = await this.api.delete(`/guardian/${guardianId}`)
       return response.data
-    } catch(error) {
-      console.log(error)
+    } catch (error) {
+      toast.error('Erro de conexão')
+      throw new Error()
     }
   }
 
@@ -92,7 +103,8 @@ export class SupherClient {
       const response = await this.api.post('/blood-center', bloodCenter)
       return response.data
     } catch (error) {
-      console.log(error)
+      toast.error('Erro de conexão')
+      throw new Error()
     }
   }
 
@@ -100,8 +112,9 @@ export class SupherClient {
     try {
       const response = await this.api.post('/blood-center/generate-link', recoverPasswordBody)
       return response.data
-    } catch(error) {
-      console.log(error)
+    } catch (error) {
+      toast.error('Erro de conexão')
+      throw new Error()
     }
   }
 
@@ -110,7 +123,13 @@ export class SupherClient {
       const response = await this.api.post('/blood-center/login', bloodCenter)
       return response.data
     } catch (error) {
-      console.log(error)
+      const { message } = error as Error;
+      if (message.includes('401')) {
+        toast.error('Email ou senha incorretos')
+      } else {
+        toast.error('Erro de conexão')
+      }
+      throw new Error()
     }
   }
 
@@ -119,7 +138,8 @@ export class SupherClient {
       const response = await this.api.patch(`/blood-center/${id}`, bloodCenter)
       return response.data
     } catch (error) {
-      console.log(error)
+      toast.error('Erro de conexão')
+      throw new Error()
     }
   }
 
@@ -128,7 +148,8 @@ export class SupherClient {
       const response = await this.api.get(`/blood-center/${bloodCenter}`)
       return response.data
     } catch (error) {
-      console.log(error)
+      toast.error('Erro de conexão')
+      throw new Error()
     }
   }
 
@@ -136,8 +157,9 @@ export class SupherClient {
     try {
       const response = await this.api.delete(`blood-center/${bloodCenterId}`)
       return response.data
-    } catch(error) {
-      console.log(error)
+    } catch (error) {
+      toast.error('Erro de conexão')
+      throw new Error()
     }
   }
 
@@ -146,7 +168,8 @@ export class SupherClient {
       const response = await this.api.post('/pet', pet)
       return response.data
     } catch (error) {
-      console.log(error)
+      toast.error('Erro de conexão')
+      throw new Error()
     }
   }
 
@@ -155,16 +178,18 @@ export class SupherClient {
       const response = await this.api.patch(`/pet/${petId}`, pet)
       return response.data
     } catch (error) {
-      console.log(error)
+      toast.error('Erro de conexão')
+      throw new Error()
     }
   }
-  
+
   async listPets(guardianId: number) {
     try {
       const result = await this.api.get(`/pet/list/${guardianId}`)
       return result.data
     } catch (error) {
-      console.log(error)
+      toast.error('Erro de conexão')
+      throw new Error()
     }
   }
 
@@ -173,7 +198,8 @@ export class SupherClient {
       const response = await this.api.get(`/pet/${petId}`)
       return response.data
     } catch (error) {
-      console.log(error)
+      toast.error('Erro de conexão')
+      throw new Error()
     }
   }
 
@@ -181,8 +207,9 @@ export class SupherClient {
     try {
       const response = await this.api.delete(`/pet/${petId}`)
       return response.data
-    } catch(error) {
-      console.log(error)
+    } catch (error) {
+      toast.error('Erro de conexão')
+      throw new Error()
     }
   }
 
@@ -191,7 +218,8 @@ export class SupherClient {
       const response = await this.api.get(`/blood-center/list-nears/${cep}`);
       return response.data
     } catch (error) {
-      console.log(error)
+      toast.error('Erro de conexão')
+      throw new Error()
     }
   }
 
@@ -200,7 +228,8 @@ export class SupherClient {
       const response = await this.api.post('/alert', alert)
       return response.data
     } catch (error) {
-      console.log(error)
+      toast.error('Erro de conexão')
+      throw new Error()
     }
   }
 
@@ -209,7 +238,8 @@ export class SupherClient {
       const result = await this.api.get(`/alert/list/${bloodCenterId}`)
       return result.data
     } catch (error) {
-      console.log(error)
+      toast.error('Erro de conexão')
+      throw new Error()
     }
   }
 
@@ -217,8 +247,9 @@ export class SupherClient {
     try {
       const response = await this.api.delete(`/alert/${alertId}`)
       return response.data
-    } catch(error) {
-      console.log(error)
+    } catch (error) {
+      toast.error('Erro de conexão')
+      throw new Error()
     }
   }
 
@@ -227,7 +258,8 @@ export class SupherClient {
       const response = await this.api.post('/appointment', appointment)
       return response.data
     } catch (error) {
-      console.log(error)
+      toast.error('Erro de conexão')
+      throw new Error()
     }
   }
 
@@ -236,7 +268,8 @@ export class SupherClient {
       const response = await this.api.patch(`/appointment/${appointmentId}`, appointment)
       return response.data
     } catch (error) {
-      console.log(error)
+      toast.error('Erro de conexão')
+      throw new Error()
     }
   }
 
@@ -245,7 +278,8 @@ export class SupherClient {
       const result = await this.api.get(`/appointment/list/${bloodCenterId}`)
       return result.data
     } catch (error) {
-      console.log(error)
+      toast.error('Erro de conexão')
+      throw new Error()
     }
   }
 
@@ -253,8 +287,9 @@ export class SupherClient {
     try {
       const response = await this.api.delete(`/appointment/${appointmentId}`)
       return response.data
-    } catch(error) {
-      console.log(error)
+    } catch (error) {
+      toast.error('Erro de conexão')
+      throw new Error()
     }
   }
 
@@ -263,7 +298,8 @@ export class SupherClient {
       const response = await this.api.delete('/token/logout')
       return response.data
     } catch (error) {
-      console.log(error)
+      toast.error('Erro de conexão')
+      throw new Error()
     }
   }
 }
