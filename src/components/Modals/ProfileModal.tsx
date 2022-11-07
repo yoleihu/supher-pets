@@ -47,21 +47,23 @@ export function ProfileModal({ isOpen, isGuardian, onClose }: ProfileModalProps)
       state: values.state ?? null,
     }
 
-    if (isGuardian) {
-      const guardian: GuardianUpdate = {
-        ...user,
-        cpf: values.cpf ?? '',
+    try {
+      if (isGuardian) {
+        const guardian: GuardianUpdate = {
+          ...user,
+          cpf: values.cpf ?? '',
+        }
+        await updateGuardian(guardian);
+      } else {
+        const bloodCenter: BloodCenterUpdate = {
+          ...user,
+          cnpj: values.cnpj ?? '',
+        }
+        await updateBloodCenter(bloodCenter)
       }
-      await updateGuardian(guardian);
-    } else {
-      const bloodCenter: BloodCenterUpdate = {
-        ...user,
-        cnpj: values.cnpj ?? '',
-      }
-      await updateBloodCenter(bloodCenter)
+    } finally {
+      setIsLoading(false)
     }
-
-    setIsLoading(false)
     onClose()
   }
 

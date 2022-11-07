@@ -1,5 +1,6 @@
 import { createContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import { AlertInput, AlertOutput } from '../interfaces/Alert';
 import { AppointmentInput, AppointmentOutput } from '../interfaces/Appointment';
 import { PetOutput, PetInput } from '../interfaces/Pet';
@@ -79,14 +80,14 @@ function AuthGuardian({ children }: AuthGuardianProps) {
       const storageNearBloodCenters = localStorage.getItem("NEARBLOODCENTERS");
       const storageAlerts = localStorage.getItem("ALERTS");
       const storageAppointments = localStorage.getItem("APPOINTMENTS");
-      
+
       if (storageToken && storageUserRaw) {
         const storageUser = JSON.parse(storageUserRaw);
-        if('cpf' in storageUser) {
+        if ('cpf' in storageUser) {
           setUserGuardian(storageUser);
           storagePets && setPets(JSON.parse(storagePets));
-          storageNearBloodCenters && setNearBloodCenters(JSON.parse(storageNearBloodCenters))
-        } else if('cnpj' in storageUser) {
+          storageNearBloodCenters && setNearBloodCenters(JSON.parse(storageNearBloodCenters));
+        } else if ('cnpj' in storageUser) {
           setUserBloodCenter(storageUser);
           storageAlerts && setAlerts(JSON.parse(storageAlerts));
           storageAppointments && setAppointments(JSON.parse(storageAppointments));
@@ -98,6 +99,7 @@ function AuthGuardian({ children }: AuthGuardianProps) {
 
   const signUpGuardian = async (guardian: GuardianRegister) => {
     await supherClient.registerGuardian(guardian);
+    toast.success('Usuário cadastrado com sucesso');
 
     const userLogin = {
       username: guardian.email,
@@ -108,169 +110,189 @@ function AuthGuardian({ children }: AuthGuardianProps) {
   }
 
   const signInGuardian = async (guardian: Login) => {
-    const responseLogin = await supherClient.loginGuardian(guardian)
-    const accessToken = responseLogin.access_token
-    localStorage.setItem("TOKEN", JSON.stringify(accessToken))
-    supherClient.api.defaults.headers.common["Authorization"] = `Bearer ${accessToken}`
+    const responseList = await supherClient.getGuardian(guardian.username);
 
-    const responseList = await supherClient.getGuardian(guardian.username)
-    setUserGuardian(responseList)
+    if (responseList) {
+      const responseLogin = await supherClient.loginGuardian(guardian);
+      const accessToken = responseLogin.access_token;
+      localStorage.setItem("TOKEN", JSON.stringify(accessToken));
+      supherClient.api.defaults.headers.common["Authorization"] = `Bearer ${accessToken}`;
 
-    localStorage.setItem("USERINFO", JSON.stringify(responseList))
-    localStorage.setItem("USERINFO_ID", JSON.stringify(responseList.id))
-    
-    const responseListPets = await supherClient.listPets(responseList.id)
-    setPets(responseListPets)
-    localStorage.setItem("PETS", JSON.stringify(responseListPets))
+      setUserGuardian(responseList);
 
-    if (localStorage.getItem("USERINFO_ID")) {
-      navigate(`/guardian/${localStorage.getItem("USERINFO_ID")}`)
+      localStorage.setItem("USERINFO", JSON.stringify(responseList));
+      localStorage.setItem("USERINFO_ID", JSON.stringify(responseList.id));
+
+      const responseListPets = await supherClient.listPets(responseList.id);
+      setPets(responseListPets);
+      localStorage.setItem("PETS", JSON.stringify(responseListPets));
+
+      if (localStorage.getItem("USERINFO_ID")) {
+        navigate(`/guardian/${localStorage.getItem("USERINFO_ID")}`);
+      }
+    } else {
+      toast.error('Usuário não encontrado')
     }
   }
 
   const updateGuardian = async (guardian: GuardianUpdate) => {
-    const id = localStorage.getItem("USERINFO_ID")
-    const responseUpdate = await supherClient.updateGuardian(guardian, id ?? '')
-    
-    if("id" in responseUpdate) {
-      localStorage.setItem("USERINFO", JSON.stringify(responseUpdate))
-      setUserGuardian(responseUpdate)
+    const id = localStorage.getItem("USERINFO_ID");
+    const responseUpdate = await supherClient.updateGuardian(guardian, id ?? '');
+    toast.success('Usuário atualizado com sucesso');
+
+    if ("id" in responseUpdate) {
+      localStorage.setItem("USERINFO", JSON.stringify(responseUpdate));
+      setUserGuardian(responseUpdate);
     }
   }
 
   const addPet = async (pet: PetInput) => {
     const response = await supherClient.addPet(pet);
+    toast.success('Pet adicionado com sucesso');
 
-    setPets([...pets, response])
-    localStorage.setItem("PETS", JSON.stringify(pets))
+    setPets([...pets, response]);
+    localStorage.setItem("PETS", JSON.stringify(pets));
   }
 
   const updatePet = async (pet: PetInput, petId: string) => {
-    await supherClient.updatePet(pet, petId)
+    await supherClient.updatePet(pet, petId);
+    toast.success('Pet atualizado com sucesso');
 
-    if(userGuardian) {
-      const responseList = await supherClient.listPets(userGuardian.id)
+    if (userGuardian) {
+      const responseList = await supherClient.listPets(userGuardian.id);
 
-      setPets(responseList)
-      localStorage.setItem("PETS", JSON.stringify(responseList))
+      setPets(responseList);
+      localStorage.setItem("PETS", JSON.stringify(responseList));
     }
   }
 
   const deletePet = async (petId: string) => {
-    await supherClient.deletePet(petId)
+    await supherClient.deletePet(petId);
+    toast.success('Pet excluído com sucesso');
 
-    if(userGuardian) {
-      const responseList = await supherClient.listPets(userGuardian.id)
+    if (userGuardian) {
+      const responseList = await supherClient.listPets(userGuardian.id);
 
-      setPets(responseList)
-      localStorage.setItem("PETS", JSON.stringify(responseList))
+      setPets(responseList);
+      localStorage.setItem("PETS", JSON.stringify(responseList));
     }
   }
 
   const signUpBloodCenter = async (bloodCenter: BloodCenterRegister) => {
     await supherClient.registerBloodCenter(bloodCenter);
+    toast.success('Usuário cadastrado com sucesso');
 
     const userLogin = {
       username: bloodCenter.email,
       password: bloodCenter.password,
     }
 
-    await signInBloodCenter(userLogin)
+    await signInBloodCenter(userLogin);
   }
 
   const signInBloodCenter = async (bloodCenter: Login) => {
-    const responseLogin = await supherClient.loginBloodCenter(bloodCenter)
-    const accessToken = responseLogin.access_token
-    localStorage.setItem("TOKEN", JSON.stringify(accessToken))
-    supherClient.api.defaults.headers.common["Authorization"] = `Bearer ${accessToken}`
+    const responseList = await supherClient.getBloodCenter(bloodCenter.username);
 
-    const responseList = await supherClient.getBloodCenter(bloodCenter.username)
-    setUserBloodCenter(responseList)
+    if (responseList) {
+      const responseLogin = await supherClient.loginBloodCenter(bloodCenter);
+      const accessToken = responseLogin.access_token;
+      localStorage.setItem("TOKEN", JSON.stringify(accessToken));
+      supherClient.api.defaults.headers.common["Authorization"] = `Bearer ${accessToken}`;
+      setUserBloodCenter(responseList);
 
-    localStorage.setItem("USERINFO", JSON.stringify(responseList))
-    localStorage.setItem("USERINFO_ID", JSON.stringify(responseList.id))
-    
-    const responseListAppointments = await supherClient.listAppointments(responseList.id)
-    setAppointments(responseListAppointments)
-    localStorage.setItem("APPOINTMENTS", JSON.stringify(responseListAppointments))
+      localStorage.setItem("USERINFO", JSON.stringify(responseList));
+      localStorage.setItem("USERINFO_ID", JSON.stringify(responseList.id));
 
-    const responseListAlerts = await supherClient.listAlerts(responseList.id)
-    setAlerts(responseListAlerts)
-    localStorage.setItem("ALERTS", JSON.stringify(responseListAlerts))
+      const responseListAppointments = await supherClient.listAppointments(responseList.id);
+      setAppointments(responseListAppointments);
+      localStorage.setItem("APPOINTMENTS", JSON.stringify(responseListAppointments));
 
-    if (localStorage.getItem("USERINFO_ID")) {
-      navigate(`/blood-center/${localStorage.getItem("USERINFO_ID")}`)
+      const responseListAlerts = await supherClient.listAlerts(responseList.id);
+      setAlerts(responseListAlerts);
+      localStorage.setItem("ALERTS", JSON.stringify(responseListAlerts));
+
+      if (localStorage.getItem("USERINFO_ID")) {
+        navigate(`/blood-center/${localStorage.getItem("USERINFO_ID")}`);
+      }
+    } else {
+      toast.error('Usuário não encontrado');
     }
   }
 
   const updateBloodCenter = async (bloodCenter: BloodCenterUpdate) => {
-    const id = localStorage.getItem("USERINFO_ID")
-    const responseUpdate = await supherClient.updateBloodCenter(bloodCenter, id ?? '')
+    const id = localStorage.getItem("USERINFO_ID");
+    const responseUpdate = await supherClient.updateBloodCenter(bloodCenter, id ?? '');
+    toast.success('Usuário atualizado com sucesso');
 
-    if(responseUpdate) {
-      localStorage.setItem("USERINFO", JSON.stringify(responseUpdate))
-      setUserBloodCenter(responseUpdate)
+    if (responseUpdate) {
+      localStorage.setItem("USERINFO", JSON.stringify(responseUpdate));
+      setUserBloodCenter(responseUpdate);
     }
   }
 
   const createAlert = async (alert: AlertInput) => {
-    const response = await supherClient.createAlert(alert)
+    const response = await supherClient.createAlert(alert);
+    toast.success('Alerta criado com sucesso');
 
-    setAlerts([...alerts, response])
-    localStorage.setItem("ALERTS", JSON.stringify(alerts))
+    setAlerts([...alerts, response]);
+    localStorage.setItem("ALERTS", JSON.stringify(alerts));
   }
 
   const deleteAlert = async (alertId: string) => {
-    await supherClient.deleteAlert(alertId)
+    await supherClient.deleteAlert(alertId);
+    toast.success('Alerta excluído com sucesso');
 
-    if(userBloodCenter) {
-      const responseList = await supherClient.listAlerts(userBloodCenter.id)
+    if (userBloodCenter) {
+      const responseList = await supherClient.listAlerts(userBloodCenter.id);
 
-      setAlerts(responseList)
-      localStorage.setItem("ALERTS", JSON.stringify(responseList))
+      setAlerts(responseList);
+      localStorage.setItem("ALERTS", JSON.stringify(responseList));
     }
   }
 
   const createAppointment = async (appointment: AppointmentInput) => {
-    const response = await supherClient.createAppointment(appointment)
+    const response = await supherClient.createAppointment(appointment);
+    toast.success('Consulta criada com sucesso');
 
-    setAppointments([...appointments, response])
-    localStorage.setItem("APPOINTMENTS", JSON.stringify(appointments))
+    setAppointments([...appointments, response]);
+    localStorage.setItem("APPOINTMENTS", JSON.stringify(appointments));
   }
 
   const updateAppointment = async (appointment: AppointmentInput, appointmentId: string) => {
-    await supherClient.updateAppointment(appointment, appointmentId)
+    await supherClient.updateAppointment(appointment, appointmentId);
+    toast.success('Consulta atualizada com sucesso');
 
-    if(userBloodCenter) {
-      const responseList = await supherClient.listAppointments(userBloodCenter.id)
+    if (userBloodCenter) {
+      const responseList = await supherClient.listAppointments(userBloodCenter.id);
 
-      setAppointments(responseList)
-      localStorage.setItem("APPOINTMENTS", JSON.stringify(responseList))
+      setAppointments(responseList);
+      localStorage.setItem("APPOINTMENTS", JSON.stringify(responseList));
     }
   }
 
   const deleteAppointment = async (appointmentId: string) => {
-    await supherClient.deleteAppointment(appointmentId)
+    await supherClient.deleteAppointment(appointmentId);
+    toast.success('Consulta excluída com sucesso');
 
-    if(userBloodCenter) {
-      const responseList = await supherClient.listAppointments(userBloodCenter.id)
+    if (userBloodCenter) {
+      const responseList = await supherClient.listAppointments(userBloodCenter.id);
 
-      setAppointments(responseList)
-      localStorage.setItem("APPOINTMENTS", JSON.stringify(responseList))
+      setAppointments(responseList);
+      localStorage.setItem("APPOINTMENTS", JSON.stringify(responseList));
     }
   }
 
   const loadNearBloodCenter = async (cep: string) => {
-    const response = await supherClient.listNearBloodCenter(cep)
+    const response = await supherClient.listNearBloodCenter(cep);
 
-    localStorage.setItem("NEARBLOODCENTERS", JSON.stringify(nearBlodCenters))
-    setNearBloodCenters(response)
+    localStorage.setItem("NEARBLOODCENTERS", JSON.stringify(nearBlodCenters));
+    setNearBloodCenters(response);
   }
 
   const signOut = async () => {
     localStorage.clear();
-    await supherClient.logout()
-    navigate('/')
+    await supherClient.logout();
+    navigate('/');
     setUserGuardian(null);
     setUserBloodCenter(null);
   }

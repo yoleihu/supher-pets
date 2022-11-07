@@ -20,15 +20,6 @@ export const LoginForm = ({ isGuardian, onForgotPassword }: LoginFormProps) => {
   const [isLoading, setIsLoading] = useState(false);
   const { signInGuardian, signInBloodCenter } = useContext(UserContext);
 
-  const notify = () => {
-    toast.success('Cadastrado com sucesso', {
-      position: toast.POSITION.TOP_RIGHT
-    });
-    toast.error('Erro ao se cadastrar', {
-      position: toast.POSITION.TOP_RIGHT
-    })
-  }
-
   const onHandleSubmit = async (values: FormValuesProps) => {
     setIsLoading(true)
 
@@ -37,14 +28,15 @@ export const LoginForm = ({ isGuardian, onForgotPassword }: LoginFormProps) => {
       password: values.password
     }
 
-    if (isGuardian) {
-      await signInGuardian(loginData)
-    } else {
-      await signInBloodCenter(loginData)
+    try {
+      if (isGuardian) {
+        await signInGuardian(loginData)
+      } else {
+        await signInBloodCenter(loginData)
+      }
+    } finally {
+      setIsLoading(false)
     }
-
-    notify()
-    setIsLoading(false)
   }
 
   const initialValues: FormValuesProps = {

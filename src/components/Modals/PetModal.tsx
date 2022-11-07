@@ -29,13 +29,15 @@ export function PetModal({ pet, isOpen, isEditing, onClose }: PetModalProps) {
   const onHandleSubmit = async (values: PetInput) => {
     setIsLoading(true);
 
-    if (isEditing) {
-      await updatePet({ ...values, statusToDonation: values.statusToDonation !== "UNKNOW" ? values.statusToDonation : null }, pet?.id ?? '')
-    } else {
-      await addPet({ ...values, statusToDonation: values.statusToDonation !== "UNKNOW" ? values.statusToDonation : null })
-    };
-
-    setIsLoading(false);
+    try{
+      if (isEditing) {
+        await updatePet({ ...values, statusToDonation: values.statusToDonation !== "UNKNOW" ? values.statusToDonation : null }, pet?.id ?? '')
+      } else {
+        await addPet({ ...values, statusToDonation: values.statusToDonation !== "UNKNOW" ? values.statusToDonation : null })
+      };
+    } finally {
+      setIsLoading(false);
+    }
     onClose();
   }
 

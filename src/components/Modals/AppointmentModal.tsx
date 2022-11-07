@@ -41,13 +41,15 @@ export function AppointmentModal({ appointment, isOpen, isEditing, onClose }: Ap
       result: values.result ?? null,
     };
 
-    if (isEditing) {
-      await updateAppointment(appointmentInput, appointment?.id ?? '')
-    } else {
-      await createAppointment(appointmentInput)
-    };
-
-    setIsLoading(false);
+    try {
+      if (isEditing) {
+        await updateAppointment(appointmentInput, appointment?.id ?? '')
+      } else {
+        await createAppointment(appointmentInput)
+      };
+    } finally {
+      setIsLoading(false);
+    }
     onClose();
   }
 

@@ -33,29 +33,31 @@ export const RegisterForm = ({ isGuardian, onTermsModal }: RegisterFormProps) =>
   const onHandleSubmit = async (values: FormValuesProps) => {
     setIsLoading(true);
 
-    if (isGuardian) {
-      const guardian = {
-        cpf: values.cpf,
-        name: values.name,
-        email: values.email,
-        telephone: values.phone,
-        password: values.password
+    try {
+      if (isGuardian) {
+        const guardian = {
+          cpf: values.cpf,
+          name: values.name,
+          email: values.email,
+          telephone: values.phone,
+          password: values.password
+        }
+  
+        await signUpGuardian(guardian)
+      } else {
+        const bloodCenter = {
+          cnpj: values.cnpj,
+          name: values.name,
+          email: values.email,
+          telephone: values.phone,
+          password: values.password
+        }
+  
+        await signUpBloodCenter(bloodCenter)
       }
-
-      await signUpGuardian(guardian)
-    } else {
-      const bloodCenter = {
-        cnpj: values.cnpj,
-        name: values.name,
-        email: values.email,
-        telephone: values.phone,
-        password: values.password
-      }
-
-      await signUpBloodCenter(bloodCenter)
+    } finally {
+      setIsLoading(false)
     }
-
-    setIsLoading(false)
   }
 
   const initialValues: FormValuesProps = {
