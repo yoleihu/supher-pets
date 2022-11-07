@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { AlertInput, AlertOutput } from '../interfaces/Alert';
 import { AppointmentInput, AppointmentOutput } from '../interfaces/Appointment';
 import { PetOutput, PetInput } from '../interfaces/Pet';
-import { BloodCenterRegister, BloodCenterUpdate, GuardianRegister, GuardianUpdate, Login } from '../interfaces/User';
+import { BloodCenterOutput, BloodCenterRegister, BloodCenterUpdate, GuardianRegister, GuardianUpdate, Login } from '../interfaces/User';
 import supherClient from '../service/SupherClient';
 
 interface AuthGuardianProps {
@@ -16,6 +16,7 @@ interface UserContextProps {
   pets: PetOutput[],
   alerts: AlertOutput[],
   appointments: AppointmentOutput[],
+  nearBlodCenters: BloodCenterOutput[],
   signInGuardian: (guardian: Login) => Promise<void>,
   signUpGuardian: (guardian: GuardianRegister) => Promise<void>,
   updateGuardian: (guardian: GuardianUpdate) => Promise<void>,
@@ -30,6 +31,7 @@ interface UserContextProps {
   createAppointment: (appointment: AppointmentInput) => Promise<void>,
   updateAppointment: (appointment: AppointmentInput, appointmentId: string) => Promise<void>,
   deleteAppointment: (appointmentId: string) => Promise<void>,
+  loadNearBloodCenter: (cep: string) => Promise<void>,
   signOut: () => Promise<void>
 }
 
@@ -66,6 +68,7 @@ function AuthGuardian({ children }: AuthGuardianProps) {
   const [userBloodCenter, setUserBloodCenter] = useState<BloodCenterResponse | null>(null);
   const [alerts, setAlerts] = useState<AlertOutput[]>([]);
   const [appointments, setAppointments] = useState<AppointmentOutput[]>([]);
+  const [nearBlodCenters, setNearBloodCenters] = useState<BloodCenterOutput[]>([])
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -73,6 +76,7 @@ function AuthGuardian({ children }: AuthGuardianProps) {
       const storageUserRaw = localStorage.getItem('USERINFO');
       const storageToken = localStorage.getItem('TOKEN');
       const storagePets = localStorage.getItem("PETS");
+      const storageNearBloodCenters = localStorage.getItem("NEARBLOODCENTERS");
       const storageAlerts = localStorage.getItem("ALERTS");
       const storageAppointments = localStorage.getItem("APPOINTMENTS");
       
@@ -81,6 +85,7 @@ function AuthGuardian({ children }: AuthGuardianProps) {
         if('cpf' in storageUser) {
           setUserGuardian(storageUser);
           storagePets && setPets(JSON.parse(storagePets));
+          storageNearBloodCenters && setNearBloodCenters(JSON.parse(storageNearBloodCenters))
         } else if('cnpj' in storageUser) {
           setUserBloodCenter(storageUser);
           storageAlerts && setAlerts(JSON.parse(storageAlerts));
@@ -255,6 +260,13 @@ function AuthGuardian({ children }: AuthGuardianProps) {
     }
   }
 
+  const loadNearBloodCenter = async (cep: string) => {
+    const response = await supherClient.listNearBloodCenter(cep)
+
+    localStorage.setItem("NEARBLOODCENTERS", JSON.stringify(nearBlodCenters))
+    setNearBloodCenters(response)
+  }
+
   const signOut = async () => {
     localStorage.clear();
     await supherClient.logout()
@@ -270,6 +282,7 @@ function AuthGuardian({ children }: AuthGuardianProps) {
       pets,
       alerts,
       appointments,
+      nearBlodCenters,
       signUpGuardian,
       signUpBloodCenter,
       addPet,
@@ -284,6 +297,7 @@ function AuthGuardian({ children }: AuthGuardianProps) {
       deleteAlert,
       deleteAppointment,
       deletePet,
+      loadNearBloodCenter,
       signOut
     }}
     >

@@ -28,6 +28,11 @@ export interface BloodCenterRegister extends UserBasicData {
   password: string,
 }
 
+export interface BloodCenterOutput extends UserUpdate {
+  cnpj: string,
+  id: number,
+}
+
 export interface GuardianUpdate extends UserUpdate {
   cpf: string,
 }

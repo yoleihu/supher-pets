@@ -5,9 +5,10 @@ import { Navbar } from "../components/Navbar";
 import { Pets } from "../components/Pets";
 import { ProfileModal } from "../components/Modals/ProfileModal";
 import { TextField } from "../components/TextField";
-import { useContext, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import { PetModal } from "../components/Modals/PetModal";
 import { UserContext } from "../context/UserContext";
+import { NearBloodCenter } from "../components/NearBloodCenter";
 
 enum CurrentScreen {
   FINDBLOODCENTER = 'findBloodCenter',
@@ -21,8 +22,18 @@ export function Guardian() {
   const [openPetModal, setOpenPetModal] = useState(false);
   const [screenOptionsOpen, setScreenOpitionsOpen] = useState(false);
   const [currentScreen, setCurrentScreen] = useState<CurrentScreen>(CurrentScreen.PETS);
-  const { pets } = useContext(UserContext);
+  const { pets, nearBlodCenters, loadNearBloodCenter } = useContext(UserContext);
   const user = JSON.parse(localStorage.getItem("USERINFO") ?? '');
+
+  useEffect(() => {
+    if (user.cep) {
+      loadNearBloodCenter(user.cep)
+    }
+  }, [user.cep])
+
+  const filteredBloodCenters = searchBloodCenter.length > 0
+    ? nearBlodCenters.filter(nearBlodCenter => nearBlodCenter.name.match(new RegExp(searchBloodCenter,"gi")))
+    : []
 
   return (
     <>
@@ -57,15 +68,29 @@ export function Guardian() {
           </div>
         </div>
         <div className={`lg:w-2/6 lg:block bg-white shadow rounded-3xl p-5 min-h-[22rem] ${currentScreen !== 'findBloodCenter' && 'hidden w-full'}`}>
-          {isSearching
-            ? <TextField placeholder="Pesquise aqui" onBlur={() => { !searchBloodCenter && setIsSearching(false) }} autoFocus value={searchBloodCenter} onChange={(value) => setSearchBloodCenter(value)} />
-            : <div className="flex justify-between">
-              <h1 className="text-lg font-medium">Hemocentros Próximos</h1>
-              <button onClick={() => setIsSearching(true)}>
-                <MagnifyingGlass />
-              </button>
-            </div>
-          }
+          <>
+            {isSearching
+              ? <TextField placeholder="Pesquise aqui" onBlur={() => { !searchBloodCenter && setIsSearching(false) }} autoFocus value={searchBloodCenter} onChange={(value) => setSearchBloodCenter(value)} />
+              : <div className="flex justify-between">
+                <h1 className="text-lg font-medium">Hemocentros Próximos</h1>
+                <button onClick={() => setIsSearching(true)}>
+                  <MagnifyingGlass />
+                </button>
+              </div>
+            }
+          </>
+          <>
+            {user.cep
+              ? (searchBloodCenter.length > 0
+                ? filteredBloodCenters.map(bloodCenter => (
+                  <NearBloodCenter key={bloodCenter.id} bloodCenter={bloodCenter} />
+                ))
+                : nearBlodCenters.map(bloodCenter => (
+                  <NearBloodCenter key={bloodCenter.id} bloodCenter={bloodCenter} />
+                )))
+              : <p className="mt-10 text-red-500 text-lg text-justify font-semibold">Cadastre seu endereço para localizar os hemocentros próximos</p>
+            }
+          </>
         </div>
       </div>
       <div className="absolute bottom-20 right-5 lg:hidden flex flex-col justify-end gap-2">

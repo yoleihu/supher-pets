@@ -17,13 +17,13 @@ export function ConfirmDeleteModal({ id, itemDeleted, isOpen, onClose }: Confirm
   const onConfirmDelete = async () => {
     switch (itemDeleted) {
       case 'alert':
-        deleteAlert(id!);
+        await deleteAlert(id!);
         break;
       case 'appointment':
-        deleteAppointment(id!);
+        await deleteAppointment(id!);
         break;
       case 'pet':
-        deletePet(id!);
+        await deletePet(id!);
         break;
       default:
         const userId = JSON.parse(localStorage.getItem("USERINFO_ID")!)
