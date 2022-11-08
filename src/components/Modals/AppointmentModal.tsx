@@ -21,7 +21,7 @@ interface AppointmentModalProps {
 export interface AppointmentProps {
   data: string,
   type: string,
-  petId: string,
+  pet: string,
   result?: string,
 }
 
@@ -36,7 +36,7 @@ export function AppointmentModal({ appointment, isOpen, isEditing, onClose }: Ap
     const appointmentInput: AppointmentInput = {
       data: DateTime.fromFormat(values.data, 'dd/LL/yyyy').toISO(),
       type: values.type,
-      petId: JSON.parse(values.petId),
+      pet: values.pet,
       bloodCenterId: JSON.parse(localStorage.getItem("USERINFO_ID") ?? ''),
       result: values.result ?? null,
     };
@@ -69,14 +69,14 @@ export function AppointmentModal({ appointment, isOpen, isEditing, onClose }: Ap
   const initialValues = {
     type: appointment?.type ?? '',
     data: appointment?.data ? DateTime.fromISO(appointment?.data).toFormat('dd/LL/yyyy') : '',
-    petId: JSON.stringify(appointment?.petId!) ?? '',
+    pet: JSON.stringify(appointment?.pet!) ?? '',
     result: appointment?.result ?? '',
   };
 
   const validationSchema = Yup.object().shape({
     type: Yup.string()
       .required('Campo obrigatório'),
-    petId: Yup.string()
+    pet: Yup.string()
       .required('Campo obrigatório'),
     data: Yup.string()
       .required('Selecione a data'),
@@ -112,11 +112,11 @@ export function AppointmentModal({ appointment, isOpen, isEditing, onClose }: Ap
                     errorMessage={(touched.type && errors.type) ? errors.type : undefined}
                   />
                   <TextField
-                    name="petId"
+                    name="pet"
                     placeholder="Pet"
-                    value={values.petId}
-                    onChange={(value) => setFieldValue('petId', value)}
-                    errorMessage={(touched.petId && errors.petId) ? errors.petId : undefined}
+                    value={values.pet}
+                    onChange={(value) => setFieldValue('pet', value)}
+                    errorMessage={(touched.pet && errors.pet) ? errors.pet : undefined}
                   />
 
                   <TextField

@@ -3,7 +3,7 @@ export interface AppointmentInput {
   bloodCenterId: number,
   type: string,
   result?: string | null,
-  petId: number,
+  pet: string,
 }
 
 export interface AppointmentOutput extends AppointmentInput {

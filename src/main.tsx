@@ -7,7 +7,7 @@ import "react-toastify/dist/ReactToastify.min.css";
 
 const root = ReactDOM.createRoot(document.getElementById('root')!)
 
-// supherClient.defineInterceptors()
+supherClient.defineInterceptors()
 
 root.render(
   <>
