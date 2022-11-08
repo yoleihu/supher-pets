@@ -267,7 +267,7 @@ function AuthGuardian({ children }: AuthGuardianProps) {
 
     const responseNearGuardians = await supherClient.listNearGuardian(userBloodCenter?.cep ?? '');
 
-    responseNearGuardians.array.forEach(async (guardian: GuardianResponse) => {
+    responseNearGuardians.forEach(async (guardian: GuardianResponse) => {
       const toSend = {
         email: guardian.email,
         name: guardian.name,
@@ -276,7 +276,8 @@ function AuthGuardian({ children }: AuthGuardianProps) {
       }
 
       try {
-        emailjs.send('service_ldds05d', 'template_9789zws', toSend, 'Dn6OsVlPmO2i-Z0EP')
+        console.log("entrou")
+        emailjs.send('service_ldds05d', 'template_vgoss69', toSend, 'nCQsDwBGgsXtqoeog')
         console.log("Mensagem enviada com sucesso");
       } catch (error) {
         toast.error('Falha ao enviar emails');

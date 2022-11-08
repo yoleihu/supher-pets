@@ -1,8 +1,9 @@
 import { Dialog } from "@headlessui/react";
 import { Check, X } from "phosphor-react";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { UserContext } from "../../context/UserContext";
 import supherClient from "../../service/SupherClient";
+import { ButtonAsync } from "../Buttons/ButtonAsync";
 
 interface ConfirmDeleteModalProps {
   id?: string,
@@ -12,27 +13,33 @@ interface ConfirmDeleteModalProps {
 }
 
 export function ConfirmDeleteModal({ id, itemDeleted, isOpen, onClose }: ConfirmDeleteModalProps) {
-  const { deleteGuardian, deleteBloodCenter, deleteAlert, deleteAppointment, deletePet } = useContext(UserContext)
+  const [isLoading, setIsLoading] = useState(false);
+  const { deleteGuardian, deleteBloodCenter, deleteAlert, deleteAppointment, deletePet } = useContext(UserContext);
 
   const onConfirmDelete = async () => {
-    switch (itemDeleted) {
-      case 'alert':
-        await deleteAlert(id!);
-        break;
-      case 'appointment':
-        await deleteAppointment(id!);
-        break;
-      case 'pet':
-        await deletePet(id!);
-        break;
-      default:
-        const user = JSON.parse(localStorage.getItem("USERINFO")!)
-        if ('cpf' in user) {
-          console.log('oi')
-          await deleteGuardian(user.id)
-        } else {
-          await deleteBloodCenter(user.id)
-        }
+    setIsLoading(true);
+    try {
+      switch (itemDeleted) {
+        case 'alert':
+          await deleteAlert(id!);
+          break;
+        case 'appointment':
+          await deleteAppointment(id!);
+          break;
+        case 'pet':
+          await deletePet(id!);
+          break;
+        default:
+          const user = JSON.parse(localStorage.getItem("USERINFO")!)
+          if ('cpf' in user) {
+            console.log('oi')
+            await deleteGuardian(user.id)
+          } else {
+            await deleteBloodCenter(user.id)
+          }
+      }
+    } finally {
+      setIsLoading(false);
     }
   }
 
@@ -61,10 +68,16 @@ export function ConfirmDeleteModal({ id, itemDeleted, isOpen, onClose }: Confirm
                   <X color={'red'} size={20} />
                   Não
                 </button>
-                <button onClick={() => onConfirmDelete()} className="flex items-center gap-1 hover:bg-emerald-100 py-1 px-2 rounded-2xl">
+                <ButtonAsync
+                  type="button"
+                  isLoading={isLoading}
+                  disabled={isLoading}
+                  onClick={() => onConfirmDelete()}
+                  className="bg-sky-800 text-white hover:bg-emerald-100 rounded-full h-10 w-fit mt-2 px-4 flex justify-center items-center gap-2 disabled:bg-gray-300 disabled:text-gray-700"
+                >
                   <Check color={'green'} size={20} />
                   Sim
-                </button>
+                </ButtonAsync>
               </div>
             </Dialog.Description>
           </Dialog.Panel>

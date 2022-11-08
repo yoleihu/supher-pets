@@ -8,6 +8,7 @@ import { AlertInput } from "../../interfaces/Alert";
 import { DateTime } from "luxon";
 import { useContext, useState } from "react";
 import { UserContext } from "../../context/UserContext";
+import { ButtonAsync } from "../Buttons/ButtonAsync";
 
 interface AlertModalProps {
   isOpen: boolean,
@@ -20,18 +21,25 @@ interface AlertProps {
 }
 
 export function AlertModal({ isOpen, onClose }: AlertModalProps) {
-  const { createAlert } = useContext(UserContext)
+  const [isLoading, setIsLoading] = useState(false);
+  const { createAlert } = useContext(UserContext);
 
   const onHandleSubmit = async (values: AlertProps) => {
-    const alert: AlertInput = {
-      bloodType: values.bloodType,
-      species: values.species,
-      bloodCenterId: JSON.parse(localStorage.getItem("USERINFO_ID")!),
-      data: DateTime.now().toISO(),
-    }
+    setIsLoading(true);
 
-    await createAlert(alert)
-    onClose()
+    try {
+      const alert: AlertInput = {
+        bloodType: values.bloodType,
+        species: values.species,
+        bloodCenterId: JSON.parse(localStorage.getItem("USERINFO_ID")!),
+        data: DateTime.now().toISO(),
+      };
+      await createAlert(alert);
+    } finally {
+      setIsLoading(false)
+    }
+    
+    onClose();
   }
 
   const initialValues: AlertProps = {
@@ -93,7 +101,14 @@ export function AlertModal({ isOpen, onClose }: AlertModalProps) {
                     options={values.species === 'DOG' ? dogsBloodTypeOptions : catsBloodTypeOptions}
                     errorMessage={(touched.bloodType && errors.bloodType) ? errors.bloodType : undefined}
                   />
-                  <button className="bg-sky-800 text-white hover:bg-sky-700 rounded-full h-10 w-fit mt-2 px-4 self-end" type="submit">Criar</button>
+                    <ButtonAsync
+                      type="submit"
+                      isLoading={isLoading}
+                      disabled={isLoading}
+                      className="bg-sky-800 text-white hover:bg-sky-700 rounded-full h-10 w-fit mt-2 px-4 flex justify-center items-center gap-2 disabled:bg-gray-300 disabled:text-gray-700"
+                    >
+                      Criar
+                    </ButtonAsync>
                 </form>
               </Dialog.Description>
             </Dialog.Panel>
