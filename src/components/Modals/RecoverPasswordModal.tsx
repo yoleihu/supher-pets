@@ -79,6 +79,10 @@ export const RecoverPasswordModal = ({ isOpen, onClose, isGuardian }: RecoverPas
     validationSchema,
   });
 
+  function toHome() {
+    navigate("/")
+  }
+
   const { values, setFieldValue, handleSubmit, handleBlur, touched, errors } = formik;
 
   return (
@@ -89,7 +93,16 @@ export const RecoverPasswordModal = ({ isOpen, onClose, isGuardian }: RecoverPas
           <Dialog.Panel className="w-full max-w-md transform rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
             <Dialog.Title className="font-semibold text-2xl mb-5">Recuperar Senha</Dialog.Title>
             <Dialog.Description>
-              <form className="flex w-full flex-col justify-center items-end" onSubmit={handleSubmit}>
+              <p className="pb-4">
+                Para alterar sua senha entre contato conosco através do formulário de contato na página inicial.
+              </p>
+              <button
+                    className=" text-sky-800 hover:text-sky-700 border border-sky-800 hover:border-sky-700 rounded-full h-10 w-fit px-3"
+                    onClick={() => toHome()}
+                  >
+                    Ir para tela inicial
+                  </button>
+              {/* <form className="flex w-full flex-col justify-center items-end" onSubmit={handleSubmit}>
                 <TextField
                   name="email"
                   placeholder="Email"
@@ -115,7 +128,7 @@ export const RecoverPasswordModal = ({ isOpen, onClose, isGuardian }: RecoverPas
                     Enviar email
                   </ButtonAsync>
                 </div>
-              </form>
+              </form> */}
             </Dialog.Description>
           </Dialog.Panel>
         </div>
