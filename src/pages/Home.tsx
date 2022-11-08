@@ -56,11 +56,11 @@ function AboutItem({ title, text, icon }: AboutItemProps) {
     <div className="flex md:flex-col flex-row items-center md:w-52 w-full gap-4 md:mt-10 mt-4">
       {icon}
       <div className="flex flex-col md:items-center items-start md:w-40 w-full gap-4">
-        <p className=" text-cyan-900 text-xl font-bold md:text-center text-left">
+        <p className=" text-cyan-900 lg:text-xl text-lg font-bold md:text-center text-left">
           {title}
         </p>
         <div className="md:w-52 w-full">
-          <p className="text-zinc-600 text-lg md:text-center text-left">
+          <p className="text-zinc-600 lg:text-lg text-base md:text-center text-left">
             {text}
           </p>
         </div>
@@ -74,11 +74,11 @@ function CollapsibleFaq({ question, response, number }: CollapseProps) {
   return (
     <div className="collapsible w-full flex flex-col">
       <div className="flex items-center justify-between w-full">
-        <div className="flex flex-row items-center">
-          <div className="w-16 h-16 bg-green-400 rounded-full flex justify-center items-center shadow-lg">
+        <div className="flex flex-row items-center gap-3 lg:gap-8">
+          <div className="lg:w-16 lg:h-16 w-8 h-8 p-4 bg-green-400 rounded-full flex justify-center items-center shadow-lg">
             <p className="text-2xl text-bold text-yellow-50">{number}</p>
           </div>
-          <p className="text-xl px-8 text-zinc-800">{question}</p>
+          <p className="lg:text-xl text-lg text-zinc-800">{question}</p>
         </div>
         <div className="header" {...getToggleProps()}>
           {isExpanded ? (
@@ -90,7 +90,7 @@ function CollapsibleFaq({ question, response, number }: CollapseProps) {
       </div>
       <div {...getCollapseProps()}>
         <div className="content">
-          <p className="text-xl p-8 md:ml-20 my-4 text-zinc-600 bg-zinc-200 rounded-3xl">
+          <p className="lg:text-xl text-lg p-8 md:ml-20 my-4 text-zinc-600 bg-zinc-200 rounded-3xl">
             {response}
           </p>
         </div>
@@ -138,12 +138,12 @@ export function Home() {
           id="welcome"
         >
           <div className="flex md:flex-row justify-between flex-col-reverse">
-            <div className="lg:w-3/5 w-full">
+            <div className="lg:w-3/5 w-full flex flex-col gap-3 lg:gap-0">
               <h1 className=" text-cyan-900 md:text-5xl text-xl font-bold">
                 Faça do seu pet um herói, agende uma doação de sangue!
               </h1>
               <div className="md:py-5 md:gap-2 flex flex-col">
-                <p className="md:text-xl text-base">
+                <p className="md:text-xl text-base mb-2 lg:mb-0">
                   Você sabia que seu pet pode salvar vidas de outros animais
                   através da doação sanguínea?
                 </p>
@@ -172,7 +172,7 @@ export function Home() {
                   Procure o receptor mais próximo
                 </p>
               </div>
-              <div className="text-start">
+              <div className="lg:text-start text-center">
                 <ButtonNavbar
                   label="Cadastre-se"
                   path="/register"
@@ -181,7 +181,7 @@ export function Home() {
                 />
               </div>
             </div>
-            <div className="lg:w-2/5 w-full">
+            <div className="lg:w-2/5">
               <img src={SupherPets} className="w-full max-h-fit mt-4" />
             </div>
           </div>
@@ -203,29 +203,26 @@ export function Home() {
             <p className="lg:text-4xl font-bold text-zinc-800">
               Principais funcionalidades
             </p>
-            <div className="flex md:flex-row flex-col justify-center items-center md:items-start md:gap-40 gap-6">
+            <div className="flex md:flex-row flex-col justify-center items-center md:items-start lg:gap-40 gap-6">
               <AboutItem
                 title="Cadastro de multiplos pets"
                 text="Você pode cadastrar todos os seus pets!"
                 icon={
-                  <img src={Form} className="w-40 p-1 max-h-fit " />
+                  <img src={Form} className="lg:w-40 w-24 p-1 max-h-fit " />
                 }
               />
               <AboutItem
                 title="Gerenciamento de consultas"
                 text="Receba notificações sobre as consultas de cada pet e acesse os resultados!"
                 icon={
-                  <img
-                    src={Calendar}
-                    className="w-40 p-1 max-h-fit"
-                  />
+                  <img src={Calendar} className="lg:w-40 w-24 p-1 max-h-fit" />
                 }
               />
               <AboutItem
                 title="Encontre hemocentros"
                 text="Conheça os bancos de sangue próximos a você!"
                 icon={
-                  <img src={Local} className="w-40 max-h-fit " />
+                  <img src={Local} className="lg:w-40 w-24 max-h-fit " />
                 }
               />
             </div>
@@ -233,8 +230,8 @@ export function Home() {
         </section>
 
         <section className="pt-20" id="aos-hemocentros">
-          <div className="md:py-16 md:px-10 lg:px-20 px-4 py-5 flex lg:flex-row justify-center items-center flex-col-reverse bg-white shadow rounded-3xl">
-            <div className="lg:w-1/2 w-full flex flex-col md:gap-4">
+          <div className="md:py-16 md:px-10 lg:px-20 lg:gap-20 px-4 py-5 flex lg:flex-row justify-center items-center flex-col-reverse bg-white shadow rounded-3xl">
+            <div className="w-full flex flex-col gap-4">
               <p className="lg:text-xl font-bold text-zinc-600">
                 Aos Hemocentros
               </p>
@@ -246,7 +243,7 @@ export function Home() {
                 gerenciar consultas. Através dele você pode criar alertas de
                 necessidade, visulizar perfis dos animais e agendar consultas.
               </p>
-              <div className="text-start">
+              <div className="lg:text-start text-center">
                 <ButtonNavbar
                   label="Cadastre-se"
                   path="/register"
@@ -255,7 +252,7 @@ export function Home() {
                 />
               </div>
             </div>
-            <div className="lg:w-1/2 items-end justify-end lg:pr-24 text-center flex w-full">
+            <div className="items-center justify-center lg:items-end lg:justify-end text-center flex">
               <img src={PetShop} className="w-56 max-h-fit" />
             </div>
           </div>
