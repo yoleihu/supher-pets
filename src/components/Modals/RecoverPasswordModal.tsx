@@ -8,6 +8,7 @@ import { Dialog } from "@headlessui/react";
 import supherClient from '../../service/SupherClient';
 
 interface RecoverPasswordModalProps {
+  isGuardian: boolean,
   isOpen: boolean,
   onClose: () => void,
 }
@@ -16,7 +17,7 @@ interface FormValuesProps {
   email: string,
 }
 
-export const RecoverPasswordModal = ({ isOpen, onClose }: RecoverPasswordModalProps) => {
+export const RecoverPasswordModal = ({ isOpen, onClose, isGuardian }: RecoverPasswordModalProps) => {
   const [isLoading, setIsLoading] = useState(false);
   const [toSend, setToSend] = useState({
     from_email: '',
@@ -24,18 +25,30 @@ export const RecoverPasswordModal = ({ isOpen, onClose }: RecoverPasswordModalPr
   });
 
   const onHandleSubmit = async ({ email }: FormValuesProps) => {
-    // setIsLoading(true)
 
     const body = {
       email,
-      url: "http://localhost:3006/recoverPassword"
+      hash: (Math.random() * (9999 - 1000) + 1000).toString(),
     };
 
-    const response = await supherClient.recoverPasswordBloodCenter(body);
+    // salva o token para atualizar senha do usuário no banco 
+    if(isGuardian) {
+      if ( await supherClient.getGuardian(email)){
+        const response = await supherClient.recoverPasswordGuardian(body);
+        setToSend({from_email: email, token: body.hash})
+      } else {
+        throw new Error("O seu email não existe")
+      }
+    } else {
+      if ( await supherClient.getBloodCenter(email)){
+        const response = await supherClient.recoverPasswordBloodCenter(body);
+        setToSend({from_email: email, token: body.hash})
+      } else {
+        throw new Error("O seu email não existe")
+      }
+    }
     
-    setToSend({from_email: email, token: response});
-    
-    // await sendEmail();
+    await sendEmail();
     setIsLoading(false);
     // onClose()
   }

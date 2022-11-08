@@ -46,7 +46,7 @@ export function UserForm({
             <>
               <LoginForm isGuardian={isGuardian} onForgotPassword={() => setIsRecoverModalOpen(true)} />
               {isRecoverModalOpen &&
-                <RecoverPasswordModal isOpen={isRecoverModalOpen} onClose={() => setIsRecoverModalOpen(false)} />
+                <RecoverPasswordModal isOpen={isRecoverModalOpen} isGuardian={isGuardian} onClose={() => setIsRecoverModalOpen(false)} />
               }
             </>
           }

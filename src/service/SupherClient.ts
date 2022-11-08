@@ -108,6 +108,16 @@ export class SupherClient {
     }
   }
 
+  async recoverPasswordGuardian(recoverPasswordBody: RecoverPassword) {
+    try {
+      const response = await this.api.post('/guardian/generate-link', recoverPasswordBody)
+      return response.data
+    } catch(error) {
+      toast.error('Erro de conexão')
+      throw new Error()
+    }
+  }
+
   async recoverPasswordBloodCenter(recoverPasswordBody: RecoverPassword) {
     try {
       const response = await this.api.post('/blood-center/generate-link', recoverPasswordBody)
