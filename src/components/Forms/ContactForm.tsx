@@ -66,7 +66,7 @@ export function ContactForm() {
 
 	return (
 		<>
-			<form className="flex flex-col lg:gap-3 gap-1 md:w-3/5 w-full justify-center items-end" onSubmit={handleSubmit}>
+			<form className="flex flex-col lg:gap-3 gap-2 md:w-3/5 w-full justify-center items-end" onSubmit={handleSubmit}>
 				<h2 className="lg:text-4xl text-xl font-bold text-zinc-800 self-start">Contato</h2>
 				<div className="flex flex-row justify-between items-center w-full gap-4">
 					<TextField
