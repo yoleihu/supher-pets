@@ -52,7 +52,7 @@ export function UserForm({
           }
 
           {isRecoverPassword &&
-            <RecoverPasswordForm />
+            <RecoverPasswordForm isGuardian={isGuardian} />
           }
         </div>
       </div>

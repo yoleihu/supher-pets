@@ -6,6 +6,7 @@ import { useState } from "react";
 import { ButtonAsync } from "../Buttons/ButtonAsync";
 import { Dialog } from "@headlessui/react";
 import supherClient from '../../service/SupherClient';
+import { useNavigate } from 'react-router-dom';
 
 interface RecoverPasswordModalProps {
   isGuardian: boolean,
@@ -19,6 +20,7 @@ interface FormValuesProps {
 
 export const RecoverPasswordModal = ({ isOpen, onClose, isGuardian }: RecoverPasswordModalProps) => {
   const [isLoading, setIsLoading] = useState(false);
+  const navigate = useNavigate();
   const [toSend, setToSend] = useState({
     from_email: '',
     token: ''
@@ -28,7 +30,7 @@ export const RecoverPasswordModal = ({ isOpen, onClose, isGuardian }: RecoverPas
 
     const body = {
       email,
-      hash: (Math.random() * (9999 - 1000) + 1000).toString(),
+      hash: Math.floor(Math.random() * (9999 - 1000) + 1000).toString(),
     };
 
     // salva o token para atualizar senha do usuário no banco 
@@ -50,15 +52,14 @@ export const RecoverPasswordModal = ({ isOpen, onClose, isGuardian }: RecoverPas
     
     await sendEmail();
     setIsLoading(false);
-    // onClose()
   }
 
   const sendEmail = async () => {
     try {
       await emailjs.send('service_a7m1m8i', 'template_1xf8ift', toSend, 'Dn6OsVlPmO2i-Z0EP')
-      console.log("Mensagem enviada com sucesso");
+      navigate("/recoverPassword")
     } catch (error) {
-      alert("Erro ao enviar mensagem");
+      alert("Verifique se seu e-mail est[a correto");
     }
   };
 
