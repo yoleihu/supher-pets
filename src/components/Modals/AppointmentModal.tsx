@@ -13,6 +13,7 @@ import { Trash } from "phosphor-react";
 
 interface AppointmentModalProps {
   appointment?: AppointmentOutput,
+  pet?: string,
   isOpen: boolean,
   isEditing?: boolean,
   onClose: () => void,
@@ -25,7 +26,7 @@ export interface AppointmentProps {
   result?: string,
 }
 
-export function AppointmentModal({ appointment, isOpen, isEditing, onClose }: AppointmentModalProps) {
+export function AppointmentModal({ appointment, pet, isOpen, isEditing, onClose }: AppointmentModalProps) {
   const [isLoading, setIsLoading] = useState(false);
   const [deleteAppointmentModalOpen, setDeleteAppointmentModalOpen] = useState(false);
   const { createAppointment, updateAppointment } = useContext(UserContext);
@@ -69,7 +70,7 @@ export function AppointmentModal({ appointment, isOpen, isEditing, onClose }: Ap
   const initialValues = {
     type: appointment?.type ?? '',
     data: appointment?.data ? DateTime.fromISO(appointment?.data).toFormat('dd/LL/yyyy') : '',
-    pet: JSON.stringify(appointment?.pet!) ?? '',
+    pet: appointment?.pet ?? pet ?? '',
     result: appointment?.result ?? '',
   };
 
