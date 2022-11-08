@@ -1,5 +1,7 @@
-import axios from "axios";
+import axios from "axios"
+import { useContext } from "react";
 import { toast } from "react-toastify";
+import { UserContext } from "../context/UserContext";
 import { AlertInput } from "../interfaces/Alert";
 import { AppointmentInput } from "../interfaces/Appointment";
 import { PetInput } from "../interfaces/Pet";
@@ -18,11 +20,16 @@ export class SupherClient {
     // "http://localhost:3000"
   });
 
-  // async defineInterceptors() {
-  //   this.api.interceptors.response.use(response => {
-  //     return response
-  //   }, err => {
-  //     return new Promise(async (resolve, reject) => {
+  async defineInterceptors() {
+    this.api.interceptors.response.use(response => {
+      return response
+    }, err => {
+      return new Promise(async (resolve, reject) => {
+        if(err.response.status === 401) {
+          localStorage.clear();
+          await supherClient.logout();
+          window.location.reload()
+        }
   //       const originalReq = err.config
   //       if (err.response.status === 401 && err.config && !err.config._retry) {
   //         originalReq._retry = true
@@ -44,9 +51,9 @@ export class SupherClient {
   //       } else {
   //         reject(err)
   //       }
-  //     })
-  //   })
-  // }
+      })
+    })
+  }
 
   async registerGuardian(guardian: GuardianRegister) {
     try {
@@ -93,7 +100,17 @@ export class SupherClient {
     }
   }
 
-  async deleteGuardian(guardianId: string) {
+  async getGuardianEmail(guardian: string) {
+    try {
+      const response = await this.api.get(`/guardian/email/${guardian}`);
+      return response.data
+    } catch (error) {
+      toast.error('Erro de conexão')
+      throw new Error()
+    }
+  }
+
+  async deleteGuardian(guardianId: number) {
     try {
       const response = await this.api.delete(`/guardian/${guardianId}`);
       return response.data;
@@ -216,7 +233,17 @@ export class SupherClient {
     }
   }
 
-  async deleteBloodCenter(bloodCenterId: string) {
+  async getBloodCenterEmail(bloodCenter: string) {
+    try {
+      const response = await this.api.get(`/blood-center/email/${bloodCenter}`)
+      return response.data
+    } catch (error) {
+      toast.error('Erro de conexão')
+      throw new Error()
+    }
+  }
+
+  async deleteBloodCenter(bloodCenterId: number) {
     try {
       const response = await this.api.delete(`blood-center/${bloodCenterId}`);
       return response.data;
@@ -283,6 +310,16 @@ export class SupherClient {
     } catch (error) {
       toast.error("Erro de conexão");
       throw new Error();
+    }
+  }
+
+  async listNearGuardian(cep: string) {
+    try {
+      const response = await this.api.get(`/guardian/list-nears/${cep}`);
+      return response.data
+    } catch (error) {
+      toast.error('Erro de conexão')
+      throw new Error()
     }
   }
 

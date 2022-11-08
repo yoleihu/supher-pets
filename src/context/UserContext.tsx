@@ -5,6 +5,7 @@ import { AlertInput, AlertOutput } from '../interfaces/Alert';
 import { AppointmentInput, AppointmentOutput } from '../interfaces/Appointment';
 import { PetOutput, PetInput } from '../interfaces/Pet';
 import { BloodCenterOutput, BloodCenterRegister, BloodCenterUpdate, GuardianRegister, GuardianUpdate, Login } from '../interfaces/User';
+import emailjs from '@emailjs/browser';
 import supherClient from '../service/SupherClient';
 
 interface AuthGuardianProps {
@@ -21,12 +22,14 @@ interface UserContextProps {
   signInGuardian: (guardian: Login) => Promise<void>,
   signUpGuardian: (guardian: GuardianRegister) => Promise<void>,
   updateGuardian: (guardian: GuardianUpdate) => Promise<void>,
+  deleteGuardian: (guardianId: number) => Promise<void>,
   addPet: (pet: PetInput) => Promise<void>,
   updatePet: (pet: PetInput, petId: string) => Promise<void>,
   deletePet: (petId: string) => Promise<void>,
   signInBloodCenter: (bloodCenter: Login) => Promise<void>,
   signUpBloodCenter: (bloodCenter: BloodCenterRegister) => Promise<void>,
   updateBloodCenter: (bloodCenter: BloodCenterUpdate) => Promise<void>,
+  deleteBloodCenter: (bloodCenterId: number) => Promise<void>,
   createAlert: (alert: AlertInput) => Promise<void>,
   deleteAlert: (alertId: string) => Promise<void>,
   createAppointment: (appointment: AppointmentInput) => Promise<void>,
@@ -110,14 +113,14 @@ function AuthGuardian({ children }: AuthGuardianProps) {
   }
 
   const signInGuardian = async (guardian: Login) => {
+    // const existEmail = await supherClient.getGuardianEmail(guardian.username);
+    const responseLogin = await supherClient.loginGuardian(guardian);
+    const accessToken = responseLogin.access_token;
+    localStorage.setItem("TOKEN", JSON.stringify(accessToken));
+    supherClient.api.defaults.headers.common["Authorization"] = `Bearer ${accessToken}`;
     const responseList = await supherClient.getGuardian(guardian.username);
 
     if (responseList) {
-      const responseLogin = await supherClient.loginGuardian(guardian);
-      const accessToken = responseLogin.access_token;
-      localStorage.setItem("TOKEN", JSON.stringify(accessToken));
-      supherClient.api.defaults.headers.common["Authorization"] = `Bearer ${accessToken}`;
-
       setUserGuardian(responseList);
 
       localStorage.setItem("USERINFO", JSON.stringify(responseList));
@@ -144,6 +147,18 @@ function AuthGuardian({ children }: AuthGuardianProps) {
       localStorage.setItem("USERINFO", JSON.stringify(responseUpdate));
       setUserGuardian(responseUpdate);
     }
+  }
+
+  const deleteGuardian = async (guardianId: number) => {
+    const responseList = await supherClient.listPets(guardianId);
+
+    await responseList.forEach(async (pet: PetOutput) => {
+      console.log(pet)
+      await supherClient.deletePet(pet.id);
+    });
+
+    await supherClient.deleteGuardian(guardianId);
+    await signOut();
   }
 
   const addPet = async (pet: PetInput) => {
@@ -191,13 +206,14 @@ function AuthGuardian({ children }: AuthGuardianProps) {
   }
 
   const signInBloodCenter = async (bloodCenter: Login) => {
+    // const existEmail = await supherClient.getBloodCenterEmail(bloodCenter.username);
+    const responseLogin = await supherClient.loginBloodCenter(bloodCenter);
+    const accessToken = responseLogin.access_token;
+    localStorage.setItem("TOKEN", JSON.stringify(accessToken));
+    supherClient.api.defaults.headers.common["Authorization"] = `Bearer ${accessToken}`;
     const responseList = await supherClient.getBloodCenter(bloodCenter.username);
 
     if (responseList) {
-      const responseLogin = await supherClient.loginBloodCenter(bloodCenter);
-      const accessToken = responseLogin.access_token;
-      localStorage.setItem("TOKEN", JSON.stringify(accessToken));
-      supherClient.api.defaults.headers.common["Authorization"] = `Bearer ${accessToken}`;
       setUserBloodCenter(responseList);
 
       localStorage.setItem("USERINFO", JSON.stringify(responseList));
@@ -230,11 +246,46 @@ function AuthGuardian({ children }: AuthGuardianProps) {
     }
   }
 
+  const deleteBloodCenter = async (bloodCenterId: number) => {
+    const responseListAlerts = await supherClient.listAlerts(bloodCenterId);
+    const responseListAppointments = await supherClient.listAppointments(bloodCenterId);
+
+    Promise.all(responseListAlerts.array.forEach(async (alert: AlertOutput) => {
+      await supherClient.deleteAlert(alert.id);
+    }));
+
+    Promise.all(responseListAppointments.array.forEach(async (appointment: AppointmentOutput) => {
+      await supherClient.deleteAppointment(appointment.id);
+    }));
+
+    await supherClient.deleteBloodCenter(bloodCenterId);
+    signOut();
+  }
+
   const createAlert = async (alert: AlertInput) => {
-    const response = await supherClient.createAlert(alert);
+    const responseAlert = await supherClient.createAlert(alert);
+
+    const responseNearGuardians = await supherClient.listNearGuardian(userBloodCenter?.cep ?? '');
+
+    responseNearGuardians.array.forEach(async (guardian: GuardianResponse) => {
+      const toSend = {
+        email: guardian.email,
+        name: guardian.name,
+        species: alert.species,
+        blood_type: alert.bloodType,
+      }
+
+      try {
+        emailjs.send('service_ldds05d', 'template_9789zws', toSend, 'Dn6OsVlPmO2i-Z0EP')
+        console.log("Mensagem enviada com sucesso");
+      } catch (error) {
+        toast.error('Falha ao enviar emails');
+      }
+    });
+
     toast.success('Alerta criado com sucesso');
 
-    setAlerts([...alerts, response]);
+    setAlerts([...alerts, responseAlert]);
     localStorage.setItem("ALERTS", JSON.stringify(alerts));
   }
 
@@ -251,22 +302,34 @@ function AuthGuardian({ children }: AuthGuardianProps) {
   }
 
   const createAppointment = async (appointment: AppointmentInput) => {
-    const response = await supherClient.createAppointment(appointment);
-    toast.success('Consulta criada com sucesso');
+    const pet = await supherClient.getPet(appointment.pet);
 
-    setAppointments([...appointments, response]);
-    localStorage.setItem("APPOINTMENTS", JSON.stringify(appointments));
+    if (pet) {
+      const response = await supherClient.createAppointment(appointment);
+      toast.success('Consulta criada com sucesso');
+
+      setAppointments([...appointments, response]);
+      localStorage.setItem("APPOINTMENTS", JSON.stringify(appointments));
+    } else {
+      toast.error('Pet não encontrado');
+    }
   }
 
   const updateAppointment = async (appointment: AppointmentInput, appointmentId: string) => {
-    await supherClient.updateAppointment(appointment, appointmentId);
-    toast.success('Consulta atualizada com sucesso');
+    const pet = await supherClient.getPet(appointment.pet);
 
-    if (userBloodCenter) {
-      const responseList = await supherClient.listAppointments(userBloodCenter.id);
+    if (pet) {
+      await supherClient.updateAppointment(appointment, appointmentId);
+      toast.success('Consulta atualizada com sucesso');
 
-      setAppointments(responseList);
-      localStorage.setItem("APPOINTMENTS", JSON.stringify(responseList));
+      if (userBloodCenter) {
+        const responseList = await supherClient.listAppointments(userBloodCenter.id);
+
+        setAppointments(responseList);
+        localStorage.setItem("APPOINTMENTS", JSON.stringify(responseList));
+      }
+    } else {
+      toast.error('Pet não encontrado');
     }
   }
 
@@ -285,7 +348,6 @@ function AuthGuardian({ children }: AuthGuardianProps) {
   const loadNearBloodCenter = async (cep: string) => {
     const response = await supherClient.listNearBloodCenter(cep);
 
-    localStorage.setItem("NEARBLOODCENTERS", JSON.stringify(nearBlodCenters));
     setNearBloodCenters(response);
   }
 
@@ -316,6 +378,8 @@ function AuthGuardian({ children }: AuthGuardianProps) {
       updateBloodCenter,
       updatePet,
       updateAppointment,
+      deleteGuardian,
+      deleteBloodCenter,
       deleteAlert,
       deleteAppointment,
       deletePet,

@@ -15,7 +15,7 @@ export function Appointments({ appointment }: AppointmentButtonProps) {
   const downloadPdf = () => {
     const downloadLink = document.createElement('a') as HTMLAnchorElement;
     downloadLink.href = appointment.result!;
-    downloadLink.download = `Resultado pet:${appointment.petId}`;
+    downloadLink.download = `Resultado pet:${appointment.pet}`;
     downloadLink.click();
     
     toast.success('Arquivo baixado com sucesso')
@@ -30,7 +30,7 @@ export function Appointments({ appointment }: AppointmentButtonProps) {
       <div className="w-full rounded-xl flex bg-red-300 bg-opacity-30 px-4 py-2 justify-between">
         <div className="flex flex-col gap-2">
           <p className="font-semibold">{appointment.type}</p>
-          <p>Pet Id: {appointment.petId}</p>
+          <p>Pet Id: {appointment.pet}</p>
         </div>
         <div className="flex items-center gap-2">
           <div className="flex flex-col items-end gap-1">

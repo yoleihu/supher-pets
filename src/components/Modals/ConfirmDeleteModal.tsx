@@ -12,7 +12,7 @@ interface ConfirmDeleteModalProps {
 }
 
 export function ConfirmDeleteModal({ id, itemDeleted, isOpen, onClose }: ConfirmDeleteModalProps) {
-  const { deleteAlert, deleteAppointment, deletePet, signOut } = useContext(UserContext)
+  const { deleteGuardian, deleteBloodCenter, deleteAlert, deleteAppointment, deletePet } = useContext(UserContext)
 
   const onConfirmDelete = async () => {
     switch (itemDeleted) {
@@ -26,9 +26,13 @@ export function ConfirmDeleteModal({ id, itemDeleted, isOpen, onClose }: Confirm
         await deletePet(id!);
         break;
       default:
-        const userId = JSON.parse(localStorage.getItem("USERINFO_ID")!)
-        await supherClient.deleteGuardian(userId)
-        signOut()
+        const user = JSON.parse(localStorage.getItem("USERINFO")!)
+        if ('cpf' in user) {
+          console.log('oi')
+          await deleteGuardian(user.id)
+        } else {
+          await deleteBloodCenter(user.id)
+        }
     }
   }
 
