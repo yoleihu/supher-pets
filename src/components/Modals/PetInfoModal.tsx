@@ -1,5 +1,5 @@
 import { Dialog } from "@headlessui/react";
-import { Cake, GenderFemale, GenderMale } from "phosphor-react";
+import { Cake, Drop, GenderFemale, GenderMale, HandbagSimple, PawPrint } from "phosphor-react";
 import { useState } from "react";
 import { PetOutput } from "../../interfaces/Pet";
 import { AppointmentModal } from "./AppointmentModal";
@@ -16,18 +16,19 @@ export function PetInfoModal({ pet, isOpen, onClose }: PetInfoModalProps) {
   return (
     <>
       {openAppointmentModal &&
-        <AppointmentModal isOpen={openAppointmentModal} onClose={() => { setOpenAppointmentModal(false) }} />
+        <AppointmentModal pet={pet.id} isOpen={openAppointmentModal} onClose={() => { setOpenAppointmentModal(false) }} />
       }
-
 
       <Dialog open={isOpen} onClose={onClose} className="flex items-center justify-center">
         <div className="fixed inset-0 bg-black/30" />
         <div className="fixed inset-0 overflow-y-auto">
           <div className="flex min-h-full items-center justify-center p-4">
-            <Dialog.Panel className=" max-w-md transform rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
-              <Dialog.Title className="font-semibold lg:text-2xl text-lg mb-5">{pet.name}</Dialog.Title>
+            <Dialog.Panel className="w-full max-w-xs transform rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
               <Dialog.Description className="px-5 text-justify">
-                <img className="h-16 mb-5 mx-auto" src={pet.species === 'DOG' ? "/assets/dog-icon.png" : "/assets/cat-icon.png"} />
+                <div className="flex flex-col items-center gap-1 w-full mb-5">
+                  <img className="h-16 w-fit" src={pet.species === 'DOG' ? "/assets/dog-icon.png" : "/assets/cat-icon.png"} />
+                  <label className="font-semibold text-lg">{pet.name}</label>
+                </div>
                 <p className="flex gap-1 items-center">
                   {pet.sexOfPet === "FEMALE" ? <GenderFemale color="#FC95FE" /> : <GenderMale color="#6794FE" />}
                   Sexo: {pet.sexOfPet === "FEMALE" ? "Fêmea" : "Macho"}
@@ -39,24 +40,36 @@ export function PetInfoModal({ pet, isOpen, onClose }: PetInfoModalProps) {
                   </p>
                 }
                 {pet.bloodType &&
-                  <p>Tipo sanguíneo: {pet.bloodType}</p>
+                  <p className="flex gap-1 items-center">
+                    <Drop />
+                    Tipo sanguíneo: {pet.bloodType}
+                  </p>
                 }
                 {pet.breed &&
-                  <p>Raça: {pet.breed}</p>
+                  <p className="flex gap-1 items-center">
+                    <PawPrint />
+                    Raça: {pet.breed}
+                  </p>
                 }
                 {pet.statusToDonation &&
-                  <p>Status para doação: {pet.statusToDonation}</p>
+                  <p className="flex gap-1 items-center">Status para doação: {pet.statusToDonation}</p>
                 }
                 {pet.weight &&
-                  <p>Peso: {pet.weight}</p>
+                  <p className="flex gap-1 items-center">
+                    <HandbagSimple />
+                    Peso: {pet.weight}
+                  </p>
                 }
 
-                <button
-                  type="button"
-                  onClick={() => setOpenAppointmentModal(true)}
-                >
-                  Criar consulta
-                </button>
+                <div className="w-full flex justify-end">
+                  <button
+                    type="button"
+                    onClick={() => setOpenAppointmentModal(true)}
+                    className="bg-sky-800 text-white hover:bg-sky-700 rounded-full h-10 w-fit mt-2 px-4 flex justify-center items-center gap-2 disabled:bg-gray-300 disabled:text-gray-700"
+                  >
+                    Criar consulta
+                  </button>
+                </div>
               </Dialog.Description>
             </Dialog.Panel>
           </div>

@@ -115,11 +115,11 @@ export function AppointmentModal({ appointment, pet, isOpen, isEditing, onClose 
                   <TextField
                     name="pet"
                     placeholder="Pet"
+                    disabled={pet ? true : false}
                     value={values.pet}
                     onChange={(value) => setFieldValue('pet', value)}
                     errorMessage={(touched.pet && errors.pet) ? errors.pet : undefined}
                   />
-
                   <TextField
                     name="data"
                     placeholder="Data"

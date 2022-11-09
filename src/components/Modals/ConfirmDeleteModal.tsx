@@ -64,7 +64,7 @@ export function ConfirmDeleteModal({ id, itemDeleted, isOpen, onClose }: Confirm
             <Dialog.Description className="p-5 text-justify">
               <Dialog.Title className="font-semibold lg:text-2xl text-lg mb-5">{`Tem certeza que deseja excluir ${handleText()}?`}</Dialog.Title>
               <div className="flex gap-4 w-full justify-end">
-                <button onClick={onClose} className="flex items-center gap-1 hover:bg-red-100 py-1 px-2 rounded-2xl">
+                <button onClick={onClose} className="flex items-center gap-1 hover:bg-red-100 mt-2 px-4 rounded-full">
                   <X color={'red'} size={20} />
                   Não
                 </button>
@@ -73,7 +73,7 @@ export function ConfirmDeleteModal({ id, itemDeleted, isOpen, onClose }: Confirm
                   isLoading={isLoading}
                   disabled={isLoading}
                   onClick={() => onConfirmDelete()}
-                  className="bg-sky-800 text-white hover:bg-emerald-100 rounded-full h-10 w-fit mt-2 px-4 flex justify-center items-center gap-2 disabled:bg-gray-300 disabled:text-gray-700"
+                  className="hover:bg-emerald-100 rounded-full h-10 w-fit mt-2 px-4 flex justify-center items-center gap-2 disabled:bg-gray-300 disabled:text-gray-700"
                 >
                   <Check color={'green'} size={20} />
                   Sim
