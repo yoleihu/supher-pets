@@ -196,6 +196,16 @@ export function TermsModal({ isOpen, onClose }: TermsModalProps) {
                 Os eventuais litígios deverão ser apresentados no foro da comarca em que se
                 encontra a sede da empresa.
               </p>
+
+              <div className="w-full flex justify-end mt-3">
+                <button
+                  type="button"
+                  onClick={onClose}
+                  className="bg-sky-800 text-white hover:bg-sky-700 rounded-full h-10 w-fit px-4 flex justify-center items-center gap-2 disabled:bg-gray-300 disabled:text-gray-700"
+                >
+                  Fechar
+                </button>
+              </div>
             </Dialog.Description>
           </Dialog.Panel>
         </div>

@@ -29,7 +29,7 @@ export function PetModal({ pet, isOpen, isEditing, onClose }: PetModalProps) {
   const onHandleSubmit = async (values: PetInput) => {
     setIsLoading(true);
 
-    try{
+    try {
       if (isEditing) {
         await updatePet({ ...values, statusToDonation: values.statusToDonation !== "UNKNOW" ? values.statusToDonation : null }, pet?.id ?? '')
       } else {
@@ -61,7 +61,10 @@ export function PetModal({ pet, isOpen, isEditing, onClose }: PetModalProps) {
     sexOfPet: Yup.string()
       .required('Selecione o sexo'),
     species: Yup.string()
-      .required('Selecione a espécie')
+      .required('Selecione a espécie'),
+    age: Yup.string()
+      .optional()
+      .matches(/^[0-9]+$/, 'A idade deve ser apenas números')
   });
 
   const formik = useFormik<PetInput>({
@@ -178,28 +181,43 @@ export function PetModal({ pet, isOpen, isEditing, onClose }: PetModalProps) {
                       <h3 className="text-sm font-bold mt-2">Campos opicionais:</h3>
                       <TextField name="breed" placeholder="Raça" value={values.breed} onChange={(value) => setFieldValue('breed', value)} />
                       <div className="grid grid-cols-2 gap-4">
-                        <TextField name="age" placeholder="Idade" value={values.age} onChange={(value) => setFieldValue('age', value)} />
+                        <div>
+                          <TextField name="age" placeholder="Idade" value={values.age} onChange={(value) => setFieldValue('age', value)} />
+                          {(touched.age && errors.age) ?
+                            <span className="text-red-600 text-xs text-center">
+                              {errors.age}
+                            </span> :
+                            null
+                          }
+                        </div>
                         <TextField name="weight" placeholder="Peso" value={values.weight} onChange={(value) => setFieldValue('weight', value)} />
                       </div>
                       <ComboBox name="bloodType" value={values.bloodType} onChange={(value) => setFieldValue('bloodType', value)} options={values.species === 'DOG' ? dogsBloodTypeOptions : catsBloodTypeOptions} />
                     </>
                   }
 
-                  <div className={`w-full flex ${isEditing ? 'justify-between' : 'justify-end'}`}>
+                  <div className={`w-full flex mt-2 ${isEditing ? 'justify-between' : 'justify-end'}`}>
                     {isEditing &&
                       <button type="button" onClick={() => setDeletePetModalOpen(true)}>
                         <Trash color="red" size={25} />
                       </button>
                     }
-
-                    <ButtonAsync
-                      type="submit"
-                      isLoading={isLoading}
-                      disabled={isLoading}
-                      className="bg-sky-800 text-white hover:bg-sky-700 rounded-full h-10 w-fit mt-2 px-4 flex justify-center items-center gap-2 disabled:bg-gray-300 disabled:text-gray-700"
-                    >
-                      {isEditing ? 'Atualizar' : 'Adicionar'}
-                    </ButtonAsync>
+                    <div className="flex gap-2 items-center">
+                      <button
+                        className="text-sky-800 hover:text-sky-700 border border-sky-800 hover:border-sky-700 rounded-full h-10 w-fit px-3"
+                        onClick={onClose}
+                      >
+                        Cancelar
+                      </button>
+                      <ButtonAsync
+                        type="submit"
+                        isLoading={isLoading}
+                        disabled={isLoading}
+                        className="bg-sky-800 text-white hover:bg-sky-700 rounded-full h-10 w-fit px-4 flex justify-center items-center gap-2 disabled:bg-gray-300 disabled:text-gray-700"
+                      >
+                        {isEditing ? 'Atualizar' : 'Adicionar'}
+                      </ButtonAsync>
+                    </div>
                   </div>
                 </form>
               </Dialog.Description>

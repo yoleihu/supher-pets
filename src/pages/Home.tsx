@@ -193,8 +193,8 @@ export function Home() {
               Sobre
             </p>
             <p className="text-base md:w-3/5 w-full md:text-center text-justify md:text-xl">
-              Unimos bancos de sangue veterinário e tutores em um ambiente
-              digital, afim de facilitar o processo de doação, possibilitando o
+              Unimos bancos de sangue veterinário e tutores de pets em um ambiente
+              digital, afim de facilitar o processo de doação de sangue, possibilitando o
               tratamento de diversos animais.
             </p>
           </div>

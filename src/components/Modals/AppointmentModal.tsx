@@ -138,21 +138,29 @@ export function AppointmentModal({ appointment, pet, isOpen, isEditing, onClose 
                       className="block w-full text-sm text-zinc-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-red-50 file:text-red-700 hover:file:bg-red-100"
                     />
                   </div>
-                  <div className={`w-full flex ${isEditing ? 'justify-between' : 'justify-end'}`}>
+                  <div className={`w-full flex mt-2 ${isEditing ? 'justify-between' : 'justify-end'}`}>
                     {isEditing &&
                       <button type="button" onClick={() => setDeleteAppointmentModalOpen(true)}>
                         <Trash color="red" size={25} />
                       </button>
                     }
 
-                    <ButtonAsync
-                      type="submit"
-                      isLoading={isLoading}
-                      disabled={isLoading}
-                      className="bg-sky-800 text-white hover:bg-sky-700 rounded-full h-10 w-fit mt-2 px-4 flex justify-center items-center gap-2 disabled:bg-gray-300 disabled:text-gray-700"
-                    >
-                      {isEditing ? 'Atualizar' : 'Adicionar'}
-                    </ButtonAsync>
+                    <div className="flex gap-2 items-center">
+                      <button
+                        className="text-sky-800 hover:text-sky-700 border border-sky-800 hover:border-sky-700 rounded-full h-10 w-fit px-3"
+                        onClick={onClose}
+                      >
+                        Cancelar
+                      </button>
+                      <ButtonAsync
+                        type="submit"
+                        isLoading={isLoading}
+                        disabled={isLoading}
+                        className="bg-sky-800 text-white hover:bg-sky-700 rounded-full h-10 w-fit px-4 flex justify-center items-center gap-2 disabled:bg-gray-300 disabled:text-gray-700"
+                      >
+                        {isEditing ? 'Atualizar' : 'Adicionar'}
+                      </ButtonAsync>
+                    </div>
                   </div>
                 </form>
               </Dialog.Description>
