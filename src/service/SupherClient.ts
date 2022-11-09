@@ -1,7 +1,5 @@
 import axios from "axios"
-import { useContext } from "react";
 import { toast } from "react-toastify";
-import { UserContext } from "../context/UserContext";
 import { AlertInput } from "../interfaces/Alert";
 import { AppointmentInput } from "../interfaces/Appointment";
 import { PetInput } from "../interfaces/Pet";
