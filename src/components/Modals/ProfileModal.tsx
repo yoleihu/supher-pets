@@ -99,12 +99,12 @@ export function ProfileModal({ isOpen, isGuardian, onClose }: ProfileModalProps)
       .length(9, "CEP Inválido"),
     address: Yup.string()
       .min(3, 'O nome deve ter no minímo 3 letras')
-      .matches(/^[A-Za-zÀ-ÿ ]+$/, 'O nome não deve conter números ou caracteres especiais'),
+      .matches(/^[A-Za-zÀ-ÿ .]+$/, 'O nome não deve conter números ou caracteres especiais'),
     number: Yup.string()
       .matches(/^[0-9]?/),
     district: Yup.string()
       .min(3, 'O nome deve ter no minímo 3 letras')
-      .matches(/^[A-Za-zÀ-ÿ ]+$/, 'O nome não deve conter números ou caracteres especiais'),
+      .matches(/^[A-Za-zÀ-ÿ .]+$/, 'O nome não deve conter números ou caracteres especiais'),
     city: Yup.string()
       .min(3, 'O nome deve ter no minímo 3 letras')
       .matches(/^[A-Za-zÀ-ÿ ]+$/, 'O nome não deve conter números ou caracteres especiais'),
