@@ -218,19 +218,27 @@ export function ProfileModal({ isOpen, isGuardian, onClose }: ProfileModalProps)
                     />
                   </div>
 
-                  <div className="flex justify-between">
+                  <div className="flex justify-between mt-2">
                     <button type="button" onClick={() => setDeleteAccountModalOpen(true)}>
                       <Trash color="red" size={25} />
                     </button>
 
-                    <ButtonAsync
-                      type="submit"
-                      isLoading={isLoading}
-                      disabled={isLoading}
-                      className="bg-sky-800 text-white hover:bg-sky-700 rounded-full h-10 w-fit mt-2 px-4 flex justify-center items-center gap-2 disabled:bg-gray-300 disabled:text-gray-700"
-                    >
-                      Atualizar
-                    </ButtonAsync>
+                    <div className="flex gap-2 items-center">
+                      <button
+                        className="text-sky-800 hover:text-sky-700 border border-sky-800 hover:border-sky-700 rounded-full h-10 w-fit px-3"
+                        onClick={onClose}
+                      >
+                        Cancelar
+                      </button>
+                      <ButtonAsync
+                        type="submit"
+                        isLoading={isLoading}
+                        disabled={isLoading}
+                        className="bg-sky-800 text-white hover:bg-sky-700 rounded-full h-10 w-fit px-4 flex justify-center items-center gap-2 disabled:bg-gray-300 disabled:text-gray-700"
+                      >
+                        Atualizar
+                      </ButtonAsync>
+                    </div>
                   </div>
                 </form>
               </Dialog.Description>
