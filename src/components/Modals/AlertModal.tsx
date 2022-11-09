@@ -38,7 +38,7 @@ export function AlertModal({ isOpen, onClose }: AlertModalProps) {
     } finally {
       setIsLoading(false)
     }
-    
+
     onClose();
   }
 
@@ -101,6 +101,7 @@ export function AlertModal({ isOpen, onClose }: AlertModalProps) {
                     options={values.species === 'DOG' ? dogsBloodTypeOptions : catsBloodTypeOptions}
                     errorMessage={(touched.bloodType && errors.bloodType) ? errors.bloodType : undefined}
                   />
+                  <div className="flex w-full justify-end">
                     <ButtonAsync
                       type="submit"
                       isLoading={isLoading}
@@ -109,6 +110,7 @@ export function AlertModal({ isOpen, onClose }: AlertModalProps) {
                     >
                       Criar
                     </ButtonAsync>
+                  </div>
                 </form>
               </Dialog.Description>
             </Dialog.Panel>

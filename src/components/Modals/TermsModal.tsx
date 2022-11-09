@@ -12,8 +12,8 @@ export function TermsModal({ isOpen, onClose }: TermsModalProps) {
       <div className="fixed inset-0 overflow-y-auto">
         <div className="flex min-h-full items-center justify-center p-4">
           <Dialog.Panel className="mx-auto max-w-md rounded-2xl bg-white p-6">
-            <Dialog.Description className="p-5 fixed inset-0 overflow-y-auto text-justify">
-              <Dialog.Title className="font-semibold text-2xl mb-5">Termos e condições gerais de uso da plataforma SUPHER Pets</Dialog.Title>
+            <Dialog.Title className="font-semibold text-2xl mb-5">Termos e condições gerais de uso da plataforma SUPHER Pets</Dialog.Title>
+            <Dialog.Description className="flex flex-col justify-between">
               <p>
                 Os serviços do SUPHER Pets são fornecidos pela pessoa jurídica com a seguinte Razão
                 Social: Sistema de União Para Hemocentros E Responsáveis por Pets Ltda, com nome
