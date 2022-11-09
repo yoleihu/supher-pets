@@ -97,7 +97,7 @@ export const RegisterForm = ({ isGuardian, onTermsModal }: RegisterFormProps) =>
       .required('Campo obrigatório'),
     password: Yup.string()
       .min(8, 'A senha deve ter no mínimo 8 digítos')
-      .matches(/^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/, 'A senha precisa ter no mínimo 8 caracteres, ' +
+      .matches(/^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-zÀ-ÿ\d@$!%*#?&]{8,}$/, 'A senha precisa ter no mínimo 8 caracteres, ' +
         'uma letra maiúscula e uma letra minúscula, ' +
         'um número e um caracter especial')
       .required('Campo obrigatório'),
