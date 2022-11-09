@@ -113,14 +113,14 @@ function AuthGuardian({ children }: AuthGuardianProps) {
   }
 
   const signInGuardian = async (guardian: Login) => {
-    // const existEmail = await supherClient.getGuardianEmail(guardian.username);
-    const responseLogin = await supherClient.loginGuardian(guardian);
-    const accessToken = responseLogin.access_token;
-    localStorage.setItem("TOKEN", JSON.stringify(accessToken));
-    supherClient.api.defaults.headers.common["Authorization"] = `Bearer ${accessToken}`;
-    const responseList = await supherClient.getGuardian(guardian.username);
-
-    if (responseList) {
+    const existEmail = await supherClient.getGuardianEmail(guardian.username);
+    
+    if (existEmail) {
+      const responseLogin = await supherClient.loginGuardian(guardian);
+      const accessToken = responseLogin.access_token;
+      localStorage.setItem("TOKEN", JSON.stringify(accessToken));
+      supherClient.api.defaults.headers.common["Authorization"] = `Bearer ${accessToken}`;
+      const responseList = await supherClient.getGuardian(guardian.username);
       setUserGuardian(responseList);
 
       localStorage.setItem("USERINFO", JSON.stringify(responseList));
@@ -206,14 +206,14 @@ function AuthGuardian({ children }: AuthGuardianProps) {
   }
 
   const signInBloodCenter = async (bloodCenter: Login) => {
-    // const existEmail = await supherClient.getBloodCenterEmail(bloodCenter.username);
-    const responseLogin = await supherClient.loginBloodCenter(bloodCenter);
-    const accessToken = responseLogin.access_token;
-    localStorage.setItem("TOKEN", JSON.stringify(accessToken));
-    supherClient.api.defaults.headers.common["Authorization"] = `Bearer ${accessToken}`;
-    const responseList = await supherClient.getBloodCenter(bloodCenter.username);
-
-    if (responseList) {
+    const existEmail = await supherClient.getBloodCenterEmail(bloodCenter.username);
+    
+    if (existEmail) {
+      const responseLogin = await supherClient.loginBloodCenter(bloodCenter);
+      const accessToken = responseLogin.access_token;
+      localStorage.setItem("TOKEN", JSON.stringify(accessToken));
+      supherClient.api.defaults.headers.common["Authorization"] = `Bearer ${accessToken}`;
+      const responseList = await supherClient.getBloodCenter(bloodCenter.username);
       setUserBloodCenter(responseList);
 
       localStorage.setItem("USERINFO", JSON.stringify(responseList));
